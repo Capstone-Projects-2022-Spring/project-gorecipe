@@ -14,3 +14,5 @@ GoRecipe is a mobile application that utilizes data and visual processing to gen
 - Yara Alzhrani 
 - Anna Gillen 
 - Sean Williams
+
+### See the backend application [here](https://github.com/Capstone-Projects-2022-Spring/gorecipecore)
