@@ -17,16 +17,53 @@ class _Profile extends State<Profile> {
 
   @override
   Widget build(BuildContext context){
-    return MaterialApp(
-      title: 'Welcome to Flutter',
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Welcome to Flutter'),
-        ),
-        body: const Center(
-          child: Text('Hello World'),
-        ),
+
+    const headerText = Text(
+      "Account",
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
       ),
+    );
+
+    return Scaffold(
+      body: Center(
+        child: SingleChildScrollView(
+          child: Container(
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: const AssetImage("assets/images/ingredients.png"),
+                fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(
+                    Colors.black.withOpacity(.2), BlendMode.dstATop),
+              ),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    Container(
+                      width: 200,
+                      height: 200,
+                      decoration: const BoxDecoration(
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                            image: AssetImage("assets/images/logo.png"),
+                            fit: BoxFit.fill),
+                      ),
+                    ),
+                    const SizedBox(height: 15.0),
+                    headerText,
+                  ]
+              )
+            )
+          ),
+        )
+      )
+
     );
   }
 
