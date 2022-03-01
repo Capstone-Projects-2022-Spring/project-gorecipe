@@ -38,11 +38,15 @@ class _Profile extends State<Profile> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('ACCOUNT'),
+          title: const Text('ACCOUNT',
+            style: TextStyle(
+              color: Colors.green,
+            ),),
+          backgroundColor: Colors.white,
           actions: <Widget>[
-
             IconButton(
               icon: const Icon(Icons.menu),
+              color: Colors.black,
               tooltip: 'Go to the next page',
               onPressed: () {
                 Navigator.push(context, MaterialPageRoute<void>(
@@ -115,7 +119,7 @@ class _Profile extends State<Profile> {
                         icon: Icon(
                             Icons.book
                         ),
-                        label: Text('MyCookbook'),
+                        label: Text('MyCookbook', textAlign: TextAlign.left,),
                         color: Colors.white,
                         minWidth: double.infinity,
                       ),
