@@ -38,9 +38,9 @@ class _Profile extends State<Profile> {
 
     return Scaffold(
         appBar: AppBar(
-          title: const Text('AppBar Demo'),
+          title: const Text('ACCOUNT'),
           actions: <Widget>[
-            
+
             IconButton(
               icon: const Icon(Icons.menu),
               tooltip: 'Go to the next page',
@@ -77,7 +77,7 @@ class _Profile extends State<Profile> {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(36.0),
+              padding: const EdgeInsets.all(32),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -109,9 +109,55 @@ class _Profile extends State<Profile> {
                     const SizedBox(
                       height: 80.0,
                     ),
-                  ]
-              )
-            )
+                    SizedBox(
+                      child: FlatButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                            Icons.book
+                        ),
+                        label: Text('MyCookbook'),
+                        color: Colors.white,
+                        minWidth: double.infinity,
+                      ),
+                    ),
+                    SizedBox(
+                      child: FlatButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                            Icons.wysiwyg_rounded
+                        ),
+                        label: Text('Calendar'),
+                        color: Colors.white,
+                        minWidth: double.infinity,
+                      ),
+                    ),
+                    SizedBox(
+                      child: FlatButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                            Icons.wifi_protected_setup
+                        ),
+                        label: Text('Update Food Preferences'),
+                        color: Colors.white,
+                        minWidth: double.infinity,
+                      ),
+                    ),
+                    SizedBox(
+                      child: FlatButton.icon(
+                        onPressed: () {},
+                        icon: Icon(
+                            Icons.app_settings_alt
+                        ),
+                        label: Text('Edit Profile'),
+                        color: Colors.white,
+                        minWidth: double.infinity,
+                      ),
+                    )
+                  ],
+              ),
+
+            ),
+
           ),
         )
       )
