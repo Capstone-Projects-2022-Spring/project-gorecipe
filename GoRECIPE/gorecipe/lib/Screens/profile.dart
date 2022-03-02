@@ -42,7 +42,6 @@ class _Profile extends State<Profile> {
         fontWeight: FontWeight.bold,
       ),
     );
-    //const IconData location_on = IconData(0xe3ab, fontFamily: 'MaterialIcons');
 
     return Scaffold(
         appBar: AppBar(
@@ -54,6 +53,7 @@ class _Profile extends State<Profile> {
           actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.menu),
+              iconSize: 50,
               color: Colors.black,
               tooltip: 'Go to the next page',
               onPressed: () {
