@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 
-//place holder for create account page
-
-//linked to the create account button on login page
+//linked to the edit account button on profile page
 
 class EditAccount extends StatefulWidget {
   const EditAccount({Key? key}) : super(key: key);
