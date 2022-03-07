@@ -27,7 +27,7 @@ class _EditAccount extends State<EditAccount> {
   @override
   Widget build(BuildContext context) {
     final profileButton = IconButton(
-      icon: Image.asset('assets/images/logo.png'),
+      icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
       onPressed: () {},
     );
