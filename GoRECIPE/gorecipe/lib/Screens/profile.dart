@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Screens/edit_account.dart';
 
 // View profile page
 
@@ -232,7 +233,12 @@ class _Profile extends State<Profile> {
               child: Align(
                 alignment: Alignment.centerLeft,
                 child: FlatButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const EditAccount()),
+                    );
+                  },
                   color: Colors.white,
                   minWidth: double.infinity,
                   child: Row(
