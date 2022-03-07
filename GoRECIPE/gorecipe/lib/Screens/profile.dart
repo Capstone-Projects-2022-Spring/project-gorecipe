@@ -138,8 +138,6 @@ class _Profile extends State<Profile> {
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () {},
-                  //color: Colors.white,
-                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
@@ -161,8 +159,6 @@ class _Profile extends State<Profile> {
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () {},
-                  //color: Colors.white,
-                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
@@ -183,8 +179,6 @@ class _Profile extends State<Profile> {
                 alignment: Alignment.centerLeft,
                 child: TextButton(
                   onPressed: () {},
-                  //color: Colors.white,
-                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
@@ -210,8 +204,6 @@ class _Profile extends State<Profile> {
                       MaterialPageRoute(builder: (context) => const EditAccount()),
                     );
                   },
-                  //color: Colors.white,
-                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
                     children: const [
