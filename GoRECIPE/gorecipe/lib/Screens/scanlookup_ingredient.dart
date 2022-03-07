@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 
-//linked to the edit account button on profile page
+//linked to the add ingredient button on add ingredient page
 
-class EditAccount extends StatefulWidget {
-  const EditAccount({Key? key}) : super(key: key);
+class ScanLookup extends StatefulWidget {
+  const ScanLookup({Key? key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -15,10 +15,10 @@ class EditAccount extends StatefulWidget {
   // always marked "final".
 
   @override
-  State<EditAccount> createState() => _EditAccount();
+  State<ScanLookup> createState() => _ScanLookup();
 }
 
-class _EditAccount extends State<EditAccount> {
+class _ScanLookup extends State<ScanLookup> {
   TextStyle style = const TextStyle(
     fontFamily: 'Montserrat',
     fontSize: 20.0,
@@ -26,57 +26,34 @@ class _EditAccount extends State<EditAccount> {
 
   @override
   Widget build(BuildContext context) {
-    final profileButton = IconButton(
+    const scanText = Text(
+      "Scan Ingredient",
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    final scanButton = IconButton(
       icon: Image.asset('assets/images/logo.png'),
       iconSize: 200,
       onPressed: () {},
     );
 
-    final nameField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Name",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
-    );
-
-    final usernameField = TextField(
-      obscureText: false,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Username",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
-    );
-
-    final locationField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Location",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
-    );
-
-    final editButton = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(30.0),
-      color: const Color(0xFF689F38),
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-        onPressed: () {
-          //send new data to serverm return to profile
-        },
-        child: Text("Finish",
-            textAlign: TextAlign.center,
-            style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+    const lookupText = Text(
+      "Look Up Ingredient",
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: TextStyle(
+        fontWeight: FontWeight.bold,
       ),
+    );
+
+    final lookupButton = IconButton(
+      icon: Image.asset('assets/images/logo.png'),
+      iconSize: 200,
+      onPressed: () {},
     );
 
     return Scaffold(
@@ -90,20 +67,17 @@ class _EditAccount extends State<EditAccount> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: <Widget>[
                 //Declaring sizes of field boxes
-                const SizedBox(height: 20.0),
-                profileButton,
-                const SizedBox(height: 75.0),
-                nameField,
-                const SizedBox(height: 25.0),
-                usernameField,
-                const SizedBox(height: 25.0),
-                locationField,
+                const SizedBox(height: 55.0),
+                scanText,
+                const SizedBox(height: 65.0),
+                scanButton,
+                Divider(color: Colors.black, height: 150.0),
+                const SizedBox(height: 55.0),
+                lookupText,
+                const SizedBox(height: 65.0),
+                lookupButton,
                 const SizedBox(
                   height: 35.0,
-                ),
-                editButton,
-                const SizedBox(
-                  height: 15.0,
                 ),
               ],
             ),
