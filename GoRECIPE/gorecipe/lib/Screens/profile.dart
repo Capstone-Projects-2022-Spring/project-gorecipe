@@ -136,133 +136,94 @@ class _Profile extends State<Profile> {
               width: double.infinity,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {},
-                  color: Colors.white,
-                  minWidth: double.infinity,
+                  //color: Colors.white,
+                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.book,
                         color: Colors.green,
                       ),
-                      Text('    MyCookbook', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5,),
+                      Text('    MyCookbook', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5,
+                      style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
               ),
-              /*child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                    Icons.book,
-                    color: Colors.green
-                ),
-                label: Text('MyCookbook', textAlign: TextAlign.left, textScaleFactor: 1.5,),
-                color: Colors.white,
-                minWidth: double.infinity,
-              ),*/
             ),
             SizedBox(
               height: 60,
               width: double.infinity,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {},
-                  color: Colors.white,
-                  minWidth: double.infinity,
+                  //color: Colors.white,
+                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.wysiwyg_rounded,
                         color: Colors.green,
                       ),
-                      Text('    Calendar', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5,),
+                      Text('    Calendar', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
               ),
-              /*child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                    Icons.wysiwyg_rounded,
-                    color: Colors.green
-                ),
-                label: Text('Calendar', textScaleFactor: 1.5,),
-                color: Colors.white,
-                minWidth: double.infinity,
-              ),*/
             ),
             SizedBox(
               height: 60,
               width: double.infinity,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {},
-                  color: Colors.white,
-                  minWidth: double.infinity,
+                  //color: Colors.white,
+                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.wifi_protected_setup,
                         color: Colors.green,
                       ),
-                      Text('    Update Food Preferences', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5,),
+                      Text('    Update Food Preferences', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
               ),
-              /*child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                    Icons.wifi_protected_setup,
-                    color: Colors.green
-                ),
-                label: Text('Update Food Preferences', textScaleFactor: 1.5,),
-                color: Colors.white,
-                minWidth: double.infinity,
-              ),*/
             ),
             SizedBox(
               height: 60,
               width: double.infinity,
               child: Align(
                 alignment: Alignment.centerLeft,
-                child: FlatButton(
+                child: TextButton(
                   onPressed: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(builder: (context) => const EditAccount()),
                     );
                   },
-                  color: Colors.white,
-                  minWidth: double.infinity,
+                  //color: Colors.white,
+                  //minWidth: double.infinity,
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
+                    children: const [
                       Icon(
                         Icons.app_settings_alt,
                         color: Colors.green,
                       ),
-                      Text('    Edit Profile', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5,),
+                      Text('    Edit Profile', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
               ),
-              /*child: FlatButton.icon(
-                onPressed: () {},
-                icon: Icon(
-                    Icons.app_settings_alt,
-                    color: Colors.green
-                ),
-                label: Text('Edit Profile', textScaleFactor: 1.5,),
-                color: Colors.white,
-                minWidth: double.infinity,
-              ),*/
             ),
             ],
           ),
