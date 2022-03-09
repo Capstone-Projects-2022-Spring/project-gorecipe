@@ -4,16 +4,19 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:http_parser/http_parser.dart';
+import 'dart:convert' show utf8;
 
 // A screen that allows users to take a picture using a given camera.
-class TakePictureScreen extends StatefulWidget {
-  const TakePictureScreen({Key? key}) : super(key: key);
+class ScanScreen extends StatefulWidget {
+  const ScanScreen({Key? key}) : super(key: key);
 
   @override
-  TakePictureScreenState createState() => TakePictureScreenState();
+  ScanScreenState createState() => ScanScreenState();
 }
 
-class TakePictureScreenState extends State<TakePictureScreen> {
+class ScanScreenState extends State<ScanScreen> {
   late List<CameraDescription> cameras;
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
@@ -53,7 +56,13 @@ class TakePictureScreenState extends State<TakePictureScreen> {
   Widget build(BuildContext context) {
     if (!_isReady) return Container();
     return Scaffold(
-      appBar: AppBar(title: const Text('Take a picture')),
+      appBar: AppBar(
+        title: Transform(
+          // you can forcefully translate values left side using Transform
+          transform: Matrix4.translationValues(-115.0, 0.0, 0.0),
+          child: const Text("Scan"),
+        ),
+      ),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the
       // controller has finished initializing.
@@ -82,7 +91,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // where it was saved.
             final image = await _controller.takePicture();
             print("IMAGE PATH: " + image.path);
-            final bytes = await File(image.path).readAsBytes();
+            //final bytes = await File(image.path).readAsBytes();
 
             // If the picture was taken, display it on a new screen.
             await Navigator.of(context).push(
@@ -90,7 +99,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 builder: (context) => DisplayPictureScreen(
                   // Pass the automatically generated path to
                   // the DisplayPictureScreen widget.
-                  imagePath: bytes,
+                  imagePath: image.path,
                 ),
               ),
             );
@@ -107,18 +116,59 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
 // A widget that displays the picture taken by the user.
 class DisplayPictureScreen extends StatelessWidget {
-  final Uint8List imagePath;
+  final TextStyle style =
+      const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
+  final String imagePath;
 
   const DisplayPictureScreen({Key? key, required this.imagePath})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    upload(File img) async {
+      print("In upload");
+      var uri = Uri.parse("uploadUrL");
+
+      var request = http.MultipartRequest("POST", uri);
+      request.files.add(http.MultipartFile.fromBytes(
+          "file", img.readAsBytesSync(),
+          filename: "Photo.jpg", contentType: MediaType("image", "jpg")));
+
+      var response = await request.send();
+      print(response.statusCode);
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
+    }
+
+    final _nextbutton = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: const Color.fromARGB(255, 116, 163, 126),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width / 4,
+        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+        onPressed: () {
+          upload(File(imagePath));
+        },
+        child: Text("Next",
+            textAlign: TextAlign.center,
+            style: style.copyWith(
+                color: Colors.black, fontWeight: FontWeight.bold)),
+      ),
+    );
+
     return Scaffold(
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.memory(imagePath),
+      body: Column(
+        children: [
+          Image.file(File(imagePath)),
+          const SizedBox(height: 40),
+          _nextbutton,
+        ],
+      ),
     );
   }
 }
