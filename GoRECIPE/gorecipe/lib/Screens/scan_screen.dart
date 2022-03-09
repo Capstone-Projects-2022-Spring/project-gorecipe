@@ -1,62 +1,45 @@
 import 'dart:async';
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main() async {
-  // Ensure that plugin services are initialized so that `availableCameras()`
-  // can be called before `runApp()`
-  WidgetsFlutterBinding.ensureInitialized();
-
-  // Obtain a list of the available cameras on the device.
-  final cameras = await availableCameras();
-
-  // Get a specific camera from the list of available cameras.
-  final firstCamera = cameras.first;
-
-  runApp(
-    MaterialApp(
-      theme: ThemeData.dark(),
-      home: TakePictureScreen(
-        // Pass the appropriate camera to the TakePictureScreen widget.
-        camera: firstCamera,
-      ),
-    ),
-  );
-}
-
 // A screen that allows users to take a picture using a given camera.
 class TakePictureScreen extends StatefulWidget {
-  const TakePictureScreen({
-    Key? key,
-    required this.camera,
-  }) : super(key: key);
-
-  final CameraDescription camera;
+  const TakePictureScreen({Key? key}) : super(key: key);
 
   @override
   TakePictureScreenState createState() => TakePictureScreenState();
 }
 
 class TakePictureScreenState extends State<TakePictureScreen> {
+  late List<CameraDescription> cameras;
   late CameraController _controller;
   late Future<void> _initializeControllerFuture;
+  bool _isReady = false;
 
   @override
   void initState() {
     super.initState();
-    // To display the current output from the Camera,
-    // create a CameraController.
-    _controller = CameraController(
-      // Get a specific camera from the list of available cameras.
-      widget.camera,
-      // Define the resolution to use.
-      ResolutionPreset.medium,
-    );
+    _setupCameras();
+  }
 
-    // Next, initialize the controller. This returns a Future.
-    _initializeControllerFuture = _controller.initialize();
+  Future<void> _setupCameras() async {
+    try {
+      // initialize cameras.
+      cameras = await availableCameras();
+      // initialize camera controllers.
+      _controller = CameraController(cameras[0], ResolutionPreset.medium);
+      _initializeControllerFuture = _controller.initialize();
+    } on CameraException catch (_) {
+      // god help us
+      print('god help us');
+    }
+    if (!mounted) return;
+    setState(() {
+      _isReady = true;
+    });
   }
 
   @override
@@ -68,6 +51,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
   @override
   Widget build(BuildContext context) {
+    if (!_isReady) return Container();
     return Scaffold(
       appBar: AppBar(title: const Text('Take a picture')),
       // You must wait until the controller is initialized before displaying the
@@ -97,6 +81,8 @@ class TakePictureScreenState extends State<TakePictureScreen> {
             // Attempt to take a picture and get the file `image`
             // where it was saved.
             final image = await _controller.takePicture();
+            print("IMAGE PATH: " + image.path);
+            final bytes = await File(image.path).readAsBytes();
 
             // If the picture was taken, display it on a new screen.
             await Navigator.of(context).push(
@@ -104,7 +90,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
                 builder: (context) => DisplayPictureScreen(
                   // Pass the automatically generated path to
                   // the DisplayPictureScreen widget.
-                  imagePath: image.path,
+                  imagePath: bytes,
                 ),
               ),
             );
@@ -121,7 +107,7 @@ class TakePictureScreenState extends State<TakePictureScreen> {
 
 // A widget that displays the picture taken by the user.
 class DisplayPictureScreen extends StatelessWidget {
-  final String imagePath;
+  final Uint8List imagePath;
 
   const DisplayPictureScreen({Key? key, required this.imagePath})
       : super(key: key);
@@ -132,7 +118,7 @@ class DisplayPictureScreen extends StatelessWidget {
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Image.file(File(imagePath)),
+      body: Image.memory(imagePath),
     );
   }
 }
