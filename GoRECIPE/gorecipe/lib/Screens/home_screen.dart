@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/profile.dart';
+//import 'package:gorecipe/Screens/welcome_screen.dart';
+
+
+
 
 //moethod doesnt return nothing
 void main() {
@@ -40,8 +43,8 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
     color: Colors.black,
   );
 
-  final style =
-      TextStyle(fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black);
+  final style = const TextStyle(
+      fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black);
 
   //
 
@@ -77,7 +80,8 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
     //widet draw all to the screen
     //Scaffold create a page with a white background
 
-    return DefaultTabController(
+          
+          return DefaultTabController(
         initialIndex: 1,
         length: 4,
         child: Scaffold(
@@ -129,27 +133,33 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
             backgroundColor: Color.fromARGB(255, 255, 255, 255),
             iconTheme: IconThemeData(color: Colors.green),
-          ),
 
           endDrawer: Drawer(
-            child: ListView(
-              padding: EdgeInsets.zero,
-              children: const <Widget>[
-                // DrawerHeader(
-                //   decoration: BoxDecoration(
-                //     color: Colors.green,
-                //   ),
-                //   child: Text(
-                //     'GoRecipe',
-                //     style: TextStyle(
-                //       color: Colors.white,
-                //       fontSize: 24,
-                //     ),
-                //   ),
-                // ),
-                ListTile(
-                  leading: Icon(Icons.home),
-                  title: Text('Home'),
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            // DrawerHeader(
+            //   decoration: BoxDecoration(
+            //     color: Colors.green,
+            //   ),
+            //   child: Text(
+            //     'GoRecipe',
+            //     style: TextStyle(
+            //       color: Colors.white,
+            //       fontSize: 24,
+            //     ),
+            //   ),
+            // ),
+            ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen(
+                                key: ObjectKey('welcome page'),
+                              )));
 
                   //idk why this isnt working
                   //navigation im confused everything is giving me an error
@@ -159,38 +169,64 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                   //   Navigator.pop(context);
 
                   // },
-                ),
-                ListTile(
-                  leading: Icon(Icons.set_meal),
-                  title: Text('Set Food Preference'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.book),
-                  title: Text('MyCookBook'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.calendar_today_outlined),
-                  title: Text('Calendar'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.settings),
-                  title: Text('Settings'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.help_center),
-                  title: Text('Help'),
-                ),
-                ListTile(
-                  leading: Icon(Icons.logout),
-                  title: Text('Log Out'),
-                ),
-              ],
+                }),
+            const ListTile(
+              leading: Icon(Icons.set_meal),
+              title: Text('Set Food Preference'),
             ),
-          ),
 
-          // body: Center(
-          //   child: _widgetOptions.elementAt(_selectedIndex),
-          // ),
+            const ListTile(
+              leading: Icon(Icons.book),
+              title: Text('MyCookBook'),
+            ),
+
+            const ListTile(
+              leading: Icon(Icons.calendar_today_outlined),
+              title: Text('Calendar'),
+            ),
+
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Profile(
+                            key: ObjectKey('profile page'),
+                            title: 'profile page')));
+              },
+            ),
+
+            const ListTile(
+              leading: Icon(Icons.help_center),
+              title: Text('Help'),
+            ),
+
+            ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Log Out'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(
+                              key: ObjectKey('welcome page'),
+                              title: 'welcome page')));
+                }),
+          ],
+        ),
+      ),
+
+      body: Center(
+        child: _widgetOptions.elementAt(_selectedIndex),
+      ),
+          
+      bottomNavigationBar: BottomNavigationBar(
+        items: const <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: Icon(Icons.home),
+            label: 'HOME',
 
           body: const TabBarView(
             children: <Widget>[
