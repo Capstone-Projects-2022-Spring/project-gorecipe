@@ -7,7 +7,14 @@ import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
 // ignore: camel_case_types
-class Welcome_Screen_State extends State<WelcomeScreen> {
+class Welcome_Screen_State extends StatefulWidget {
+  const Welcome_Screen_State({Key? key}) : super(key: key);
+
+  @override
+  State<Welcome_Screen_State> createState() => _Welcome_Screen_State();
+}
+
+class _Welcome_Screen_State extends State<Welcome_Screen_State> {
   TextStyle style = const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
   @override
@@ -53,19 +60,6 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
       ),
     );
 
-    final createAccountButton = MaterialButton(
-      child: Text("Create an account",
-          textAlign: TextAlign.center,
-          style:
-              style.copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const CreateAccount()),
-        );
-      },
-    );
-
     return Scaffold(
         body: Center(
       child: SingleChildScrollView(
@@ -106,10 +100,6 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
                 loginButton,
                 const SizedBox(
                   height: 15.0,
-                ),
-                createAccountButton,
-                const SizedBox(
-                  height: 10.0,
                 ),
               ],
             ),
