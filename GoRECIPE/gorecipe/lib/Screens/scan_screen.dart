@@ -127,7 +127,8 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     upload(File img) async {
       print("In upload");
-      var uri = Uri.parse("uploadUrL");
+      var uri = Uri.parse(
+          "http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/2");
 
       var request = http.MultipartRequest("POST", uri);
       request.files.add(http.MultipartFile.fromBytes(
