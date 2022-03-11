@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+// ignore: unused_import
+import 'package:gorecipe/Screens/forgot_password.dart';
+//import 'package:gorecipe/Screens/forgot_password.dart';
 import 'package:gorecipe/Screens/profile.dart';
+// ignore: unused_import
+import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+//import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+// ignore: unused_import
 import 'package:gorecipe/Screens/welcome_screen.dart';
+
 //import 'package:gorecipe/Screens/welcome_screen.dart';
 
 //moethod doesnt return nothing
@@ -35,6 +43,7 @@ class HomeScreen extends StatefulWidget {
 class _MyStatefulWidgetState extends State<HomeScreen> {
   int _selectedIndex = 0;
 
+  // ignore: unused_field
   static const TextStyle optionStyle = TextStyle(
     fontSize: 30,
     fontWeight: FontWeight.bold,
@@ -44,10 +53,9 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
   final style = const TextStyle(
       fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black);
 
-  //
-
   // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
+    WantToAdd(key: ObjectKey('title'), title: 'title'),
     Text('Index 0: Home', style: optionStyle),
     Text(
       'Index 1: Search',
@@ -63,6 +71,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
     ),
   ];
 
+  // ignore: unused_element
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -74,6 +83,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
   //widget is a class name that acts as a type
   //class returning a widget
   //type of parament of what this will hold
+  // ignore: dead_code,
   Widget build(BuildContext context) {
     //name: argument
     //widet draw all to the screen
@@ -92,13 +102,15 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
             'GoRecipe',
             style: TextStyle(color: Colors.green),
 
-            // style: GoogleFonts.Lato(
+            //style: GoogleFonts.Lato(
             //textStyle: style,
-            // ),
+            //),
+            //),
             //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
             //style: GoogleFonts.lato(textStyle: PageTitle),
             //style: GoogleFonts.lato(textStyle: PageTitle),
           ),
+
           bottom: const TabBar(
             indicatorColor: Colors.green,
             tabs: <Widget>[
@@ -132,22 +144,23 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           iconTheme: const IconThemeData(color: Colors.green),
         ),
+
         endDrawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
-              // DrawerHeader(
-              //   decoration: BoxDecoration(
-              //     color: Colors.green,
-              //   ),
-              //   child: Text(
-              //     'GoRecipe',
-              //     style: TextStyle(
-              //       color: Colors.white,
-              //       fontSize: 24,
-              //     ),
-              //   ),
-              // ),
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.green,
+                ),
+                child: Text(
+                  'GoRecipe',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
               ListTile(
                   leading: const Icon(Icons.home),
                   title: const Text('Home'),
@@ -160,29 +173,26 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                                 )));
 
                     //idk why this isnt working
-                    //navigation im confused everything is giving me an error
-                    //onTap: () => HomeScreen(),
+                    //   navigation im confused everything is giving me an error
+                    // onTap: () => HomeScreen(),
 
-                    // onTap: () {
+                    //   onTap: () {
                     //   Navigator.pop(context);
 
-                    // },
+                    //},
                   }),
               const ListTile(
                 leading: Icon(Icons.set_meal),
                 title: Text('Set Food Preference'),
               ),
-
               const ListTile(
                 leading: Icon(Icons.book),
                 title: Text('MyCookBook'),
               ),
-
               const ListTile(
                 leading: Icon(Icons.calendar_today_outlined),
                 title: Text('Calendar'),
               ),
-
               ListTile(
                 leading: const Icon(Icons.settings),
                 title: const Text('Settings'),
@@ -195,11 +205,24 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                               title: 'profile page')));
                 },
               ),
-
               const ListTile(
                 leading: Icon(Icons.help_center),
                 title: Text('Help'),
               ),
+              // putting the scan oon the dropdown menu for now
+
+              ListTile(
+                  leading: const Icon(Icons.camera),
+                  title: const Text('Scan'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WantToAdd(
+                                key: ObjectKey(
+                                    'want to add this an ingredient?'),
+                                title: ' add ingredient page')));
+                  }),
 
               ListTile(
                   leading: const Icon(Icons.logout),
@@ -248,11 +271,9 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           selectedItemColor: const Color.fromARGB(255, 15, 136, 19),
           //nav bar unslected item
           unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-
           //color is changed on tap
           onTap: _onItemTapped,
         ),
-
         body: const TabBarView(
           children: <Widget>[
             Center(
