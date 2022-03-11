@@ -35,14 +35,32 @@ class _RecipesYou extends State<RecipesYou> {
       ),
     );
 
-    List<String> items = ["test", "test2"];
+    List<String> recipes = [
+      "test",
+      "test2",
+      "test",
+      "test2",
+      "test",
+      "test2",
+      "test",
+      "test2"
+    ];
 
-    final listitems = ListView.builder(
-      itemCount: items.length,
+    final listRecipes = ListView.builder(
+      itemCount: recipes.length,
       shrinkWrap: true,
       itemBuilder: (context, index) {
         return ListTile(
-          title: Text(items[index]),
+          //leading: Icon(Icons.star),
+          title: Text(recipes[index]),
+          onTap: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      const RecipesYou()), //replace with link to recipe's page
+            );
+          }, //onTap
         );
       },
     );
@@ -60,8 +78,8 @@ class _RecipesYou extends State<RecipesYou> {
                 //Declaring sizes of field boxes
                 const SizedBox(height: 10.0),
                 headerText,
-                const SizedBox(height: 20.0),
-                listitems
+                const SizedBox(height: 30.0),
+                listRecipes
               ],
             ),
           ),
