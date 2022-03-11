@@ -1,18 +1,7 @@
 import 'package:flutter/material.dart';
 
-//linked to the add ingredient button on add ingredient page
-
 class ScanLookup extends StatefulWidget {
   const ScanLookup({Key? key}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   @override
   State<ScanLookup> createState() => _ScanLookup();
@@ -36,7 +25,7 @@ class _ScanLookup extends State<ScanLookup> {
     );
 
     final scanButton = IconButton(
-      icon: Image.asset('assets/images/logo.png'),
+      icon: Image.asset('images/scanbutton.png'),
       iconSize: 200,
       onPressed: () {},
     );
@@ -51,7 +40,7 @@ class _ScanLookup extends State<ScanLookup> {
     );
 
     final lookupButton = IconButton(
-      icon: Image.asset('assets/images/logo.png'),
+      icon: Image.asset('images/lookupbutton.png'),
       iconSize: 200,
       onPressed: () {},
     );
@@ -71,7 +60,12 @@ class _ScanLookup extends State<ScanLookup> {
                 scanText,
                 const SizedBox(height: 65.0),
                 scanButton,
-                Divider(color: Colors.black, height: 150.0),
+                Divider(
+                  color: Colors.black,
+                  height: 150.0,
+                  indent: 0,
+                  endIndent: 0,
+                ),
                 const SizedBox(height: 55.0),
                 lookupText,
                 const SizedBox(height: 65.0),
