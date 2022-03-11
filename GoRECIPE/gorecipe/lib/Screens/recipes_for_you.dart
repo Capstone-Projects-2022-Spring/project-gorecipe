@@ -2,17 +2,8 @@ import 'package:flutter/material.dart';
 
 //linked to the finish scan button on scan page
 
-void main() {
-  runApp(
-    RecipesYou(
-      items: List<String>.generate(10000, (i) => 'Item $i'),
-    ),
-  );
-}
-
 class RecipesYou extends StatefulWidget {
-  final List<String> items;
-  const RecipesYou({Key? key, required this.items}) : super(key: key);
+  const RecipesYou({Key? key}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -44,6 +35,18 @@ class _RecipesYou extends State<RecipesYou> {
       ),
     );
 
+    List<String> items = ["test", "test2"];
+
+    final listitems = ListView.builder(
+      itemCount: items.length,
+      shrinkWrap: true,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(items[index]),
+        );
+      },
+    );
+
     return Scaffold(
       body: Center(
         child: SingleChildScrollView(
@@ -57,14 +60,8 @@ class _RecipesYou extends State<RecipesYou> {
                 //Declaring sizes of field boxes
                 const SizedBox(height: 10.0),
                 headerText,
-                ListView.builder(
-                  itemCount: items.length,
-                  itemBuilder: (context, index) {
-                    return ListTile(
-                      title: Text(items[index]),
-                    );
-                  },
-                ),
+                const SizedBox(height: 20.0),
+                listitems
               ],
             ),
           ),
