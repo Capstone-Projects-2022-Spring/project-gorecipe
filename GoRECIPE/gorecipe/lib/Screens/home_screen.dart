@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/welcome_screen.dart';
 //import 'package:gorecipe/Screens/welcome_screen.dart';
-
-
-
 
 //moethod doesnt return nothing
 void main() {
@@ -48,6 +46,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
   //
 
+  // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: Home', style: optionStyle),
     Text(
@@ -80,207 +79,197 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
     //widet draw all to the screen
     //Scaffold create a page with a white background
 
-          
-          return DefaultTabController(
-        initialIndex: 1,
-        length: 4,
-        child: Scaffold(
-          //tool bar at the top of the screen
+    return DefaultTabController(
+      initialIndex: 1,
+      length: 4,
+      child: Scaffold(
+        //tool bar at the top of the screen
 
-          appBar: AppBar(
-            //test is widgte that takes a string as an arug- and extracted in the first arg
-            //name of the app we are creating
-            title: const Text(
-              'GoRecipe',
-              style: TextStyle(color: Colors.green),
+        appBar: AppBar(
+          //test is widgte that takes a string as an arug- and extracted in the first arg
+          //name of the app we are creating
+          title: const Text(
+            'GoRecipe',
+            style: TextStyle(color: Colors.green),
 
-              // style: GoogleFonts.Lato(
-              //textStyle: style,
-              // ),
-              //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
-              //style: GoogleFonts.lato(textStyle: PageTitle),
-              //style: GoogleFonts.lato(textStyle: PageTitle),
-            ),
-            bottom: const TabBar(
-              indicatorColor: Colors.green,
-              tabs: <Widget>[
-                Tab(
-                  child: Text(
-                    'Suggested',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'MyCookBook',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'Calendar',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-                Tab(
-                  child: Text(
-                    'Explore',
-                    style: TextStyle(color: Colors.black),
-                  ),
-                ),
-              ],
-            ),
-
-            backgroundColor: Color.fromARGB(255, 255, 255, 255),
-            iconTheme: IconThemeData(color: Colors.green),
-
-          endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            // DrawerHeader(
-            //   decoration: BoxDecoration(
-            //     color: Colors.green,
-            //   ),
-            //   child: Text(
-            //     'GoRecipe',
-            //     style: TextStyle(
-            //       color: Colors.white,
-            //       fontSize: 24,
-            //     ),
-            //   ),
+            // style: GoogleFonts.Lato(
+            //textStyle: style,
             // ),
-            ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
+            //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
+            //style: GoogleFonts.lato(textStyle: PageTitle),
+            //style: GoogleFonts.lato(textStyle: PageTitle),
+          ),
+          bottom: const TabBar(
+            indicatorColor: Colors.green,
+            tabs: <Widget>[
+              Tab(
+                child: Text(
+                  'Suggested',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'MyCookBook',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Calendar',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+              Tab(
+                child: Text(
+                  'Explore',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
+            ],
+          ),
+
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          iconTheme: const IconThemeData(color: Colors.green),
+        ),
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              // DrawerHeader(
+              //   decoration: BoxDecoration(
+              //     color: Colors.green,
+              //   ),
+              //   child: Text(
+              //     'GoRecipe',
+              //     style: TextStyle(
+              //       color: Colors.white,
+              //       fontSize: 24,
+              //     ),
+              //   ),
+              // ),
+              ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
+
+                    //idk why this isnt working
+                    //navigation im confused everything is giving me an error
+                    //onTap: () => HomeScreen(),
+
+                    // onTap: () {
+                    //   Navigator.pop(context);
+
+                    // },
+                  }),
+              const ListTile(
+                leading: Icon(Icons.set_meal),
+                title: Text('Set Food Preference'),
+              ),
+
+              const ListTile(
+                leading: Icon(Icons.book),
+                title: Text('MyCookBook'),
+              ),
+
+              const ListTile(
+                leading: Icon(Icons.calendar_today_outlined),
+                title: Text('Calendar'),
+              ),
+
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
+                          builder: (context) => const Profile(
+                              key: ObjectKey('profile page'),
+                              title: 'profile page')));
+                },
+              ),
+
+              const ListTile(
+                leading: Icon(Icons.help_center),
+                title: Text('Help'),
+              ),
+
+              ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Log Out'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen(
                                 key: ObjectKey('welcome page'),
-                              )));
+                                title: 'welcome page')));
+                  }),
+            ],
+          ),
+        ),
 
-                  //idk why this isnt working
-                  //navigation im confused everything is giving me an error
-                  //onTap: () => HomeScreen(),
-
-                  // onTap: () {
-                  //   Navigator.pop(context);
-
-                  // },
-                }),
-            const ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
+        bottomNavigationBar: BottomNavigationBar(
+          items: const <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(Icons.home),
+              label: 'HOME',
             ),
-
-            const ListTile(
-              leading: Icon(Icons.book),
-              title: Text('MyCookBook'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.search),
+              label: 'EXPLORE',
             ),
-
-            const ListTile(
-              leading: Icon(Icons.calendar_today_outlined),
-              title: Text('Calendar'),
+            BottomNavigationBarItem(
+              icon: Icon(Icons.camera),
+              label: 'SCAN',
             ),
-
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Profile(
-                            key: ObjectKey('profile page'),
-                            title: 'profile page')));
-              },
+            BottomNavigationBarItem(
+              icon: Icon(Icons.account_box_rounded),
+              label: 'ACCOUNT',
+              //              onPressed: () {
+              //   Navigator.push(
+              //     context,
+              //     MaterialPageRoute(builder: (context) => const Profile()),
+              //   );
+              // },
             ),
+          ],
 
-            const ListTile(
-              leading: Icon(Icons.help_center),
-              title: Text('Help'),
+          ///curent index is the selcted index number
+          currentIndex: _selectedIndex,
+          //changes the color of the selected nav bar
+          selectedItemColor: const Color.fromARGB(255, 15, 136, 19),
+          //nav bar unslected item
+          unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
+
+          //color is changed on tap
+          onTap: _onItemTapped,
+        ),
+
+        body: const TabBarView(
+          children: <Widget>[
+            Center(
+              child: Text("Suggested Page/Home Page"),
             ),
-
-            ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(
-                              key: ObjectKey('welcome page'),
-                              title: 'welcome page')));
-                }),
+            Center(
+              child: Text("Navigates to MyCookbok"),
+            ),
+            Center(
+              child: Text("NAvigates to Calendar Page "),
+            ),
+            Center(
+              child: Text("Explore page "),
+            ),
           ],
         ),
       ),
-
-      body: Center(
-        child: _widgetOptions.elementAt(_selectedIndex),
-      ),
-          
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'HOME',
-
-          body: const TabBarView(
-            children: <Widget>[
-              Center(
-                child: Text("Suggested Page/Home Page"),
-              ),
-              Center(
-                child: Text("Navigates to MyCookbok"),
-              ),
-              Center(
-                child: Text("NAvigates to Calendar Page "),
-              ),
-              Center(
-                child: Text("Explore page "),
-              ),
-            ],
-          ),
-
-          bottomNavigationBar: BottomNavigationBar(
-            items: const <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(Icons.home),
-                label: 'HOME',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.search),
-                label: 'EXPLORE',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.camera),
-                label: 'SCAN',
-              ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.account_box_rounded),
-                label: 'ACCOUNT',
-                //              onPressed: () {
-                //   Navigator.push(
-                //     context,
-                //     MaterialPageRoute(builder: (context) => const Profile()),
-                //   );
-                // },
-              ),
-            ],
-
-            ///curent index is the selcted index number
-            currentIndex: _selectedIndex,
-            //changes the color of the selected nav bar
-            selectedItemColor: const Color.fromARGB(255, 15, 136, 19),
-            //nav bar unslected item
-            unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-
-            //color is changed on tap
-            onTap: _onItemTapped,
-          ),
-        ));
+    );
   }
 }
