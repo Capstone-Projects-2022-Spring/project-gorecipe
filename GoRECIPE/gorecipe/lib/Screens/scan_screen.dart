@@ -127,13 +127,36 @@ class DisplayPictureScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     upload(File img) async {
       print("In upload");
-      var uri = Uri.parse(
-          "http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/2");
-
-      var request = http.MultipartRequest("POST", uri);
+      var postUri = Uri.parse(
+          "http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/4");
+      var request = http.MultipartRequest("POST", postUri);
       request.files.add(http.MultipartFile.fromBytes(
-          "file", img.readAsBytesSync(),
-          filename: "Photo.jpg", contentType: MediaType("image", "jpg")));
+        'image',
+        await img.readAsBytes(),
+        filename: 'image.jpg',
+        contentType: MediaType('image', 'jpg'),
+      ));
+      print("Request:");
+      print(request);
+      print(request.files.toString());
+
+      var response = await request.send();
+      print(response.statusCode);
+      response.stream.transform(utf8.decoder).listen((value) {
+        print(value);
+      });
+    }
+
+    getData() async {
+      print("In download");
+      var uri = Uri.http(
+          'www.gorecipe.us-east-2.elasticbeanstalk.com', '/api/users/2');
+
+      var request = http.MultipartRequest("GET", uri);
+
+      print("Request:");
+      print(request);
+      print(request.headers);
 
       var response = await request.send();
       print(response.statusCode);
@@ -151,6 +174,7 @@ class DisplayPictureScreen extends StatelessWidget {
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
           upload(File(imagePath));
+          //getData();
         },
         child: Text("Next",
             textAlign: TextAlign.center,
