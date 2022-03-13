@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:material_floating_search_bar/material_floating_search_bar.dart';
+//source: https://github.com/ResoCoder/flutter-search-bar-tutorial/blob/master/lib/main.dart
 
 
 // Search by Ingredient page
