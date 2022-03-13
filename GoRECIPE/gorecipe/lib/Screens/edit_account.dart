@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import '../Models/User.dart';
+
+import 'package:http/http.dart' as http;
 
 //linked to the edit account button on profile page
 
@@ -16,6 +21,8 @@ class EditAccount extends StatefulWidget {
 
   @override
   State<EditAccount> createState() => _EditAccount();
+
+
 }
 
 class _EditAccount extends State<EditAccount> {
@@ -24,8 +31,23 @@ class _EditAccount extends State<EditAccount> {
     fontSize: 20.0,
   );
 
+  void getUser(int userId) async {
+
+    final response = await http.get(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' + userId.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin' : '*'
+        });
+
+    User u = User.fromJson(jsonDecode(response.body));
+
+    print(u);
+  }
+
   @override
   Widget build(BuildContext context) {
+    getUser(1);
     final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
