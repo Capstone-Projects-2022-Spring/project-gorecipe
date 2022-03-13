@@ -18,12 +18,7 @@ class _SearchByIngredient extends State<SearchByIngredient> {
 
   static const historyLength = 5;
 
-  List<String> _searchHistory = [
-    'fuchsia',
-    'flutter',
-    'widgets',
-    'resocoder',
-  ];
+  final List<String> _searchHistory = [];
 
   List<String> filteredSearchHistory = [];
 
@@ -80,8 +75,6 @@ class _SearchByIngredient extends State<SearchByIngredient> {
     super.dispose();
   }
 
-
-
     @override
   Widget build(BuildContext context) {
       return Scaffold(
@@ -93,12 +86,12 @@ class _SearchByIngredient extends State<SearchByIngredient> {
             ),
           ),
           transition: CircularFloatingSearchBarTransition(),
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           title: Text(
-            selectedTerm ?? 'The Search App',
+            selectedTerm,
             style: Theme.of(context).textTheme.headline6,
           ),
-          hint: 'Search and find out...',
+          hint: 'What are you looking for?',
           actions: [
             FloatingSearchBarAction.searchToClear(),
           ],
@@ -204,7 +197,7 @@ class SearchResultsListView extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(
+            const Icon(
               Icons.search,
               size: 64,
             ),
@@ -217,7 +210,7 @@ class SearchResultsListView extends StatelessWidget {
       );
     }
 
-    final fsb = FloatingSearchBar.of(context);
+    //final fsb = FloatingSearchBar.of(context);
 
     return ListView(
       //padding: EdgeInsets.only(top: fsb.height + fsb.margins.vertical),
