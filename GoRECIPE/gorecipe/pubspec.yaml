@@ -31,6 +31,8 @@ dependencies:
     sdk: flutter
 
   camera: ^0.9.4
+  http: ^0.13.4
+  http_parser: ^4.0.0
   path_provider:
   path:
 
