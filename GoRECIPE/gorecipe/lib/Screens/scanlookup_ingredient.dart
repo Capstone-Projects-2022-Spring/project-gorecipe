@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
 import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 
