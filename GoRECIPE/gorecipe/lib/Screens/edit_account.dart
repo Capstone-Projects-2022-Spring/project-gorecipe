@@ -31,7 +31,15 @@ class _EditAccount extends State<EditAccount> {
     fontSize: 20.0,
   );
 
-  void getUser(int userId) async {
+  @override
+  void initState() {
+    super.initState();
+    getUser(userId: 1);
+  }
+
+  late User currentUser;
+
+  Future getUser({required int userId}) async {
 
     final response = await http.get(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' + userId.toString()),
@@ -40,14 +48,16 @@ class _EditAccount extends State<EditAccount> {
           'Access-Control-Allow-Origin' : '*'
         });
 
-    User u = User.fromJson(jsonDecode(response.body));
+    User user = User.fromJson(jsonDecode(response.body));
 
-    print(u);
+    setState(() {
+      currentUser = user;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    getUser(1);
+
     final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
@@ -59,7 +69,7 @@ class _EditAccount extends State<EditAccount> {
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Name",
+          hintText: currentUser.firstName + " " + currentUser.lastName,
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
@@ -69,7 +79,7 @@ class _EditAccount extends State<EditAccount> {
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Username",
+          hintText: currentUser.username,
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
