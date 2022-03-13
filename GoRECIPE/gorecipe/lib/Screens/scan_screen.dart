@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:io';
+// ignore: unused_import
 import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
@@ -37,6 +38,7 @@ class ScanScreenState extends State<ScanScreen> {
       _initializeControllerFuture = _controller.initialize();
     } on CameraException catch (_) {
       // god help us
+      // ignore: avoid_print
       print('god help us');
     }
     if (!mounted) return;
@@ -90,6 +92,7 @@ class ScanScreenState extends State<ScanScreen> {
             // Attempt to take a picture and get the file `image`
             // where it was saved.
             final image = await _controller.takePicture();
+            // ignore: avoid_print
             print("IMAGE PATH: " + image.path);
             //final bytes = await File(image.path).readAsBytes();
 
@@ -105,6 +108,7 @@ class ScanScreenState extends State<ScanScreen> {
             );
           } catch (e) {
             // If an error occurs, log the error to the console.
+            // ignore: avoid_print
             print(e);
           }
         },
@@ -135,12 +139,16 @@ class DisplayPictureScreen extends StatelessWidget {
         filename: 'image.jpg',
         contentType: MediaType('image', 'jpg'),
       ));
+      // ignore: avoid_print
       print("Request:");
+      // ignore: avoid_print
       print(request);
 
       var response = await request.send();
+      // ignore: avoid_print
       print(response.statusCode);
       response.stream.transform(utf8.decoder).listen((value) {
+        // ignore: avoid_print
         print(value);
       });
     }

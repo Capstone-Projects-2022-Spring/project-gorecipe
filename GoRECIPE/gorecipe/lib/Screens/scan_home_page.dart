@@ -34,6 +34,7 @@ class ScanHomeScreen extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<ScanHomeScreen> {
+  // ignore: unused_field
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle = TextStyle(
@@ -47,6 +48,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
 
   //
 
+  // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: Home', style: optionStyle),
     Text(
@@ -63,6 +65,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     ),
   ];
 
+  // ignore: unused_element
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -119,8 +122,8 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
           //style: GoogleFonts.lato(textStyle: PageTitle),
         ),
 
-        backgroundColor: Color.fromARGB(255, 255, 255, 255),
-        iconTheme: IconThemeData(color: Colors.green),
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        iconTheme: const IconThemeData(color: Colors.green),
       ),
 
       endDrawer: Drawer(
@@ -188,8 +191,8 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
             ),
 
             ListTile(
-                leading: Icon(Icons.help_center),
-                title: Text('Help'),
+                leading: const Icon(Icons.help_center),
+                title: const Text('Help'),
                 onTap: () {
                   Navigator.push(
                       context,

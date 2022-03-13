@@ -1,9 +1,9 @@
-
 import 'package:flutter/material.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/forgot_password.dart';
 //import 'package:gorecipe/Screens/forgot_password.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/scan_home_page.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 //import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
@@ -219,10 +219,10 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const WantToAdd(
-                                key: ObjectKey(
-                                    'want to add this an ingredient?'),
-                                title: ' add ingredient page')));
+                            builder: (context) => const ScanHomeScreen(
+                                  key: ObjectKey(
+                                      'want to add this an ingredient?'),
+                                )));
                   }),
 
               ListTile(
