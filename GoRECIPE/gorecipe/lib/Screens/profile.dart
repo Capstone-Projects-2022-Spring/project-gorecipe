@@ -1,5 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/edit_account.dart';
+import '../Models/User.dart';
+
+import 'package:http/http.dart' as http;
 
 // View profile page
 
@@ -17,29 +21,72 @@ class Profile extends StatefulWidget {
 class _Profile extends State<Profile> {
 
   @override
+  void initState() {
+    super.initState();
+    getUser(userId: 1);
+  }
+
+  late User currentUser;
+
+  Future getUser({required int userId}) async {
+    final response = await http.get(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            userId.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+
+    User user = User.fromJson(jsonDecode(response.body));
+
+    setState(() {
+      currentUser = user;
+    });
+  }
+
+  @override
   Widget build(BuildContext context){
 
-    const firstName = Text(
-      "First",
+    final firstName = Text(
+      currentUser.firstName,
       textAlign: TextAlign.center,
       textScaleFactor: 2.25,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
-    const lastName = Text(
-      "Last",
+    final lastName = Text(
+      currentUser.lastName,
       textAlign: TextAlign.center,
       textScaleFactor: 2.25,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
-    const location = Text(
-      "Philadelphia, PA",
+
+    final userName = Text(
+      currentUser.username,
       textAlign: TextAlign.center,
-      textScaleFactor: 1.5,
-      style: TextStyle(
+      textScaleFactor: 2.0,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    final email = Text(
+      currentUser.email,
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    final birthday = Text(
+      currentUser.birthDate,
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
@@ -109,19 +156,17 @@ class _Profile extends State<Profile> {
                       const SizedBox(height: 15.0),
                       firstName,
                       lastName,
+                      const SizedBox(height: 15.0),
+                      userName,
+                      email,
+                      birthday,
                       const SizedBox(
                         height: 25.0,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const <Widget>[
-                          Icon(
-                            Icons.location_on,
-                            color: Colors.black,
-                            size: 24.0,
-                            semanticLabel: 'location symbol',
-                          ),
-                          location,
+
                         ],
                       ),
 
