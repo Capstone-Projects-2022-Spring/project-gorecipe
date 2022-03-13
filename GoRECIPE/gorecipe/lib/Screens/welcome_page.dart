@@ -3,6 +3,8 @@ import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
+//changing
+
 class Welcome_Page extends State<WelcomeScreen> {
   TextStyle style = const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 

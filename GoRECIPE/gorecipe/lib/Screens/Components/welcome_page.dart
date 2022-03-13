@@ -4,6 +4,8 @@ import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen_state.dart';
 
+//components welcome_page
+
 class Welcome_Page extends State<WelcomeScreen> {
   TextStyle style = const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
