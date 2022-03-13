@@ -126,7 +126,6 @@ class DisplayPictureScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     upload(File img) async {
-      print("In upload");
       var postUri = Uri.parse(
           "http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/4");
       var request = http.MultipartRequest("POST", postUri);
@@ -138,7 +137,6 @@ class DisplayPictureScreen extends StatelessWidget {
       ));
       print("Request:");
       print(request);
-      print(request.files.toString());
 
       var response = await request.send();
       print(response.statusCode);
@@ -147,6 +145,7 @@ class DisplayPictureScreen extends StatelessWidget {
       });
     }
 
+    /*
     getData() async {
       print("In download");
       var uri = Uri.http(
@@ -164,6 +163,7 @@ class DisplayPictureScreen extends StatelessWidget {
         print(value);
       });
     }
+    */
 
     final _nextbutton = Material(
       elevation: 5.0,
