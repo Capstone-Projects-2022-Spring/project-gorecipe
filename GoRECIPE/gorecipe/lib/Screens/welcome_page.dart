@@ -3,6 +3,7 @@ import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
+// ignore: camel_case_types
 class Welcome_Page extends State<WelcomeScreen> {
   TextStyle style = const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
@@ -11,10 +12,10 @@ class Welcome_Page extends State<WelcomeScreen> {
     final login = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 116, 163, 126),
+      color: const Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        splashColor: Color.fromARGB(255, 153, 30, 30),
+        splashColor: const Color.fromARGB(255, 153, 30, 30),
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
           Navigator.push(
