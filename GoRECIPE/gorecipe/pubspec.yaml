@@ -33,6 +33,7 @@ dependencies:
   camera: ^0.9.4
   http: ^0.13.4
   http_parser: ^4.0.0
+  shared_preferences: ^2.0.13
   path_provider:
   path:
 
@@ -70,6 +71,7 @@ flutter:
     - assets/images/logo.png
     - assets/images/ingredients.png
     - assets/images/default_pfp.png
+    - assets/images/scan.png
 
   
 
