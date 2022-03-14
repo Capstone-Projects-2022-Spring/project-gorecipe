@@ -5,14 +5,17 @@ import 'package:gorecipe/Screens/edit_account.dart';
 
 class Profile extends StatefulWidget {
   //const Profile({Key? key}) : super(key: key);
-  const Profile({required Key key, required this.title}) : super(key: key);
+  const Profile({required Key key, required this.title})
+      : super(key: key);
 
   final String title;
   @override
   State<Profile> createState() => _Profile();
 }
 
+
 class _Profile extends State<Profile> {
+
   @override
   void initState() {
     super.initState();
@@ -38,7 +41,8 @@ class _Profile extends State<Profile> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context){
+
     final firstName = Text(
       currentUser.firstName,
       textAlign: TextAlign.center,
@@ -65,16 +69,14 @@ class _Profile extends State<Profile> {
     );
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text(
-          'ACCOUNT',
-          style: TextStyle(
-            color: Colors.green,
-          ),
-        ),
-        backgroundColor: Colors.white,
+        appBar: AppBar(
+          title: const Text('ACCOUNT',
+            style: TextStyle(
+              color: Colors.green,
+            ),),
+          backgroundColor: Colors.white,
 
-        /*actions: <Widget>[
+          /*actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.menu),
               iconSize: 50,
@@ -99,7 +101,7 @@ class _Profile extends State<Profile> {
               },
             ),
           ],*/
-      ),
+        ),
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -124,8 +126,8 @@ class _Profile extends State<Profile> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const HomeScreen(
-                                key: ObjectKey('welcome page'),
-                              )));
+                            key: ObjectKey('welcome page'),
+                          )));
 
                   //idk why this isnt working
                   //   navigation im confused everything is giving me an error
@@ -174,9 +176,9 @@ class _Profile extends State<Profile> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ScanHomeScreen(
-                                key: ObjectKey(
-                                    'want to add this an ingredient?'),
-                              )));
+                            key: ObjectKey(
+                                'want to add this an ingredient?'),
+                          )));
                 }),
 
             ListTile(
@@ -193,6 +195,7 @@ class _Profile extends State<Profile> {
           ],
         ),
       ),
+
       body: Center(
         child: Column(
           children: [
@@ -210,33 +213,38 @@ class _Profile extends State<Profile> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 200,
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/default_pfp.png"),
-                            fit: BoxFit.fill),
+                    children: <Widget>[
+                      Container(
+                        width: 200,
+                        height: 200,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image: AssetImage("assets/images/default_pfp.png"),
+                              fit: BoxFit.fill),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 15.0),
-                    firstName,
-                    lastName,
-                    const SizedBox(height: 15.0),
-                    userName,
-                    email,
-                    birthday,
-                    const SizedBox(
-                      height: 25.0,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[],
-                    ),
-                  ],
+                      const SizedBox(height: 15.0),
+                      firstName,
+                      lastName,
+                      const SizedBox(height: 15.0),
+                      userName,
+                      email,
+                      birthday,
+                      const SizedBox(
+                        height: 25.0,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[
+
+                        ],
+                      ),
+
+
+                    ],
                 ),
+
               ),
             ),
             SizedBox(
@@ -253,11 +261,8 @@ class _Profile extends State<Profile> {
                         Icons.book,
                         color: Colors.green,
                       ),
-                      Text('    MyCookbook',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
+                      Text('    MyCookbook', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5,
+                      style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
@@ -277,11 +282,7 @@ class _Profile extends State<Profile> {
                         Icons.wysiwyg_rounded,
                         color: Colors.green,
                       ),
-                      Text('    Calendar',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
+                      Text('    Calendar', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
@@ -301,11 +302,7 @@ class _Profile extends State<Profile> {
                         Icons.wifi_protected_setup,
                         color: Colors.green,
                       ),
-                      Text('    Update Food Preferences',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
+                      Text('    Update Food Preferences', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
@@ -320,8 +317,7 @@ class _Profile extends State<Profile> {
                   onPressed: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditAccount()),
+                      MaterialPageRoute(builder: (context) => const EditAccount()),
                     );
                   },
                   child: Row(
@@ -331,19 +327,16 @@ class _Profile extends State<Profile> {
                         Icons.app_settings_alt,
                         color: Colors.green,
                       ),
-                      Text('    Edit Profile',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
+                      Text('    Edit Profile', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
               ),
             ),
-          ],
+            ],
+          ),
         ),
-      ),
-    );
+      );
   }
+
 }
