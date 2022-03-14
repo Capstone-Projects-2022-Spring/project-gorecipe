@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
-import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+//import 'package:gorecipe/Screens/AddAnIngredient.dart';
 
 class ScanLookup extends StatefulWidget {
   const ScanLookup({Key? key}) : super(key: key);
@@ -53,8 +53,7 @@ class _ScanLookup extends State<ScanLookup> {
         Navigator.push(
           context,
           MaterialPageRoute(
-              builder: (context) => const WantToAdd(
-                  key: ObjectKey(ScanLookup()), title: "Add Ingredient")),
+              builder: (context) => const ScanScreen()), //AddAnIngredient()),
         );
       },
     );
