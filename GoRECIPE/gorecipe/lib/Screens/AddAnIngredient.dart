@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
-import 'package:gorecipe/Screens/welcome_screen_state.dart';
 import 'package:gorecipe/Screens/profile.dart';
 
 void main() {
