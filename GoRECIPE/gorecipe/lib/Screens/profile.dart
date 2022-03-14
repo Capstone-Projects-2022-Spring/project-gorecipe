@@ -1,5 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/edit_account.dart';
+import '../Models/User.dart';
+import 'package:http/http.dart' as http;
+import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
 
 // View profile page
 
@@ -47,23 +54,42 @@ class _Profile extends State<Profile> {
       currentUser.firstName,
       textAlign: TextAlign.center,
       textScaleFactor: 2.25,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
-    const lastName = Text(
-      "Last",
+    final lastName = Text(
+      currentUser.lastName,
       textAlign: TextAlign.center,
       textScaleFactor: 2.25,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
-    const location = Text(
-      "Philadelphia, PA",
+
+    final userName = Text(
+      currentUser.username,
       textAlign: TextAlign.center,
-      textScaleFactor: 1.5,
-      style: TextStyle(
+      textScaleFactor: 2.0,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    final email = Text(
+      currentUser.email,
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    final birthday = Text(
+      currentUser.birthDate,
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
