@@ -1,7 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'dart:typed_data';
 
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http_parser/http_parser.dart';
+import 'dart:convert';
 //place holder for create account page
 
 //linked to the create account button on login page
@@ -34,6 +40,7 @@ class _CreateAccount extends State<CreateAccount> {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  final usernameController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
   // ignore: unused_element
@@ -50,7 +57,56 @@ class _CreateAccount extends State<CreateAccount> {
 
   @override
   Widget build(BuildContext context) {
-    //Fields and text to create later on
+    signup(firstName, lastName, username, email, password) async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      setState(() {});
+      print("Calling Create Acc");
+
+      Map<String, dynamic> data = {
+        'email': email,
+        'password': password,
+        'firstname': lastName,
+        'lastName': firstName,
+        'username': username,
+        'savedRecipes': [],
+        'favoriteIngredients': [],
+        'dietaryRestrictions': [],
+        'birthDate': '2022-03-13',
+      };
+
+      String encoded = jsonEncode(data);
+
+      print(data.toString());
+      final response = await http.post(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/'),
+        headers: {
+          "Accept": "application/json",
+          "Content-Type": "application/json",
+        },
+        body: encoded,
+      );
+      print(response.statusCode);
+      print(response.body);
+      if (response.statusCode == 201) {
+        setState(() {});
+        Map<String, dynamic> userData = jsonDecode(response.body);
+        print(userData);
+        if (!userData['error']) {
+          Map<String, dynamic> user = userData['data'];
+          print(user);
+          //savePref(1, user['name'], user['email'], user['id']);
+
+        } else {
+          print(" ${userData['message']}");
+        }
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("${userData['message']}")));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(const SnackBar(content: Text("Please Try again")));
+      }
+    }
+
     const headerText = Text(
       "Create Account",
       textAlign: TextAlign.center,
@@ -61,7 +117,7 @@ class _CreateAccount extends State<CreateAccount> {
     );
 
     final firstNameField = SizedBox(
-      width: 150.0,
+      width: 145.0,
       child: TextField(
         controller: firstNameController,
         obscureText: false,
@@ -76,7 +132,7 @@ class _CreateAccount extends State<CreateAccount> {
       ),
     );
     final lastNameField = SizedBox(
-      width: 150.0,
+      width: 145.0,
       child: TextField(
         controller: lastNameController,
         obscureText: false,
@@ -89,6 +145,18 @@ class _CreateAccount extends State<CreateAccount> {
             border:
                 OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
       ),
+    );
+    final usernameField = TextField(
+      controller: usernameController,
+      obscureText: false,
+      style: style,
+      decoration: InputDecoration(
+          fillColor: Colors.green,
+          filled: true,
+          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+          hintText: "Username",
+          border:
+              OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
     final emailField = TextField(
       controller: emailController,
@@ -134,17 +202,12 @@ class _CreateAccount extends State<CreateAccount> {
           style:
               style.copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
       onPressed: () {
-        showDialog(
-          context: context,
-          builder: (context) {
-            return AlertDialog(
-              // Retrieve the text that the user has entered by using the
-              // TextEditingController.
-              content: Text(
-                  'First Name: ${firstNameController.text}\nLast Name: ${lastNameController.text} \nEmail: ${emailController.text} \nPassword: ${passwordController.text} \nConfirm Password: ${confirmPasswordController.text}'),
-            );
-          },
-        );
+        signup(
+            firstNameController.text,
+            lastNameController.text,
+            usernameController.text,
+            emailController.text,
+            passwordController.text);
       },
     );
 
@@ -192,7 +255,7 @@ class _CreateAccount extends State<CreateAccount> {
                 const SizedBox(height: 15.0),
                 headerText,
                 const SizedBox(
-                  height: 80.0,
+                  height: 30.0,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -203,11 +266,15 @@ class _CreateAccount extends State<CreateAccount> {
                   ],
                 ),
                 const SizedBox(
-                  height: 35.0,
+                  height: 20.0,
+                ),
+                usernameField,
+                const SizedBox(
+                  height: 20.0,
                 ),
                 emailField,
                 const SizedBox(
-                  height: 35.0,
+                  height: 20.0,
                 ),
                 passwordField,
                 const SizedBox(
@@ -215,9 +282,6 @@ class _CreateAccount extends State<CreateAccount> {
                 ),
                 confirmPasswordField,
                 passwordCheckbox,
-                const SizedBox(
-                  height: 50.0,
-                ),
                 createAccountButton,
               ],
             ),
