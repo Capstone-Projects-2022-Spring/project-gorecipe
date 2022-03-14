@@ -1,9 +1,4 @@
-import 'dart:convert';
-
 import 'package:flutter/material.dart';
-import '../Models/User.dart';
-
-import 'package:http/http.dart' as http;
 
 //linked to the edit account button on profile page
 
@@ -21,8 +16,6 @@ class EditAccount extends StatefulWidget {
 
   @override
   State<EditAccount> createState() => _EditAccount();
-
-
 }
 
 class _EditAccount extends State<EditAccount> {
@@ -32,32 +25,7 @@ class _EditAccount extends State<EditAccount> {
   );
 
   @override
-  void initState() {
-    super.initState();
-    getUser(userId: 1);
-  }
-
-  late User currentUser;
-
-  Future getUser({required int userId}) async {
-
-    final response = await http.get(
-        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' + userId.toString()),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Access-Control-Allow-Origin' : '*'
-        });
-
-    User user = User.fromJson(jsonDecode(response.body));
-
-    setState(() {
-      currentUser = user;
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
-
     final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
@@ -69,7 +37,7 @@ class _EditAccount extends State<EditAccount> {
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: currentUser.firstName + " " + currentUser.lastName,
+          hintText: "Name",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
@@ -79,7 +47,7 @@ class _EditAccount extends State<EditAccount> {
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: currentUser.username,
+          hintText: "Username",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
