@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/scan_screen.dart';
 
 // ignore: camel_case_types
 class Welcome_Screen_State extends State<WelcomeScreen> {

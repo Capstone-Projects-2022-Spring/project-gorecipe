@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:gorecipe/Screens/Components/welcome_Page.dart';
+import 'package:gorecipe/Screens/Components/welcome_screen_state.dart';
 //declaring state for welcome screen
 
 class WelcomeScreen extends StatefulWidget {
@@ -8,5 +8,5 @@ class WelcomeScreen extends StatefulWidget {
 
   final String title;
   @override
-  Welcome_Page createState() => Welcome_Page();
+  Welcome_Screen_State createState() => Welcome_Screen_State();
 }

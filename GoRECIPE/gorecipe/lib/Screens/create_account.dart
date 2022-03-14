@@ -1,3 +1,5 @@
+// ignore_for_file: file_names
+
 import 'package:flutter/material.dart';
 
 //place holder for create account page
@@ -21,6 +23,7 @@ class CreateAccount extends StatefulWidget {
 }
 
 class _CreateAccount extends State<CreateAccount> {
+  // ignore: unused_field
   int _counter = 0;
   bool _passwordVisible = false;
   TextStyle style = const TextStyle(
@@ -33,6 +36,7 @@ class _CreateAccount extends State<CreateAccount> {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
+  // ignore: unused_element
   void _incrementCounter() {
     setState(() {
       // This call to setState tells the Flutter framework that something has
