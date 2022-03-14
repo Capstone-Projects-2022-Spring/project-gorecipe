@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/scan_screen.dart';
 
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
@@ -91,7 +92,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
           Navigator.push(
             context,
             //CHANGE THIS TO THE NEXT SCAN PAGE
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            MaterialPageRoute(builder: (context) => const ScanScreen()),
           );
         },
         child: Text("Start Scan",
@@ -130,18 +131,18 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
-            // DrawerHeader(
-            //   decoration: BoxDecoration(
-            //     color: Colors.green,
-            //   ),
-            //   child: Text(
-            //     'GoRecipe',
-            //     style: TextStyle(
-            //       color: Colors.white,
-            //       fontSize: 24,
-            //     ),
-            //   ),
-            // ),
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+              child: Text(
+                'GoRecipe',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
             ListTile(
                 leading: const Icon(Icons.home),
                 title: const Text('Home'),
@@ -149,7 +150,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const ScanHomeScreen(
+                          builder: (context) => const HomeScreen(
                                 key: ObjectKey('welcome page'),
                               )));
 
@@ -166,17 +167,14 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
               leading: Icon(Icons.set_meal),
               title: Text('Set Food Preference'),
             ),
-
             const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
-
             const ListTile(
               leading: Icon(Icons.calendar_today_outlined),
               title: Text('Calendar'),
             ),
-
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
@@ -189,7 +187,6 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                             title: 'profile page')));
               },
             ),
-
             ListTile(
                 leading: const Icon(Icons.help_center),
                 title: const Text('Help'),
@@ -201,7 +198,6 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                               key: ObjectKey('welcome page'),
                               title: 'welcome page')));
                 }),
-
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
