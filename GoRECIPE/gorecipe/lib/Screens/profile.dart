@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/edit_account.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
+import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/welcome_screen.dart';
+import '../Models/User.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 // View profile page
 
@@ -17,29 +23,72 @@ class Profile extends StatefulWidget {
 class _Profile extends State<Profile> {
 
   @override
+  void initState() {
+    super.initState();
+    getUser(userId: 1);
+  }
+
+  late User currentUser;
+
+  Future getUser({required int userId}) async {
+    final response = await http.get(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            userId.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+
+    User user = User.fromJson(jsonDecode(response.body));
+
+    setState(() {
+      currentUser = user;
+    });
+  }
+
+  @override
   Widget build(BuildContext context){
 
-    const firstName = Text(
-      "First",
+    final firstName = Text(
+      currentUser.firstName,
       textAlign: TextAlign.center,
       textScaleFactor: 2.25,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
-    const lastName = Text(
-      "Last",
+    final lastName = Text(
+      currentUser.lastName,
       textAlign: TextAlign.center,
       textScaleFactor: 2.25,
-      style: TextStyle(
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
-    const location = Text(
-      "Philadelphia, PA",
+
+    final userName = Text(
+      currentUser.username,
       textAlign: TextAlign.center,
-      textScaleFactor: 1.5,
-      style: TextStyle(
+      textScaleFactor: 2.0,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    final email = Text(
+      currentUser.email,
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: const TextStyle(
+        fontWeight: FontWeight.bold,
+      ),
+    );
+
+    final birthday = Text(
+      currentUser.birthDate,
+      textAlign: TextAlign.center,
+      textScaleFactor: 2.0,
+      style: const TextStyle(
         fontWeight: FontWeight.bold,
       ),
     );
@@ -51,35 +100,103 @@ class _Profile extends State<Profile> {
               color: Colors.green,
             ),),
           backgroundColor: Colors.white,
-          actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.menu),
-              iconSize: 50,
-              color: Colors.black,
-              tooltip: 'Go to the next page',
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute<void>(
-                  builder: (BuildContext context) {
-                    return Scaffold(
-                      appBar: AppBar(
-                        title: const Text('Next page'),
-                      ),
-                      body: const Center(
-                        child: Text(
-                          'This is the next page',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    );
-                  },
-                ));
+        ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Colors.green,
+              ),
+              child: Text(
+                'GoRecipe',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen(
+                            key: ObjectKey('welcome page'),
+                          )));
+
+                  //idk why this isnt working
+                  //   navigation im confused everything is giving me an error
+                  // onTap: () => HomeScreen(),
+
+                  //   onTap: () {
+                  //   Navigator.pop(context);
+
+                  //},
+                }),
+            const ListTile(
+              leading: Icon(Icons.set_meal),
+              title: Text('Set Food Preference'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.book),
+              title: Text('MyCookBook'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.calendar_today_outlined),
+              title: Text('Calendar'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Profile(
+                            key: ObjectKey('profile page'),
+                            title: 'profile page')));
               },
             ),
+            const ListTile(
+              leading: Icon(Icons.help_center),
+              title: Text('Help'),
+            ),
+            // putting the scan oon the dropdown menu for now
+
+            ListTile(
+                leading: const Icon(Icons.camera),
+                title: const Text('Scan'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const ScanHomeScreen(
+                            key: ObjectKey(
+                                'want to add this an ingredient?'),
+                          )));
+                }),
+
+            ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Log Out'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(
+                              key: ObjectKey('welcome page'),
+                              title: 'welcome page')));
+                }),
           ],
         ),
+      ),
 
       body: Center(
-        child: Column(
+        child: ListView(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -109,20 +226,14 @@ class _Profile extends State<Profile> {
                       const SizedBox(height: 15.0),
                       firstName,
                       lastName,
-                      const SizedBox(
-                        height: 25.0,
-                      ),
+                      const SizedBox(height: 15.0),
+                      userName,
+                      email,
+                      birthday,
+
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-                          Icon(
-                            Icons.location_on,
-                            color: Colors.black,
-                            size: 24.0,
-                            semanticLabel: 'location symbol',
-                          ),
-                          location,
-                        ],
+                        children: const <Widget>[],
                       ),
 
 
