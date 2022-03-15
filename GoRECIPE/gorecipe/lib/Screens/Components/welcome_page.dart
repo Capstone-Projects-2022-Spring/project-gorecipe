@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/welcome_screen_state.dart';
 
 // ignore: camel_case_types
 class Welcome_Page extends State<WelcomeScreen> {
@@ -20,7 +21,7 @@ class Welcome_Page extends State<WelcomeScreen> {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
+            MaterialPageRoute(builder: (context) => Welcome_Screen_State()),
           );
         },
         child: Text("Sign In",

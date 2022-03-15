@@ -8,7 +8,14 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
 
 // ignore: camel_case_types
-class Welcome_Screen_State extends State<WelcomeScreen> {
+class Welcome_Screen_State extends StatefulWidget {
+  const Welcome_Screen_State({Key? key}) : super(key: key);
+
+  @override
+  State<Welcome_Screen_State> createState() => _Welcome_Screen_State();
+}
+
+class _Welcome_Screen_State extends State<Welcome_Screen_State> {
   TextStyle style = const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
   @override
