@@ -150,7 +150,7 @@ class _Profile extends State<Profile> {
       ),
 
       body: Center(
-        child: Column(
+        child: ListView(
           children: [
             Container(
               decoration: BoxDecoration(
