@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Screens/calendar_page.dart';
 // ignore: unused_import
 //import 'package:gorecipe/Screens/forgot_password.dart';
 //import 'package:gorecipe/Screens/forgot_password.dart';
@@ -190,9 +191,15 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                 leading: Icon(Icons.book),
                 title: Text('MyCookBook'),
               ),
-              const ListTile(
-                leading: Icon(Icons.calendar_today_outlined),
-                title: Text('Calendar'),
+              ListTile(
+                leading: const Icon(Icons.calendar_today_outlined),
+                title: const Text('Calendar'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CalendarPage()));
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.settings),
