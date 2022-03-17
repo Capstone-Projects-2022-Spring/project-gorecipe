@@ -11,6 +11,8 @@ import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
+import 'package:gorecipe/Screens/bottom_nav_bar.dart';
+
 //import 'package:gorecipe/Screens/welcome_screen.dart';
 
 //moethod doesnt return nothing
@@ -242,6 +244,17 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                             builder: (context) => const WelcomeScreen(
                                 key: ObjectKey('welcome page'),
                                 title: 'welcome page')));
+                  }),
+              ListTile(
+                  leading: const Icon(Icons.abc_rounded),
+                  title: const Text('Nav Check'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const BottomNav(
+                                  key: ObjectKey('welcome page'),
+                                )));
                   }),
             ],
           ),
