@@ -11,28 +11,22 @@ import 'package:gorecipe/Screens/scan_screen.dart';
 class Welcome_Screen_State extends State<WelcomeScreen> {
   TextStyle style = const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
 
+  final _formKey = GlobalKey<FormState>();
+  String? _password;
+  String? _username;
+
   @override
   // ignore: non_constant_identifier_names
   Widget build(BuildContext context) {
-    final usernameField = TextField(
-      obscureText: false,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Username",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
-    );
+    final usernameField = TextFormField(
+        //keyboardType: TextInputType.emailAddress,
+        onSaved: (value) => _username = value,
+        decoration: const InputDecoration(labelText: "Username"));
 
-    final passwordField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Password",
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
-    );
+    final passwordField = TextFormField(
+        onSaved: (value) => _password = value,
+        obscureText: true,
+        decoration: const InputDecoration(labelText: "Password"));
 
     final loginButton = Material(
       elevation: 5.0,
@@ -42,10 +36,15 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          Navigator.push(
-            context,
-            MaterialPageRoute(builder: (context) => const HomeScreen()),
-          );
+          //Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()),);
+          // save the fields..
+          final form = _formKey.currentState;
+          form!.save();
+
+          // Validate will return true if is valid, or false if invalid.
+          if (form.validate()) {
+            print("$_username $_password");
+          };
         },
         child: Text("Sign in",
             textAlign: TextAlign.center,
@@ -82,38 +81,42 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
           ),
           child: Padding(
             padding: const EdgeInsets.all(36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Container(
-                  width: 200,
-                  height: 200,
-                  decoration: const BoxDecoration(
-                    shape: BoxShape.circle,
-                    image: DecorationImage(
-                        image: AssetImage("assets/images/logo.png"),
-                        fit: BoxFit.fill),
+            child: Form(
+              key: _formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(
+                    width: 200,
+                    height: 200,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      image: DecorationImage(
+                          image: AssetImage("assets/images/logo.png"),
+                          fit: BoxFit.fill),
+                    ),
                   ),
-                ),
-                //Declaring sizes of field boxes
-                const SizedBox(height: 45.0),
-                usernameField,
-                const SizedBox(height: 25.0),
-                passwordField,
-                const SizedBox(
-                  height: 35.0,
-                ),
-                loginButton,
-                const SizedBox(
-                  height: 15.0,
-                ),
-                createAccountButton,
-                const SizedBox(
-                  height: 10.0,
-                ),
-              ],
+                  //Declaring sizes of field boxes
+                  const SizedBox(height: 45.0),
+                  usernameField,
+                  const SizedBox(height: 25.0),
+                  passwordField,
+                  const SizedBox(
+                    height: 35.0,
+                  ),
+                  loginButton,
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                  createAccountButton,
+                  const SizedBox(
+                    height: 10.0,
+                  ),
+                ],
+              ),
             ),
+
           ),
         ),
       ),
