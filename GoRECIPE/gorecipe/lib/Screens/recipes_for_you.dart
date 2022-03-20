@@ -24,65 +24,86 @@ class _RecipesYou extends State<RecipesYou> {
     fontSize: 20.0,
   );
 
+  List<bool> selected = <bool>[];
+
+  List<String> recipes = [
+    "test",
+    "test2",
+    "test",
+    "test2",
+    "test",
+    "test2",
+    "test",
+    "test2"
+  ];
+
+  @override
+  initState() {
+    for (var i = 0; i < recipes.length; i++) {
+      selected.add(false);
+    }
+    super.initState();
+  }
+
+  ImageIcon firstIcon = const ImageIcon(
+    AssetImage('images/star.png'),
+    size: 20,
+  );
+
+  ImageIcon secondIcon = const ImageIcon(
+    AssetImage('images/unstar.png'),
+    size: 20,
+  );
+
   @override
   Widget build(BuildContext context) {
-    const headerText = Text(
-      "Recipes For You",
-      textAlign: TextAlign.center,
-      textScaleFactor: 2.0,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
-      ),
-    );
-
-    List<String> recipes = [
-      "test",
-      "test2",
-      "test",
-      "test2",
-      "test",
-      "test2",
-      "test",
-      "test2"
-    ];
-
-    final listRecipes = ListView.builder(
-      itemCount: recipes.length,
-      shrinkWrap: true,
-      itemBuilder: (context, index) {
-        return ListTile(
-          //leading: Icon(Icons.star),
-          title: Text(recipes[index]),
-          onTap: () {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                  builder: (context) =>
-                      const RecipesYou()), //replace with link to recipe's page
-            );
-          }, //onTap
-        );
-      },
-    );
-
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32),
-          child: Padding(
-            padding: const EdgeInsets.all(36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //Declaring sizes of field boxes
-                const SizedBox(height: 10.0),
-                headerText,
-                const SizedBox(height: 30.0),
-                listRecipes
-              ],
-            ),
-          ),
+      appBar: AppBar(
+        title: const Text('Recipes For You'),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(20),
+        child: ListView.builder(
+          itemCount: recipes.length,
+          // The list items
+          itemBuilder: (context, index) {
+            return Container(
+                padding: const EdgeInsets.all(20),
+                decoration: BoxDecoration(
+                  border: index == 0
+                      ? const Border() // This will create no border for the first item
+                      : Border(
+                          top: BorderSide(
+                              width: 1,
+                              color: Theme.of(context)
+                                  .primaryColor)), // This will create top borders for the rest
+                ),
+                child: ListTile(
+                    title: Text(recipes[index]),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: <Widget>[
+                        IconButton(
+                          icon: selected.elementAt(index)
+                              ? firstIcon
+                              : secondIcon,
+                          iconSize: 200,
+                          onPressed: () {
+                            //send to My Cookbook
+                            setState(() {
+                              selected[index] = !selected.elementAt(index);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                    onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>
+                                  const RecipesYou()), //change to recipe info
+                        )));
+          },
         ),
       ),
     );
