@@ -12,24 +12,21 @@ import 'package:gorecipe/Screens/home_screen.dart';
 
 class Profile extends StatefulWidget {
   //const Profile({Key? key}) : super(key: key);
-  const Profile({required Key key, required this.title})
-      : super(key: key);
+  const Profile({required Key key, required this.title}) : super(key: key);
 
   final String title;
   @override
   State<Profile> createState() => _Profile();
 }
 
-
 class _Profile extends State<Profile> {
-
+  late User currentUser;
+  bool isDone = false;
   @override
   void initState() {
     super.initState();
     getUser(userId: 1);
   }
-
-  late User currentUser;
 
   Future getUser({required int userId}) async {
     final response = await http.get(
@@ -44,12 +41,15 @@ class _Profile extends State<Profile> {
 
     setState(() {
       currentUser = user;
+      isDone = true;
     });
   }
 
   @override
-  Widget build(BuildContext context){
-
+  Widget build(BuildContext context) {
+    if (isDone == false) {
+      return const CircularProgressIndicator();
+    }
     final firstName = Text(
       currentUser.firstName,
       textAlign: TextAlign.center,
@@ -95,14 +95,16 @@ class _Profile extends State<Profile> {
     );
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('ACCOUNT',
-            style: TextStyle(
-              color: Colors.green,
-            ),),
-          backgroundColor: Colors.white,
+      appBar: AppBar(
+        title: const Text(
+          'ACCOUNT',
+          style: TextStyle(
+            color: Colors.green,
+          ),
+        ),
+        backgroundColor: Colors.white,
 
-          /*actions: <Widget>[
+        /*actions: <Widget>[
             IconButton(
               icon: const Icon(Icons.menu),
               iconSize: 50,
@@ -127,7 +129,7 @@ class _Profile extends State<Profile> {
               },
             ),
           ],*/
-        ),
+      ),
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -152,8 +154,8 @@ class _Profile extends State<Profile> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const HomeScreen(
-                            key: ObjectKey('welcome page'),
-                          )));
+                                key: ObjectKey('welcome page'),
+                              )));
 
                   //idk why this isnt working
                   //   navigation im confused everything is giving me an error
@@ -202,9 +204,9 @@ class _Profile extends State<Profile> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ScanHomeScreen(
-                            key: ObjectKey(
-                                'want to add this an ingredient?'),
-                          )));
+                                key: ObjectKey(
+                                    'want to add this an ingredient?'),
+                              )));
                 }),
 
             ListTile(
@@ -221,24 +223,24 @@ class _Profile extends State<Profile> {
           ],
         ),
       ),
-
-      body: Center(
-        child: Column(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage("assets/images/ingredients.png"),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(.2), BlendMode.dstATop),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: const AssetImage("assets/images/ingredients.png"),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(.2), BlendMode.dstATop),
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
                       Container(
                         width: 200,
@@ -246,7 +248,8 @@ class _Profile extends State<Profile> {
                         decoration: const BoxDecoration(
                           shape: BoxShape.circle,
                           image: DecorationImage(
-                              image: AssetImage("assets/images/default_pfp.png"),
+                              image:
+                                  AssetImage("assets/images/default_pfp.png"),
                               fit: BoxFit.fill),
                         ),
                       ),
@@ -262,107 +265,118 @@ class _Profile extends State<Profile> {
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
-                        children: const <Widget>[
-
-                        ],
+                        children: const <Widget>[],
                       ),
-
-
-                    ],
-                ),
-
-              ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.book,
-                        color: Colors.green,
-                      ),
-                      Text('    MyCookbook', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5,
-                      style: TextStyle(color: Colors.black)),
                     ],
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.wysiwyg_rounded,
-                        color: Colors.green,
-                      ),
-                      Text('    Calendar', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
-                    ],
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.book,
+                          color: Colors.green,
+                        ),
+                        Text('    MyCookbook',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.wifi_protected_setup,
-                        color: Colors.green,
-                      ),
-                      Text('    Update Food Preferences', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
-                    ],
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.wysiwyg_rounded,
+                          color: Colors.green,
+                        ),
+                        Text('    Calendar',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const EditAccount()),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.app_settings_alt,
-                        color: Colors.green,
-                      ),
-                      Text('    Edit Profile', textDirection: TextDirection.ltr, textAlign: TextAlign.justify, textScaleFactor: 1.5, style: TextStyle(color: Colors.black)),
-                    ],
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.wifi_protected_setup,
+                          color: Colors.green,
+                        ),
+                        Text('    Update Food Preferences',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const EditAccount()),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.app_settings_alt,
+                          color: Colors.green,
+                        ),
+                        Text('    Edit Profile',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
-      );
+      ),
+    );
   }
-
 }

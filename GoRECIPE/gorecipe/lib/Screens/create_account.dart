@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'dart:typed_data';
-
+import '../Models/User.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,7 +30,32 @@ class CreateAccount extends StatefulWidget {
 
 class _CreateAccount extends State<CreateAccount> {
   // ignore: unused_field
-  int _counter = 0;
+  //API Connection
+
+  late User currentUser;
+
+  @override
+  void initState() {
+    super.initState();
+  }
+
+  Future createUser({required int userId}) async {
+    final response = await http.get(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            userId.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+
+    //User user = User.fromJson(jsonEncode(response.body));
+
+    setState(() {
+      //currentUser = user;
+    });
+  }
+
+  //Field setup
   bool _passwordVisible = false;
   TextStyle style = const TextStyle(
     fontFamily: 'Montserrat',
@@ -44,63 +69,68 @@ class _CreateAccount extends State<CreateAccount> {
   final confirmPasswordController = TextEditingController();
 
   // ignore: unused_element
-  void _incrementCounter() {
-    setState(() {
-      // This call to setState tells the Flutter framework that something has
-      // changed in this State, which causes it to rerun the build method below
-      // so that the display can reflect the updated values. If we changed
-      // _counter without calling setState(), then the build method would not be
-      // called again, and so nothing would appear to happen.
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
     signup(firstName, lastName, username, email, password) async {
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      setState(() {});
+      //SharedPreferences prefs = await SharedPreferences.getInstance();
       print("Calling Create Acc");
 
       Map<String, dynamic> data = {
+        'id': 0,
         'email': email,
         'password': password,
-        'firstname': lastName,
-        'lastName': firstName,
+        'firstName': firstName,
+        'lastName': lastName,
         'username': username,
         'savedRecipes': [],
         'favoriteIngredients': [],
         'dietaryRestrictions': [],
-        'birthDate': '2022-03-13',
+        'birthDate': '2022-03-13'
       };
 
-      String encoded = jsonEncode(data);
+      User user = User.fromJson(data);
+      print({
+        "birthDate": "2022-03-22",
+        "dietaryRestrictions": [],
+        "email": "test@e.com",
+        "favoriteIngredients": [],
+        "firstName": "testy",
+        "id": 0,
+        "lastName": "mctesterson",
+        "password": "password",
+        "savedRecipes": [],
+        "username": "testman"
+      });
 
-      print(data.toString());
+      print("USER");
+      print(user);
+
       final response = await http.post(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/'),
         headers: {
           "Accept": "application/json",
           "Content-Type": "application/json",
         },
-        body: encoded,
+        body: jsonEncode(user.toJson()),
       );
+
       print(response.statusCode);
       print(response.body);
-      if (response.statusCode == 201) {
-        setState(() {});
-        Map<String, dynamic> userData = jsonDecode(response.body);
-        print(userData);
-        if (!userData['error']) {
-          Map<String, dynamic> user = userData['data'];
-          print(user);
-          //savePref(1, user['name'], user['email'], user['id']);
+      if (response.statusCode == 200) {
+        // setState(() {});
+        // //Map<String, dynamic> userData = jsonDecode(response.body);
+        // print(userData);
+        // if (!userData['error']) {
+        //   //Map<String, dynamic> user = userData['data'];
+        //   //print(user);
+        //   //savePref(1, user['name'], user['email'], user['id']);
 
-        } else {
-          print(" ${userData['message']}");
-        }
+        // } else {
+        //   print(" ${userData['message']}");
+        // }
         ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text("${userData['message']}")));
+            .showSnackBar(const SnackBar(content: Text("Account Created")));
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Please Try again")));
