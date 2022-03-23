@@ -50,6 +50,22 @@ class _RecipesYou extends State<RecipesYou> {
     size: 20,
   );
 
+  Image firstImage = const Image(
+    image: AssetImage('images/star.png'),
+    width: 20,
+    height: 20,
+    fit: BoxFit.cover,
+    color: null,
+  );
+
+  Image secondImage = const Image(
+    image: AssetImage('images/unstar.png'),
+    width: 20,
+    height: 20,
+    fit: BoxFit.cover,
+    color: null,
+  );
+
   ImageIcon secondIcon = const ImageIcon(
     AssetImage('images/unstar.png'),
     size: 20,
@@ -65,7 +81,6 @@ class _RecipesYou extends State<RecipesYou> {
         padding: const EdgeInsets.all(20),
         child: ListView.builder(
           itemCount: recipes.length,
-          // The list items
           itemBuilder: (context, index) {
             return Container(
                 padding: const EdgeInsets.all(20),
@@ -85,11 +100,11 @@ class _RecipesYou extends State<RecipesYou> {
                       children: <Widget>[
                         IconButton(
                           icon: selected.elementAt(index)
-                              ? firstIcon
-                              : secondIcon,
+                              ? firstImage
+                              : secondImage,
                           iconSize: 200,
                           onPressed: () {
-                            //send to My Cookbook
+                            //save to My Cookbook
                             setState(() {
                               selected[index] = !selected.elementAt(index);
                             });
