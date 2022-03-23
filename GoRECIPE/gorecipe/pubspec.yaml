@@ -29,6 +29,7 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  material_floating_search_bar: ^0.3.7
   syncfusion_flutter_calendar: ^19.4.56
   table_calendar: ^3.0.4
   camera: ^0.9.4
