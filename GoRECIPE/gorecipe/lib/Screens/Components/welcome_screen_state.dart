@@ -30,6 +30,10 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
 
     print(response.statusCode);
 
+    // currently 403 forbidden
+    // 200 -> okay, login = true
+    // 401 -> unauthorized, try again or create account
+
     /*final response = await http.get(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/login?password=' + _password! + '&username' + _username!),
         headers: <String, String>{
