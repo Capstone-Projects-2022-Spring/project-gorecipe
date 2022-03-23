@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import '../Models/Recipe.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 //linked to the finish scan button on scan page
 
@@ -37,6 +40,10 @@ class _RecipesYou extends State<RecipesYou> {
     "test2"
   ];
 
+  List<RecipeModel> recipe = (json.decode(response.body) as List)
+  .map((data) => RecipeModel.fromJson(data))
+  toList().
+
   @override
   initState() {
     for (var i = 0; i < recipes.length; i++) {
@@ -44,11 +51,6 @@ class _RecipesYou extends State<RecipesYou> {
     }
     super.initState();
   }
-
-  ImageIcon firstIcon = const ImageIcon(
-    AssetImage('images/star.png'),
-    size: 20,
-  );
 
   Image firstImage = const Image(
     image: AssetImage('images/star.png'),
@@ -64,11 +66,6 @@ class _RecipesYou extends State<RecipesYou> {
     height: 20,
     fit: BoxFit.cover,
     color: null,
-  );
-
-  ImageIcon secondIcon = const ImageIcon(
-    AssetImage('images/unstar.png'),
-    size: 20,
   );
 
   @override
