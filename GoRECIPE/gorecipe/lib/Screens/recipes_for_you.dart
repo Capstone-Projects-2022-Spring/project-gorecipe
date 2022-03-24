@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../Models/Recipe.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
 
 //linked to the finish scan button on scan page
 
@@ -29,27 +29,37 @@ class _RecipesYou extends State<RecipesYou> {
 
   List<bool> selected = <bool>[];
 
-  List<String> recipes = [
-    "test",
-    "test2",
-    "test",
-    "test2",
-    "test",
-    "test2",
-    "test",
-    "test2"
-  ];
+  List<Recipe> recipes = <Recipe>[];
 
-  List<RecipeModel> recipe = (json.decode(response.body) as List)
-  .map((data) => RecipeModel.fromJson(data))
-  toList().
+  Recipe recipe1 = const Recipe(
+      id: 0,
+      content: "60 minutes",
+      ingredients: "apple",
+      name: "apple pie",
+      videoURL: "youtube.com");
+  Recipe recipe2 = const Recipe(
+      id: 1,
+      content: "65 minutes",
+      ingredients: "pumpkin",
+      name: "pumpkin pie",
+      videoURL: "youtube.com");
 
   @override
   initState() {
-    for (var i = 0; i < recipes.length; i++) {
-      selected.add(false);
-    }
+    recipes.add(recipe1);
+    recipes.add(recipe2);
     super.initState();
+  }
+
+  Future recipe({required int id}) async {
+    final response = await http.get(
+        Uri.parse(
+            'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/' +
+                id.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
   }
 
   Image firstImage = const Image(
@@ -70,10 +80,11 @@ class _RecipesYou extends State<RecipesYou> {
 
   @override
   Widget build(BuildContext context) {
+    for (var i = 0; i < recipes.length; i++) {
+      selected.add(false);
+    }
+
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Recipes For You'),
-      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView.builder(
@@ -91,7 +102,7 @@ class _RecipesYou extends State<RecipesYou> {
                                   .primaryColor)), // This will create top borders for the rest
                 ),
                 child: ListTile(
-                    title: Text(recipes[index]),
+                    title: Text(recipes[index].name),
                     trailing: Row(
                       mainAxisSize: MainAxisSize.min,
                       children: <Widget>[
@@ -112,8 +123,7 @@ class _RecipesYou extends State<RecipesYou> {
                     onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                              builder: (context) =>
-                                  const RecipesYou()), //change to recipe info
+                              builder: (context) => const RecipesYou()),
                         )));
           },
         ),
