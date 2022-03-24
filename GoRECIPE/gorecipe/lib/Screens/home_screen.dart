@@ -13,6 +13,8 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 
 import 'package:gorecipe/Screens/bottom_nav_bar.dart';
 
+import 'package:gorecipe/Screens/preferences.dart';
+
 //import 'package:gorecipe/Screens/welcome_screen.dart';
 
 //moethod doesnt return nothing
@@ -185,11 +187,17 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
                     //},
                   }),
-              const ListTile(
+              ListTile(
                 leading: Icon(Icons.set_meal),
                 title: Text('Set Food Preference'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Preferences()));
+                },
               ),
-              const ListTile(
+              ListTile(
                 leading: Icon(Icons.book),
                 title: Text('MyCookBook'),
               ),
@@ -245,70 +253,163 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                                 key: ObjectKey('welcome page'),
                                 title: 'welcome page')));
                   }),
-              ListTile(
-                  leading: const Icon(Icons.abc_rounded),
-                  title: const Text('Nav Check'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const BottomNav(
-                                  key: ObjectKey('welcome page'),
-                                )));
-                  }),
             ],
           ),
         ),
 
-        bottomNavigationBar: BottomNavigationBar(
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home),
-              label: 'HOME',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.search),
-              label: 'EXPLORE',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.camera),
-              label: 'SCAN',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.account_box_rounded),
-              label: 'ACCOUNT',
-              //              onPressed: () {
-              //   Navigator.push(
-              //     context,
-              //     MaterialPageRoute(builder: (context) => const Profile()),
-              //   );
-              // },
-            ),
-          ],
+        //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+        bottomNavigationBar: Row(
+          children: [
+            //HOME BUTTON
+            Material(
+                color: Color.fromARGB(255, 255, 255, 255),
 
-          ///curent index is the selcted index number
-          currentIndex: _selectedIndex,
-          //changes the color of the selected nav bar
-          selectedItemColor: const Color.fromARGB(255, 15, 136, 19),
-          //nav bar unslected item
-          unselectedItemColor: const Color.fromARGB(255, 0, 0, 0),
-          //color is changed on tap
-          onTap: _onItemTapped,
-        ),
-        body: const TabBarView(
-          children: <Widget>[
-            Center(
-              child: Text("Suggested Page/Home Page"),
-            ),
-            Center(
-              child: Text("Navigates to MyCookbok"),
-            ),
-            Center(
-              child: Text("NAvigates to Calendar Page "),
-            ),
-            Center(
-              child: Text("Explore page "),
-            ),
+                //ink well is a rectangluar area
+                child: InkWell(
+                  //calling on tap
+                  onTap: () {
+                    //print('called on tap');
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
+                  },
+
+                  child: const SizedBox(
+                    height: kToolbarHeight,
+                    width: 150,
+                    child: Center(
+                      child: ListTile(
+                        leading: Icon(Icons.home),
+                      ),
+                      // child: Text(
+                      //   'HOME',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
+                    ),
+                  ),
+                )),
+
+            //SEARCH BUTTON
+            Expanded(
+                child: Material(
+                    color: Color.fromARGB(255, 255, 255, 255),
+
+                    //ink well is a rectangluar area
+                    child: InkWell(
+                      //calling on tap
+                      onTap: () {
+                        //print('called on tap');
+
+                        //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen(
+                                      key: ObjectKey('welcome page'),
+                                    )));
+                      },
+
+                      child: const SizedBox(
+                        height: kToolbarHeight,
+                        width: 150,
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(Icons.search),
+                          ),
+                          // child: Text(
+                          //   'SEARCH',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                        ),
+                      ),
+                    ))),
+
+            //SCAN BUTTON
+
+            Expanded(
+                child: Material(
+                    color: Color.fromARGB(255, 255, 255, 255),
+
+                    //ink well is a rectangluar area
+                    child: InkWell(
+                      //calling on tap
+                      onTap: () {
+                        //print('called on tap');
+
+                        //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ScanHomeScreen(
+                                      key: ObjectKey('welcome page'),
+                                    )));
+                      },
+
+                      child: const SizedBox(
+                        height: kToolbarHeight,
+                        width: 150,
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(Icons.camera),
+                          ),
+                          // child: Text(
+                          //   'SCAN',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                        ),
+                      ),
+                    ))),
+
+            //ACCOUNT BUTTON
+            Expanded(
+                child: Material(
+                    color: Color.fromARGB(255, 255, 255, 255),
+
+                    //ink well is a rectangluar area
+                    child: InkWell(
+                      //calling on tap
+                      onTap: () {
+                        //print('called on tap');
+
+                        //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile(
+                                    key: ObjectKey('profile page'),
+                                    title: 'profile page')));
+                      },
+
+                      child: const SizedBox(
+                        height: kToolbarHeight,
+                        width: 150,
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(Icons.account_box_rounded),
+                          ),
+                          // child: Text(
+                          //   'ACCOUNT ',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                        ),
+                      ),
+                    )))
           ],
         ),
       ),
