@@ -1,12 +1,12 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
-import 'package:gorecipe/Screens/calendar_page.dart';
 import 'package:gorecipe/Screens/edit_account.dart';
-import 'package:gorecipe/Screens/home_screen.dart';
-import 'package:gorecipe/Screens/scan_home_page.dart';
-import 'package:gorecipe/Screens/welcome_screen.dart';
 import '../Models/User.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
+import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
 
 // View profile page
 
@@ -20,13 +20,13 @@ class Profile extends StatefulWidget {
 }
 
 class _Profile extends State<Profile> {
+  late User currentUser;
+  bool isDone = false;
   @override
   void initState() {
     super.initState();
     getUser(userId: 1);
   }
-
-  late User currentUser;
 
   Future getUser({required int userId}) async {
     final response = await http.get(
@@ -41,11 +41,15 @@ class _Profile extends State<Profile> {
 
     setState(() {
       currentUser = user;
+      isDone = true;
     });
   }
 
   @override
   Widget build(BuildContext context) {
+    if (isDone == false) {
+      return const CircularProgressIndicator();
+    }
     final firstName = Text(
       currentUser.firstName,
       textAlign: TextAlign.center,
@@ -99,6 +103,32 @@ class _Profile extends State<Profile> {
           ),
         ),
         backgroundColor: Colors.white,
+
+        /*actions: <Widget>[
+            IconButton(
+              icon: const Icon(Icons.menu),
+              iconSize: 50,
+              color: Colors.black,
+              tooltip: 'Go to the next page',
+              onPressed: () {
+                Navigator.push(context, MaterialPageRoute<void>(
+                  builder: (BuildContext context) {
+                    return Scaffold(
+                      appBar: AppBar(
+                        title: const Text('Next page'),
+                      ),
+                      body: const Center(
+                        child: Text(
+                          'This is the next page',
+                          style: TextStyle(fontSize: 24),
+                        ),
+                      ),
+                    );
+                  },
+                ));
+              },
+            ),
+          ],*/
       ),
       endDrawer: Drawer(
         child: ListView(
@@ -193,157 +223,158 @@ class _Profile extends State<Profile> {
           ],
         ),
       ),
-      body: Center(
-        child: ListView(
-          children: [
-            Container(
-              decoration: BoxDecoration(
-                image: DecorationImage(
-                  image: const AssetImage("assets/images/ingredients.png"),
-                  fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(
-                      Colors.black.withOpacity(.2), BlendMode.dstATop),
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
+            children: [
+              Container(
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: const AssetImage("assets/images/ingredients.png"),
+                    fit: BoxFit.cover,
+                    colorFilter: ColorFilter.mode(
+                        Colors.black.withOpacity(.2), BlendMode.dstATop),
+                  ),
                 ),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(32),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Container(
-                      width: 200,
-                      height: 200,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        image: DecorationImage(
-                            image: AssetImage("assets/images/default_pfp.png"),
-                            fit: BoxFit.fill),
+                child: Padding(
+                  padding: const EdgeInsets.all(32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Container(
+                        width: 200,
+                        height: 200,
+                        decoration: const BoxDecoration(
+                          shape: BoxShape.circle,
+                          image: DecorationImage(
+                              image:
+                                  AssetImage("assets/images/default_pfp.png"),
+                              fit: BoxFit.fill),
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 15.0),
-                    firstName,
-                    lastName,
-                    const SizedBox(height: 15.0),
-                    userName,
-                    email,
-                    birthday,
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const <Widget>[],
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.book,
-                        color: Colors.green,
+                      const SizedBox(height: 15.0),
+                      firstName,
+                      lastName,
+                      const SizedBox(height: 15.0),
+                      userName,
+                      email,
+                      birthday,
+                      const SizedBox(
+                        height: 25.0,
                       ),
-                      Text('    MyCookbook',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: const <Widget>[],
+                      ),
                     ],
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.book,
+                          color: Colors.green,
+                        ),
+                        Text('    MyCookbook',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.wysiwyg_rounded,
+                          color: Colors.green,
+                        ),
+                        Text('    Calendar',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {},
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.wifi_protected_setup,
+                          color: Colors.green,
+                        ),
+                        Text('    Update Food Preferences',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 60,
+                width: double.infinity,
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const CalendarPage()));
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.wysiwyg_rounded,
-                        color: Colors.green,
-                      ),
-                      Text('    Calendar',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
-                    ],
+                            builder: (context) => const EditAccount()),
+                      );
+                    },
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: const [
+                        Icon(
+                          Icons.app_settings_alt,
+                          color: Colors.green,
+                        ),
+                        Text('    Edit Profile',
+                            textDirection: TextDirection.ltr,
+                            textAlign: TextAlign.justify,
+                            textScaleFactor: 1.5,
+                            style: TextStyle(color: Colors.black)),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.wifi_protected_setup,
-                        color: Colors.green,
-                      ),
-                      Text('    Update Food Preferences',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            SizedBox(
-              height: 60,
-              width: double.infinity,
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const EditAccount()),
-                    );
-                  },
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: const [
-                      Icon(
-                        Icons.app_settings_alt,
-                        color: Colors.green,
-                      ),
-                      Text('    Edit Profile',
-                          textDirection: TextDirection.ltr,
-                          textAlign: TextAlign.justify,
-                          textScaleFactor: 1.5,
-                          style: TextStyle(color: Colors.black)),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
