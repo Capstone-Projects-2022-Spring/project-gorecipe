@@ -3,6 +3,7 @@ import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/scanlookup_ingredient.dart';
 
 void main() {
   runApp(const MyApp());
@@ -84,7 +85,7 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                 color: Colors.black, fontWeight: FontWeight.w500)),
       ),
     );
-    final ScanLookup = Material(
+    final ScanLookupB = Material(
         child: Stack(children: [
       InkWell(
         splashColor: Colors.green,
@@ -98,7 +99,7 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                 Navigator.push(
                   context,
                   //Change it to the scan lookup page
-                  MaterialPageRoute(builder: (context) => const HomeScreen()),
+                  MaterialPageRoute(builder: (context) => const ScanLookup()),
                 );
               },
             ),
@@ -197,7 +198,7 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Container(),
-                  ScanLookup,
+                  ScanLookupB,
                   const SizedBox(),
                 ],
               ),

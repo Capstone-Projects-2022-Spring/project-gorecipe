@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Screens/AddAnIngredient.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
 
@@ -92,7 +93,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
           Navigator.push(
             context,
             //CHANGE THIS TO THE NEXT SCAN PAGE
-            MaterialPageRoute(builder: (context) => const ScanScreen()),
+            MaterialPageRoute(builder: (context) => const AddAnIngredient()),
           );
         },
         child: Text("Start Scan",
