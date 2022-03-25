@@ -4,14 +4,11 @@ import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import '../Models/User.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert';
 import '../globals.dart' as globals;
 
 // View profile page
 
 class Profile extends StatefulWidget {
-  //const Profile({Key? key}) : super(key: key);
   const Profile({required Key key, required this.title})
       : super(key: key);
 
