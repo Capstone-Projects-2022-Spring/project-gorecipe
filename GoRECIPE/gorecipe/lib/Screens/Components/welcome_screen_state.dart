@@ -8,6 +8,8 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../../globals.dart' as globals;
+import '../../Models/User.dart';
 
 // ignore: camel_case_types
 class Welcome_Screen_State extends State<WelcomeScreen> {
@@ -19,6 +21,10 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
 
   bool login = false;
 
+  static const snackBar = SnackBar(
+    content: Text('Username and/or password incorrect. Try again, or create an account.'),
+  );
+
   Future auth({required String? username, required String? password}) async {
     final response = await http.post(
       Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/login?password=' + _password.toString() + '&username=' + _username.toString()),
@@ -29,12 +35,11 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
     );
 
     if(response.statusCode == 200){
+      globals.user = User.fromJson(jsonDecode(response.body));
       Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()),);
+    } else{
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
-
-    // currently 403 forbidden
-    // 200 -> okay, login = true
-    // 401 -> unauthorized, try again or create account
 
     /*final response = await http.get(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/login?password=' + _password! + '&username' + _username!),
