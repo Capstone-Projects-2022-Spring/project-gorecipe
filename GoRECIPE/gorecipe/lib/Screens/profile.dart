@@ -6,6 +6,7 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 import '../Models/User.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import '../globals.dart' as globals;
 
 // View profile page
 
@@ -22,15 +23,18 @@ class Profile extends StatefulWidget {
 
 class _Profile extends State<Profile> {
 
+  late User currentUser;
+
   @override
   void initState() {
     super.initState();
-    getUser(userId: 1);
+    currentUser = globals.user;
+    //getUser(userId: 1);
   }
 
-  late User currentUser;
+  //late User currentUser;
 
-  Future getUser({required int userId}) async {
+  /*Future getUser({required int userId}) async {
     final response = await http.get(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
             userId.toString()),
@@ -44,7 +48,7 @@ class _Profile extends State<Profile> {
     setState(() {
       currentUser = user;
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context){
