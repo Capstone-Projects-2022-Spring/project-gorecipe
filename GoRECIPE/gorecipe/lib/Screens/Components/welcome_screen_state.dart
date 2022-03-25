@@ -28,7 +28,9 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
       },
     );
 
-    print(response.statusCode);
+    if(response.statusCode == 200){
+      Navigator.push(context, MaterialPageRoute(builder: (context) => const HomeScreen()),);
+    }
 
     // currently 403 forbidden
     // 200 -> okay, login = true
