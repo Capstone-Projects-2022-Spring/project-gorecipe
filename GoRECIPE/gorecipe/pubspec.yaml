@@ -78,6 +78,7 @@ flutter:
     - assets/images/scan.png
     - assets/images/ingredients.jpeg
     - assets/images/welcome_page1.png
+    - assets/images/yes_no_page.PNG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.
