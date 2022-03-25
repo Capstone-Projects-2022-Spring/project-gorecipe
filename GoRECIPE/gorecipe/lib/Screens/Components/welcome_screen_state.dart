@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
-import 'package:gorecipe/Screens/scan_screen.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import '../../globals.dart' as globals;
@@ -83,11 +82,6 @@ class Welcome_Screen_State extends State<WelcomeScreen> {
           final form = _formKey.currentState;
           form!.save();
           auth(username: _username, password: _password);
-
-          // Validate will return true if is valid, or false if invalid.
-          if (form.validate()) {
-            print("$_username $_password");
-          };
         },
         child: Text("Sign in",
             textAlign: TextAlign.center,
