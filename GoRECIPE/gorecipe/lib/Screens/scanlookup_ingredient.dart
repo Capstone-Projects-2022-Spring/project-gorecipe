@@ -27,7 +27,7 @@ class _ScanLookup extends State<ScanLookup> {
     );
 
     final scanButton = IconButton(
-      icon: Image.asset('images/scanbutton.png'),
+      icon: Image.asset("assets/images/scanbutton.PNG"),
       iconSize: 200,
       onPressed: () {
         Navigator.push(
@@ -47,7 +47,7 @@ class _ScanLookup extends State<ScanLookup> {
     );
 
     final lookupButton = IconButton(
-      icon: Image.asset('images/lookupbutton.png'),
+      icon: Image.asset("assets/images/lookupbutton.PNG"),
       iconSize: 200,
       onPressed: () {
         Navigator.push(
