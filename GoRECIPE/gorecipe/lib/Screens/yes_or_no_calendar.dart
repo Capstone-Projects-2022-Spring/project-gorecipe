@@ -3,7 +3,6 @@ import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/profile.dart';
-import 'package:gorecipe/Screens/scanlookup_ingredient.dart';
 
 void main() {
   runApp(const MyApp());
@@ -18,18 +17,18 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
-      home: AddAnIngredient(),
+      home: yes_or_no_calendar(),
     );
   }
 }
 
-class AddAnIngredient extends StatefulWidget {
-  const AddAnIngredient({Key? key}) : super(key: key);
+class yes_or_no_calendar extends StatefulWidget {
+  const yes_or_no_calendar({Key? key}) : super(key: key);
   @override
-  State<AddAnIngredient> createState() => _MyStatefulWidgetState();
+  State<yes_or_no_calendar> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<AddAnIngredient> {
+class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle = TextStyle(
@@ -65,10 +64,10 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
 
   @override
   Widget build(BuildContext context) {
-    final Next = Material(
+    final NO = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 82, 146, 26),
+      color: Color.fromARGB(255, 162, 218, 160),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -79,39 +78,37 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
             MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         },
-        child: Text("Next",
+        child: Text("NO",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.black, fontWeight: FontWeight.w500)),
       ),
     );
-    final ScanLookupB = Material(
-        child: Stack(children: [
-      InkWell(
-        splashColor: Colors.green,
-        onTap: () {},
-        child: Column(
-          children: [
-            IconButton(
-              icon: Image.asset("assets/images/AddAnIngredientButton.PNG"),
-              iconSize: 450,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  //Change it to the scan lookup page
-                  MaterialPageRoute(builder: (context) => const ScanLookup()),
-                );
-              },
-            ),
-          ],
-        ),
+    final YES = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: Color.fromARGB(255, 162, 218, 160),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width,
+        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+        onPressed: () {
+          Navigator.push(
+            context,
+            //Until creating the recipe page
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
+          );
+        },
+        child: Text("YES",
+            textAlign: TextAlign.center,
+            style: style.copyWith(
+                color: Colors.black, fontWeight: FontWeight.w500)),
       ),
-    ]));
+    );
 
     return Scaffold(
         appBar: AppBar(
           title: const Text(
-            'SCAN',
+            'CALENDAR',
             style: TextStyle(color: Colors.green),
           ),
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
@@ -178,39 +175,94 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
           child: Stack(children: [
             Positioned(
                 top: 50.0,
+                left: 10.0,
                 child: Column(children: const <Widget>[
                   Text(
-                    "ADD AN INGREDIENT",
+                    "ADD AN RECIPE",
                     textAlign: TextAlign.left,
                     textScaleFactor: 2.0,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15.0,
+                      fontWeight: FontWeight.w700,
                       fontFamily: "Consola",
                     ),
                   ),
                 ])),
             Positioned(
-              left: 5,
-              bottom: 130,
+                top: 120.0,
+                left: 10.0,
+                right: 10.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "DO YOU WANT TO ADD\n   INGREDIENT NAME?",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 152, 206, 150),
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w700,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+              left: 20,
+              right: 20,
+              bottom: 250,
               child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Container(),
-                  ScanLookupB,
-                  const SizedBox(),
+                  ClipRRect(
+                    borderRadius: BorderRadius.circular(20.0),
+                    child: const Image(
+                      image: AssetImage("assets/images/yes_no_page.PNG"),
+                    ),
+                  ),
+                  Positioned(
+                    bottom: 30,
+                    left: 20,
+                    right: 20,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Color.fromARGB(255, 162, 218, 160),
+                      ),
+                      width: 400,
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        'Recipe Name',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  )
                 ],
               ),
             ),
+            Positioned(
+                bottom: 150.0,
+                right: 90.0,
+                left: 90.0,
+                child: Column(
+                  children: <Widget>[
+                    //Declaring sizes of field boxes
+                    YES,
+                    const SizedBox(
+                      height: 3.0,
+                    ),
+                  ],
+                )),
             Positioned(
                 bottom: 50.0,
                 right: 90.0,
                 left: 90.0,
                 child: Column(
                   children: <Widget>[
-                    //Declaring sizes of field boxes
-                    Next,
+                    //Declaring sizes
+                    NO,
                     const SizedBox(
                       height: 3.0,
                     ),
@@ -220,5 +272,3 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
         ));
   }
 }
-//The second scan page
-

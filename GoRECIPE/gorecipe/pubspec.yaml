@@ -30,6 +30,7 @@ dependencies:
   flutter:
     sdk: flutter
   intl: ^0.17.0
+  material_floating_search_bar: ^0.3.7
   syncfusion_flutter_calendar: ^19.4.56
   table_calendar: ^3.0.4
   camera: ^0.9.4
@@ -78,7 +79,9 @@ flutter:
     - assets/images/AddAnIngredientButton.PNG
     - assets/images/scan.png
     - assets/images/ingredients.jpeg
-    
+     - assets/images/yes_no_page.PNG
+    - assets/images/scanbutton.PNG
+    - assets/images/lookupbutton.PNG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

@@ -37,10 +37,10 @@ class ScanScreenState extends State<ScanScreen> {
       // initialize camera controllers.
       _controller = CameraController(cameras[0], ResolutionPreset.medium);
       _initializeControllerFuture = _controller.initialize();
-    } on CameraException catch (_) {
+    } on CameraException catch (e) {
       // god help us
       // ignore: avoid_print
-      print('god help us');
+      print('Camera Exception:' + e.toString());
     }
     if (!mounted) return;
     setState(() {
