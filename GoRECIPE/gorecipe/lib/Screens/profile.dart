@@ -7,6 +7,7 @@ import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
+import '../../globals.dart' as globals;
 
 // View profile page
 
@@ -21,14 +22,15 @@ class Profile extends StatefulWidget {
 
 class _Profile extends State<Profile> {
   late User currentUser;
-  bool isDone = false;
+  //bool isDone = false;
   @override
   void initState() {
     super.initState();
-    getUser(userId: 1);
+    currentUser = globals.user;
+    //getUser(userId: 1);
   }
 
-  Future getUser({required int userId}) async {
+  /*Future getUser({required int userId}) async {
     final response = await http.get(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
             userId.toString()),
@@ -43,13 +45,13 @@ class _Profile extends State<Profile> {
       currentUser = user;
       isDone = true;
     });
-  }
+  }*/
 
   @override
   Widget build(BuildContext context) {
-    if (isDone == false) {
+    /*if (isDone == false) {
       return const CircularProgressIndicator();
-    }
+    }*/
     final firstName = Text(
       currentUser.firstName,
       textAlign: TextAlign.center,
