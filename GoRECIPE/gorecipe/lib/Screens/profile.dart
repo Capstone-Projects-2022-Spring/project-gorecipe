@@ -1,7 +1,9 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/edit_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import '../Models/User.dart';
 import '../globals.dart' as globals;
