@@ -108,7 +108,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           //name of the app we are creating
           title: const Text(
             'GoRecipe',
-            style: TextStyle(color: Colors.green),
+            style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
 
             //style: GoogleFonts.Lato(
             //textStyle: style,
@@ -120,7 +120,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           ),
 
           bottom: const TabBar(
-            indicatorColor: Colors.green,
+            indicatorColor: Color.fromARGB(255, 116, 163, 126),
             tabs: <Widget>[
               Tab(
                 child: Text(
@@ -150,7 +150,8 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           ),
 
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-          iconTheme: const IconThemeData(color: Colors.green),
+          iconTheme:
+              const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
         ),
 
         endDrawer: Drawer(
@@ -159,7 +160,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
             children: <Widget>[
               const DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 116, 163, 126),
                 ),
                 child: Text(
                   'GoRecipe',
