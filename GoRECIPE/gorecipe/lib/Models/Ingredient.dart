@@ -23,7 +23,7 @@ class Ingredient {
   }
 
   static List verboseIngToList(String jsonData) {
-    print("JASON'S DATA" + jsonData);
+    //print("JASON'S DATA" + jsonData);
     List ingredients = (jsonDecode(jsonData) as List);
 
     return ingredients;
