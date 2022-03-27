@@ -12,7 +12,9 @@ import 'dart:convert';
 //linked to the finish scan button on scan page
 
 class RecipesYou extends StatefulWidget {
-  const RecipesYou({Key? key}) : super(key: key);
+  const RecipesYou({Key? key, required this.ingredientList}) : super(key: key);
+
+  final List<dynamic> ingredientList;
 
   @override
   State<RecipesYou> createState() => _RecipesYou();
@@ -27,17 +29,17 @@ class _RecipesYou extends State<RecipesYou> {
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
-
   Future getRecipesBySearch() async {
     var response = await http.get(
       Uri.parse(
-          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?query=garlic'),
+          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?query=' +
+              widget.ingredientList[0].toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Access-Control-Allow-Origin': '*'
       },
     );
-    // print(response.body);
+    print(response.body);
     if (response.statusCode == 200) {
       List temp = (json.decode(response.body) as List)
           .map((i) => Recipe.fromJson(i))

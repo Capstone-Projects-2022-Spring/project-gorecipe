@@ -5,6 +5,8 @@ import 'dart:typed_data';
 
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Models/Ingredient.dart';
+import 'package:gorecipe/Screens/recipes_for_you.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
@@ -20,7 +22,9 @@ class DisplayPictureScreen extends StatefulWidget {
 
 class DisplayScreenState extends State<DisplayPictureScreen> {
   var _foundIngredient = false;
-  var _ingredient = "";
+  String _ingredient = "";
+  List ingredients = <String>[];
+
   @override
   void dispose() {
     super.dispose();
@@ -50,14 +54,16 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
 
       var response = await request.send();
       var newResponse = await http.Response.fromStream(response);
-      var jason = jsonDecode(newResponse.body);
+      var json = jsonDecode(newResponse.body);
       // ignore: avoid_print
 
       _foundIngredient = true;
 
-      print(jason);
+      //print(json);
       setState(() {
-        _ingredient = jason[0]['name'];
+        ingredients = Ingredient.ingToList(newResponse.body);
+        print(ingredients);
+        _ingredient = ingredients[0];
       });
 
       //print(jason[0]['name']);
@@ -106,10 +112,36 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         minWidth: MediaQuery.of(context).size.width / 4,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
+          if (ingredients.isEmpty) {
+            ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text("Upload Image First")));
+          } else {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) =>
+                      RecipesYou(ingredientList: ingredients)),
+            );
+          }
+        },
+        child: Text("Next",
+            textAlign: TextAlign.center,
+            style: widget.style
+                .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
+      ),
+    );
+    final _uploadbutton = Material(
+      elevation: 5.0,
+      borderRadius: BorderRadius.circular(30.0),
+      color: const Color.fromARGB(255, 116, 163, 126),
+      child: MaterialButton(
+        minWidth: MediaQuery.of(context).size.width / 4,
+        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
+        onPressed: () {
           upload(File(widget.imagePath));
           //getData();
         },
-        child: Text("Next",
+        child: Text("Upload",
             textAlign: TextAlign.center,
             style: widget.style
                 .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
@@ -124,7 +156,13 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         children: [
           Image.file(File(widget.imagePath)),
           const SizedBox(height: 40),
-          _nextbutton,
+          Row(
+            children: [
+              _nextbutton,
+              const SizedBox(width: 10),
+              _uploadbutton,
+            ],
+          ),
           const SizedBox(height: 40),
           Text(_ingredient,
               textAlign: TextAlign.center,
