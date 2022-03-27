@@ -95,7 +95,10 @@ class _ScanLookup extends State<ScanLookup> {
                 Navigator.push(
                   context,
                   //Change it to the scan lookup page
-                  MaterialPageRoute(builder: (context) => const ScanLookup()),
+                  MaterialPageRoute(
+                      builder: (context) => const WantToAdd(
+                          key: ObjectKey(ScanLookup()),
+                          title: "Add Ingredient")),
                 );
               },
             ),
