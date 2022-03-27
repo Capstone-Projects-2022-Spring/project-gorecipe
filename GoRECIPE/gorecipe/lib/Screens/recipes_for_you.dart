@@ -28,7 +28,7 @@ class _RecipesYou extends State<RecipesYou> {
 
   List recipes = <Recipe>[];
 
-  Future getRecipesAll() async {
+  Future getRecipesBySearch() async {
     var response = await http.get(
       Uri.parse(
           'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?query=garlic'),
@@ -52,67 +52,7 @@ class _RecipesYou extends State<RecipesYou> {
 
   @override
   initState() {
-    // List recipeList = [
-    //   {
-    //     'content': "60 minutes",
-    //     'ingredients': [
-    //       {'name': 'pepper'},
-    //       {'name': 'sugar'},
-    //       {'name': 'salt'},
-    //       {'name': 'red pepper'},
-    //     ],
-    //     'name': "Apple Pie",
-    //     'videoURL': "https://picsum.photos/200",
-    //     'sourceURL': "https://picsum.photos/20",
-    //     'spoonacularId': 0,
-    //     'prepTime': 30,
-    //   },
-    //   {
-    //     'content': "60 minutes",
-    //     'ingredients': [
-    //       {'name': 'pepper'},
-    //       {'name': 'sugar'},
-    //       {'name': 'salt'},
-    //       {'name': 'red pepper'},
-    //     ],
-    //     'name': "Steak and Eggs",
-    //     'videoURL': "https://picsum.photos/201",
-    //     'sourceURL': "https://picsum.photos/20",
-    //     'spoonacularId': 1,
-    //     'prepTime': 15,
-    //   },
-    //   {
-    //     'content': "60 minutes",
-    //     'ingredients': [
-    //       {'name': 'pepper'},
-    //       {'name': 'sugar'},
-    //     ],
-    //     'name': "CheeseBurger",
-    //     'videoURL': "https://picsum.photos/199",
-    //     'sourceURL': "https://picsum.photos/20",
-    //     'spoonacularId': 2,
-    //     'prepTime': 15,
-    //   },
-    //   {
-    //     'content': "60 minutes",
-    //     'ingredients': [
-    //       {'name': 'pepper'},
-    //       {'name': 'sugar'},
-    //       {'name': 'salt'},
-    //       {'name': 'red pepper'},
-    //     ],
-    //     'name': "Shirley Temple",
-    //     'videoURL': "https://picsum.photos/198",
-    //     'sourceURL': "https://picsum.photos/20",
-    //     'spoonacularId': 3,
-    //     'prepTime': 50,
-    //   }
-    // ];
-
-    // String recipeJson = jsonEncode(recipeList);
-    // recipes = Recipe.ingToList(recipeJson);
-    getRecipesAll();
-    //print(recipes);
+    getRecipesBySearch();
     super.initState();
   }
 
