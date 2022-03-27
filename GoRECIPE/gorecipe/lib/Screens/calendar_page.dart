@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:gorecipe/Screens/Dropdown.dart';
 import 'package:gorecipe/Screens/event_editing.dart';
+import 'package:gorecipe/Screens/preferences.dart';
 import 'package:intl/intl.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
@@ -15,6 +16,7 @@ class CalendarPage extends StatefulWidget {
   // that it has a State object (defined below) that contains fields that affect
   // how it looks.
 
+  //DateTime? time;
   // This class is the configuration for the state. It holds the values (in this
   // case the title) provided by the parent (in this case the App widget) and
   // used by the build method of the State. Fields in a Widget subclass are
@@ -26,15 +28,37 @@ class CalendarPage extends StatefulWidget {
 }
 
 class _CalendarPage extends State<CalendarPage> {
+  DateTime? time;
   late final Event event;
+  //EventEditingPage page = const EventEditingPage();
   TextStyle style = const TextStyle(
       fontFamily: 'Montserrat', fontSize: 20.0, fontWeight: FontWeight.bold);
   final startTimeController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        //test is widgte that takes a string as an arug- and extracted in the first arg
+        //name of the app we are creating
+        title: const Text(
+          'Calendar',
+          style: TextStyle(color: Colors.green),
+
+          //style: GoogleFonts.Lato(
+          //textStyle: style,
+          //),
+          //),
+          //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
+          //style: GoogleFonts.lato(textStyle: PageTitle),
+          //style: GoogleFonts.lato(textStyle: PageTitle),
+        ),
+
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        iconTheme: const IconThemeData(color: Colors.green),
+      ),
       //  endDrawer: const MyDrawer(ObjectKey('title')),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerTop,
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      //FloatingActionButtonLocation.centerTop,
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add, color: Colors.white),
           backgroundColor: Colors.red,
@@ -44,8 +68,8 @@ class _CalendarPage extends State<CalendarPage> {
               )),
       // ignore: avoid_unnecessary_containers
       body: Container(
-        decoration: BoxDecoration(color: Colors.lightGreen[100]),
-        padding: const EdgeInsets.only(top: 50),
+        // decoration: BoxDecoration(color: Colors.lightGreen[100]),
+        // padding: const EdgeInsets.only(top: 50),
         child: SfCalendar(
           view: CalendarView.month,
           allowedViews: const [
@@ -58,7 +82,7 @@ class _CalendarPage extends State<CalendarPage> {
           todayHighlightColor: Colors.red,
           dataSource: MeetingDataSource(_getDataSource()),
           //trying to figure out how to save events using this
-          // dataSource: EventDataSource(_getDataSource()),
+          // dataSource: page.getDataSource(),
           monthViewSettings: const MonthViewSettings(
               appointmentDisplayMode: MonthAppointmentDisplayMode.appointment),
         ),
@@ -92,18 +116,32 @@ class _CalendarPage extends State<CalendarPage> {
                                 key: ObjectKey('welcome page'),
                               )));
                 }),
-            const ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
-            ),
+            ListTile(
+                leading: const Icon(Icons.set_meal),
+                title: const Text('Set Food Preference'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Preferences(
+                                key: ObjectKey('welcome page'),
+                              )));
+                }),
             const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
-            const ListTile(
-              leading: Icon(Icons.calendar_today_outlined),
-              title: Text('Calendar'),
-            ),
+            ListTile(
+                leading: const Icon(Icons.calendar_today_outlined),
+                title: const Text('Calendar'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CalendarPage(
+                                key: ObjectKey('welcome page'),
+                              )));
+                }),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
@@ -149,6 +187,162 @@ class _CalendarPage extends State<CalendarPage> {
           ],
         ),
       ),
+
+      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+      bottomNavigationBar: Row(
+        children: [
+          //HOME BUTTON
+          Material(
+              color: const Color.fromARGB(255, 255, 255, 255),
+
+              //ink well is a rectangluar area
+              child: InkWell(
+                //calling on tap
+                onTap: () {
+                  //print('called on tap');
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen(
+                                key: ObjectKey('welcome page'),
+                              )));
+                },
+
+                child: const SizedBox(
+                  height: kToolbarHeight,
+                  width: 150,
+                  child: Center(
+                    child: ListTile(
+                      leading: Icon(Icons.home),
+                    ),
+                    // child: Text(
+                    //   'HOME',
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                  ),
+                ),
+              )),
+
+          //SEARCH BUTTON
+          Expanded(
+              child: Material(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+
+                  //ink well is a rectangluar area
+                  child: InkWell(
+                    //calling on tap
+                    onTap: () {
+                      //print('called on tap');
+
+                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen(
+                                    key: ObjectKey('welcome page'),
+                                  )));
+                    },
+
+                    child: const SizedBox(
+                      height: kToolbarHeight,
+                      width: 150,
+                      child: Center(
+                        child: ListTile(
+                          leading: Icon(Icons.search),
+                        ),
+                        // child: Text(
+                        //   'SEARCH',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                  ))),
+
+          //SCAN BUTTON
+
+          Expanded(
+              child: Material(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+
+                  //ink well is a rectangluar area
+                  child: InkWell(
+                    //calling on tap
+                    onTap: () {
+                      //print('called on tap');
+
+                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ScanHomeScreen(
+                                    key: ObjectKey('welcome page'),
+                                  )));
+                    },
+
+                    child: const SizedBox(
+                      height: kToolbarHeight,
+                      width: 150,
+                      child: Center(
+                        child: ListTile(
+                          leading: Icon(Icons.camera),
+                        ),
+                        // child: Text(
+                        //   'SCAN',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                  ))),
+
+          //ACCOUNT BUTTON
+          Expanded(
+              child: Material(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+
+                  //ink well is a rectangluar area
+                  child: InkWell(
+                    //calling on tap
+                    onTap: () {
+                      //print('called on tap');
+
+                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Profile(
+                                  key: ObjectKey('profile page'),
+                                  title: 'profile page')));
+                    },
+
+                    child: const SizedBox(
+                      height: kToolbarHeight,
+                      width: 150,
+                      child: Center(
+                        child: ListTile(
+                          leading: Icon(Icons.account_box_rounded),
+                        ),
+                        // child: Text(
+                        //   'ACCOUNT ',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                  )))
+        ],
+      ),
     );
   }
 
@@ -168,6 +362,15 @@ class _CalendarPage extends State<CalendarPage> {
   }
 }
 
+EventEditingPage page = const EventEditingPage();
+
+List<Meeting> getDataSource() {
+  final List<Meeting> meetings = <Meeting>[];
+
+  //final DateTime date = page.;
+  return meetings;
+}
+
 //trying to figure out how to use this and the method to save events
 String recipe = '';
 DateTime from = 0 as DateTime;
@@ -183,6 +386,8 @@ void addToCal(
 }
 
 class MeetingDataSource extends CalendarDataSource {
+  DateTime? time;
+
   MeetingDataSource(List<Meeting> source) {
     //this.source = source;
     appointments = source;
