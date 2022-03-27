@@ -254,6 +254,161 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
           ],
         ),
       ),
+      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+      bottomNavigationBar: Row(
+        children: [
+          //HOME BUTTON
+          Material(
+              color: const Color.fromARGB(255, 255, 255, 255),
+
+              //ink well is a rectangluar area
+              child: InkWell(
+                //calling on tap
+                onTap: () {
+                  //print('called on tap');
+
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen(
+                                key: ObjectKey('welcome page'),
+                              )));
+                },
+
+                child: const SizedBox(
+                  height: kToolbarHeight,
+                  width: 150,
+                  child: Center(
+                    child: ListTile(
+                      leading: Icon(Icons.home),
+                    ),
+                    // child: Text(
+                    //   'HOME',
+                    //   textAlign: TextAlign.center,
+                    //   style: TextStyle(
+                    //     fontWeight: FontWeight.bold,
+                    //   ),
+                    // ),
+                  ),
+                ),
+              )),
+
+          //SEARCH BUTTON
+          Expanded(
+              child: Material(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+
+                  //ink well is a rectangluar area
+                  child: InkWell(
+                    //calling on tap
+                    onTap: () {
+                      //print('called on tap');
+
+                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen(
+                                    key: ObjectKey('welcome page'),
+                                  )));
+                    },
+
+                    child: const SizedBox(
+                      height: kToolbarHeight,
+                      width: 150,
+                      child: Center(
+                        child: ListTile(
+                          leading: Icon(Icons.search),
+                        ),
+                        // child: Text(
+                        //   'SEARCH',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                  ))),
+
+          //SCAN BUTTON
+
+          Expanded(
+              child: Material(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+
+                  //ink well is a rectangluar area
+                  child: InkWell(
+                    //calling on tap
+                    onTap: () {
+                      //print('called on tap');
+
+                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const ScanHomeScreen(
+                                    key: ObjectKey('welcome page'),
+                                  )));
+                    },
+
+                    child: const SizedBox(
+                      height: kToolbarHeight,
+                      width: 150,
+                      child: Center(
+                        child: ListTile(
+                          leading: Icon(Icons.camera),
+                        ),
+                        // child: Text(
+                        //   'SCAN',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                  ))),
+
+          //ACCOUNT BUTTON
+          Expanded(
+              child: Material(
+                  color: const Color.fromARGB(255, 255, 255, 255),
+
+                  //ink well is a rectangluar area
+                  child: InkWell(
+                    //calling on tap
+                    onTap: () {
+                      //print('called on tap');
+
+                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const Profile(
+                                  key: ObjectKey('profile page'),
+                                  title: 'profile page')));
+                    },
+
+                    child: const SizedBox(
+                      height: kToolbarHeight,
+                      width: 150,
+                      child: Center(
+                        child: ListTile(
+                          leading: Icon(Icons.account_box_rounded),
+                        ),
+                        // child: Text(
+                        //   'ACCOUNT ',
+                        //   textAlign: TextAlign.center,
+                        //   style: TextStyle(
+                        //     fontWeight: FontWeight.bold,
+                        //   ),
+                        // ),
+                      ),
+                    ),
+                  )))
+        ],
+      ),
     );
   }
 }
