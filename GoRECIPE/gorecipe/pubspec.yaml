@@ -79,7 +79,7 @@ flutter:
     - assets/images/AddAnIngredientButton.PNG
     - assets/images/scan.png
     - assets/images/ingredients.jpeg
-     - assets/images/yes_no_page.PNG
+    - assets/images/yes_no_page.PNG
     - assets/images/scanbutton.PNG
     - assets/images/lookupbutton.PNG
 

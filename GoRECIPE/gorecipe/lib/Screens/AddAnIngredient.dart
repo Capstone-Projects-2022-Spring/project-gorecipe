@@ -82,7 +82,9 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
         child: Text("Next",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.black, fontWeight: FontWeight.w500)),
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                fontSize: 20)),
       ),
     );
     final ScanLookupB = Material(
@@ -112,15 +114,29 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
         appBar: AppBar(
           title: const Text(
             'SCAN',
-            style: TextStyle(color: Colors.green),
+            style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
           ),
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          iconTheme: IconThemeData(color: Colors.green),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          iconTheme:
+              const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
         ),
         endDrawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 116, 163, 126),
+                ),
+                child: Text(
+                  'GoRecipe',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
+              // ignore: prefer_const_constructors
               ListTile(
                 leading: const Icon(Icons.home),
                 title: const Text('Home'),
@@ -178,6 +194,7 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
           child: Stack(children: [
             Positioned(
                 top: 50.0,
+                left: 20.0,
                 child: Column(children: const <Widget>[
                   Text(
                     "ADD AN INGREDIENT",
@@ -205,8 +222,8 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
             ),
             Positioned(
                 bottom: 50.0,
-                right: 90.0,
-                left: 90.0,
+                right: 140.0,
+                left: 140.0,
                 child: Column(
                   children: <Widget>[
                     //Declaring sizes of field boxes
