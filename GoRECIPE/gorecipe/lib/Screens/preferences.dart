@@ -113,7 +113,7 @@ class _MyStatefulWidgetState extends State<Preferences> {
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Color.fromARGB(255, 116, 163, 126),
               ),
               child: Text(
                 'GoRecipe',
@@ -143,11 +143,17 @@ class _MyStatefulWidgetState extends State<Preferences> {
 
                   //},
                 }),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.set_meal),
               title: Text('Set Food Preference'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Preferences()));
+              },
             ),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
