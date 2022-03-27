@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:gorecipe/Screens/create_account.dart';
-import 'package:gorecipe/Screens/home_screen.dart';
-import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/calendar_page.dart';
+// ignore: unused_import
+
+// import 'package:gorecipe/Screens/forgot_password.dart';
+//import 'package:gorecipe/Screens/forgot_password.dart';
+//import 'package:gorecipe/Screens/forgot_password.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/scan_home_page.dart';
+// ignore: unused_import
+import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+//import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+// ignore: unused_import
+import 'package:gorecipe/Screens/welcome_screen.dart';
+
+import 'package:gorecipe/Screens/bottom_nav_bar.dart';
+
+import 'package:gorecipe/Screens/preferences.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/scanlookup_ingredient.dart';
 
+//import 'package:gorecipe/Screens/welcome_screen.dart';
 void main() {
   runApp(const MyApp());
 }
@@ -136,22 +151,49 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                   ),
                 ),
               ),
-              // ignore: prefer_const_constructors
               ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-              ),
-              const ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
+
+                    //idk why this isnt working
+                    //   navigation im confused everything is giving me an error
+                    // onTap: () => HomeScreen(),
+
+                    //   onTap: () {
+                    //   Navigator.pop(context);
+
+                    //},
+                  }),
+              ListTile(
                 leading: Icon(Icons.set_meal),
                 title: Text('Set Food Preference'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Preferences()));
+                },
               ),
-              const ListTile(
+              ListTile(
                 leading: Icon(Icons.book),
                 title: Text('MyCookBook'),
               ),
-              const ListTile(
-                leading: Icon(Icons.calendar_today_outlined),
-                title: Text('Calendar'),
+              ListTile(
+                leading: const Icon(Icons.calendar_today_outlined),
+                title: const Text('Calendar'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CalendarPage()));
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.settings),
@@ -165,17 +207,25 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                               title: 'profile page')));
                 },
               ),
+              const ListTile(
+                leading: Icon(Icons.help_center),
+                title: Text('Help'),
+              ),
+              // putting the scan oon the dropdown menu for now
+
               ListTile(
-                  leading: Icon(Icons.help_center),
-                  title: Text('Help'),
+                  leading: const Icon(Icons.camera),
+                  title: const Text('Scan'),
                   onTap: () {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: (context) => const WelcomeScreen(
-                                key: ObjectKey('welcome page'),
-                                title: 'welcome page')));
+                            builder: (context) => const ScanHomeScreen(
+                                  key: ObjectKey(
+                                      'want to add this an ingredient?'),
+                                )));
                   }),
+
               ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Log Out'),
