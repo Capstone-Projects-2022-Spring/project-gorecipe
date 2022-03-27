@@ -22,6 +22,13 @@ class Ingredient {
     return ingredients;
   }
 
+  static List verboseIngToList(String jsonData) {
+    print("JASON'S DATA" + jsonData);
+    List ingredients = (jsonDecode(jsonData) as List);
+
+    return ingredients;
+  }
+
   @override
   String toString() {
     return 'Ingredient{name: $name}';

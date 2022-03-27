@@ -8,6 +8,7 @@ class Recipe {
   final String name;
   final int prepTime;
   final String sourceURL;
+  final String imageURL;
   final int spoonacularId;
   final String videoURL;
 
@@ -17,20 +18,23 @@ class Recipe {
     required this.name,
     required this.prepTime,
     required this.sourceURL,
+    required this.imageURL,
     required this.spoonacularId,
     required this.videoURL,
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
-    List ingList = Ingredient.ingToList(jsonEncode(json['ingredients']));
+    List ingList =
+        Ingredient.verboseIngToList(jsonEncode(json['verboseIngredients']));
     return Recipe(
-      content: json['content'],
+      content: json['instructions'],
       ingredients: ingList,
       name: json['name'],
       prepTime: json['prepTime'],
       sourceURL: json['sourceURL'],
       spoonacularId: json['spoonacularId'],
-      videoURL: json['videoURL'],
+      imageURL: json['imageURL'],
+      videoURL: '',
     );
   }
 
