@@ -1,5 +1,9 @@
+// ignore_for_file: unused_import
+
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/AddAnIngredient.dart';
+import 'package:gorecipe/Screens/calendar_page.dart';
+import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
 
@@ -164,18 +168,32 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
 
                   // },
                 }),
-            const ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
-            ),
+            ListTile(
+                leading: const Icon(Icons.set_meal),
+                title: const Text('Set Food Preference'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Preferences(
+                                key: ObjectKey('preferences'),
+                              )));
+                }),
             const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
-            const ListTile(
-              leading: Icon(Icons.calendar_today_outlined),
-              title: Text('Calendar'),
-            ),
+            ListTile(
+                leading: const Icon(Icons.calendar_today_outlined),
+                title: const Text('Calendar'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CalendarPage(
+                                key: ObjectKey('calendar page'),
+                              )));
+                }),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
