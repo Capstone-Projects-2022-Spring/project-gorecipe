@@ -1,4 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import '../Models/User.dart';
+
+import 'package:http/http.dart' as http;
 
 //linked to the edit account button on profile page
 
@@ -25,7 +30,36 @@ class _EditAccount extends State<EditAccount> {
   );
 
   @override
+  void initState() {
+    super.initState();
+    getUser(userId: 1);
+  }
+
+  late User currentUser;
+  bool isDone = false;
+
+  Future getUser({required int userId}) async {
+    final response = await http.get(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            userId.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+
+    User user = User.fromJson(jsonDecode(response.body));
+
+    setState(() {
+      currentUser = user;
+      isDone = true;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
+    if (isDone == false) {
+      return const CircularProgressIndicator();
+    }
     final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
@@ -37,7 +71,7 @@ class _EditAccount extends State<EditAccount> {
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Name",
+          hintText: currentUser.firstName + " " + currentUser.lastName,
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
@@ -47,7 +81,7 @@ class _EditAccount extends State<EditAccount> {
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Username",
+          hintText: currentUser.username,
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
@@ -80,32 +114,34 @@ class _EditAccount extends State<EditAccount> {
     );
 
     return Scaffold(
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32),
-          child: Padding(
-            padding: const EdgeInsets.all(36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //Declaring sizes of field boxes
-                const SizedBox(height: 20.0),
-                profileButton,
-                const SizedBox(height: 75.0),
-                nameField,
-                const SizedBox(height: 25.0),
-                usernameField,
-                const SizedBox(height: 25.0),
-                locationField,
-                const SizedBox(
-                  height: 35.0,
-                ),
-                editButton,
-                const SizedBox(
-                  height: 15.0,
-                ),
-              ],
+      body: SingleChildScrollView(
+        child: Center(
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(32),
+            child: Padding(
+              padding: const EdgeInsets.all(36.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  //Declaring sizes of field boxes
+                  const SizedBox(height: 20.0),
+                  profileButton,
+                  const SizedBox(height: 75.0),
+                  nameField,
+                  const SizedBox(height: 25.0),
+                  usernameField,
+                  const SizedBox(height: 25.0),
+                  locationField,
+                  const SizedBox(
+                    height: 35.0,
+                  ),
+                  editButton,
+                  const SizedBox(
+                    height: 15.0,
+                  ),
+                ],
+              ),
             ),
           ),
         ),

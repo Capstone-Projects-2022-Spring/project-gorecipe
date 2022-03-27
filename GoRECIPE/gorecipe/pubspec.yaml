@@ -29,16 +29,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
+  intl: ^0.17.0
+  material_floating_search_bar: ^0.3.7
+  syncfusion_flutter_calendar: ^19.4.56
+  table_calendar: ^3.0.4
   camera: ^0.9.4
   http: ^0.13.4
   http_parser: ^4.0.0
+  shared_preferences: ^2.0.13
   path_provider:
   path:
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.2
+  provider: ^6.0.2
 
 dev_dependencies:
   flutter_test:
@@ -72,8 +77,13 @@ flutter:
     - assets/images/default_pfp.png
     - assets/images/unstar.png
     - assets/images/star.png
-
-  
+    - assets/images/welcome_page.png
+    - assets/images/AddAnIngredientButton.PNG
+    - assets/images/scan.png
+    - assets/images/ingredients.jpeg
+    - assets/images/yes_no_page.PNG
+    - assets/images/scanbutton.PNG
+    - assets/images/lookupbutton.PNG
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware.

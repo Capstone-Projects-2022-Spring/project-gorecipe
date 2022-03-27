@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:gorecipe/Screens/AddAnIngredient.dart';
-import 'package:gorecipe/Screens/profile.dart';
-import 'package:gorecipe/Screens/scan_screen.dart';
-import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
+import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/scanlookup_ingredient.dart';
 
-//moethod doesnt return nothing
 void main() {
-  //run function
-  //argument has to be a widget
   runApp(const MyApp());
 }
 
@@ -19,23 +16,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //MaterialAPp() is the core widget- widget that wraps the entire app
-    //themes, nav, etc..
     return const MaterialApp(
       title: _title,
-      home: ScanHomeScreen(),
+      home: AddAnIngredient(),
     );
   }
 }
 
-class ScanHomeScreen extends StatefulWidget {
-  const ScanHomeScreen({Key? key}) : super(key: key);
+class AddAnIngredient extends StatefulWidget {
+  const AddAnIngredient({Key? key}) : super(key: key);
   @override
-  State<ScanHomeScreen> createState() => _MyStatefulWidgetState();
+  State<AddAnIngredient> createState() => _MyStatefulWidgetState();
 }
 
-class _MyStatefulWidgetState extends State<ScanHomeScreen> {
-  // ignore: unused_field
+class _MyStatefulWidgetState extends State<AddAnIngredient> {
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle = TextStyle(
@@ -47,9 +41,6 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
   final style = const TextStyle(
       fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black);
 
-  //
-
-  // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: Home', style: optionStyle),
     Text(
@@ -66,7 +57,6 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     ),
   ];
 
-  // ignore: unused_element
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
@@ -74,28 +64,22 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
   }
 
   @override
-
-  //widget is a class name that acts as a type
-  //class returning a widget
-  //type of parament of what this will hold
   Widget build(BuildContext context) {
-    //start scan button
-
-    final startscanbutton = Material(
+    final Next = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 255, 255, 255),
+      color: Color.fromARGB(255, 82, 146, 26),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
-        padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
           Navigator.push(
             context,
-            //CHANGE THIS TO THE NEXT SCAN PAGE
-            MaterialPageRoute(builder: (context) => const AddAnIngredient()),
+            //Until creating the recipe page
+            MaterialPageRoute(builder: (context) => const HomeScreen()),
           );
         },
-        child: Text("Start Scan",
+        child: Text("Next",
             textAlign: TextAlign.center,
             style: style.copyWith(
                 color: Colors.black,
@@ -103,28 +87,35 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                 fontSize: 20)),
       ),
     );
-
-    //widet draw all to the screen
-    //Scaffold create a page with a white background
+    final ScanLookupB = Material(
+        child: Stack(children: [
+      InkWell(
+        splashColor: Colors.green,
+        onTap: () {},
+        child: Column(
+          children: [
+            IconButton(
+              icon: Image.asset("assets/images/AddAnIngredientButton.PNG"),
+              iconSize: 450,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  //Change it to the scan lookup page
+                  MaterialPageRoute(builder: (context) => const ScanLookup()),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    ]));
 
     return Scaffold(
-        //tool bar at the top of the screen
-        backgroundColor: Color.fromARGB(255, 116, 163, 126),
         appBar: AppBar(
-          //test is widgte that takes a string as an arug- and extracted in the first arg
-          //name of the app we are creating
           title: const Text(
             'SCAN',
             style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
-
-            // style: GoogleFonts.Lato(
-            //textStyle: style,
-            // ),
-            //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
-            //style: GoogleFonts.lato(textStyle: PageTitle),
-            //style: GoogleFonts.lato(textStyle: PageTitle),
           ),
-
           backgroundColor: const Color.fromARGB(255, 255, 255, 255),
           iconTheme:
               const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
@@ -145,26 +136,11 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                   ),
                 ),
               ),
+              // ignore: prefer_const_constructors
               ListTile(
-                  leading: const Icon(Icons.home),
-                  title: const Text('Home'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const HomeScreen(
-                                  key: ObjectKey('welcome page'),
-                                )));
-
-                    //idk why this isnt working
-                    //navigation im confused everything is giving me an error
-                    //onTap: () => HomeScreen(),
-
-                    // onTap: () {
-                    //   Navigator.pop(context);
-
-                    // },
-                  }),
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+              ),
               const ListTile(
                 leading: Icon(Icons.set_meal),
                 title: Text('Set Food Preference'),
@@ -190,8 +166,8 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                 },
               ),
               ListTile(
-                  leading: const Icon(Icons.help_center),
-                  title: const Text('Help'),
+                  leading: Icon(Icons.help_center),
+                  title: Text('Help'),
                   onTap: () {
                     Navigator.push(
                         context,
@@ -217,65 +193,49 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
         body: Center(
           child: Stack(children: [
             Positioned(
-                child: Column(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(40.0),
-                  child: const Image(
-                    image: AssetImage("assets/images/scan.png"),
-                    width: double.infinity,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ],
-            )),
-            Positioned(
-                top: 450.0,
+                top: 50.0,
                 left: 20.0,
                 child: Column(children: const <Widget>[
                   Text(
-                    "READY TO FIND RECIPE?",
+                    "ADD AN INGREDIENT",
                     textAlign: TextAlign.left,
                     textScaleFactor: 2.0,
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15.0,
-                      fontWeight: FontWeight.w400,
                       fontFamily: "Consola",
                     ),
                   ),
                 ])),
             Positioned(
-                top: 500.0,
-                left: 50.0,
-                right: 50.0,
-                child: Column(children: const <Widget>[
-                  Text(
-                    "Scan the food item you want to incoorporate.",
-                    textAlign: TextAlign.left,
-                    textScaleFactor: 2.0,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 9.0,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "Consola",
-                    ),
-                  ),
-                ])),
+              left: 5,
+              bottom: 130,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Container(),
+                  ScanLookupB,
+                  const SizedBox(),
+                ],
+              ),
+            ),
             Positioned(
-                bottom: 70.0,
-                left: 90,
-                right: 90,
+                bottom: 50.0,
+                right: 140.0,
+                left: 140.0,
                 child: Column(
                   children: <Widget>[
                     //Declaring sizes of field boxes
-                    startscanbutton,
+                    Next,
                     const SizedBox(
                       height: 3.0,
                     ),
                   ],
-                )),
+                ))
           ]),
         ));
   }
 }
+//The second scan page
+

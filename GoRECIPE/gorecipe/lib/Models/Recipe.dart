@@ -24,6 +24,7 @@ class Recipe {
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
+
     List ingList =
         Ingredient.verboseIngToList(jsonEncode(json['verboseIngredients']));
     return Recipe(
