@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/AddAnIngredient.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
-
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 
@@ -85,7 +84,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     final startscanbutton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: const Color(0xFF689F38),
+      color: Color.fromARGB(255, 255, 255, 255),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -99,7 +98,9 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
         child: Text("Start Scan",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                fontSize: 20)),
       ),
     );
 
@@ -107,135 +108,174 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     //Scaffold create a page with a white background
 
     return Scaffold(
-      //tool bar at the top of the screen
+        //tool bar at the top of the screen
+        backgroundColor: Color.fromARGB(255, 116, 163, 126),
+        appBar: AppBar(
+          //test is widgte that takes a string as an arug- and extracted in the first arg
+          //name of the app we are creating
+          title: const Text(
+            'SCAN',
+            style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
 
-      appBar: AppBar(
-        //test is widgte that takes a string as an arug- and extracted in the first arg
-        //name of the app we are creating
-        title: const Text(
-          'Scan',
-          style: TextStyle(color: Colors.green),
+            // style: GoogleFonts.Lato(
+            //textStyle: style,
+            // ),
+            //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
+            //style: GoogleFonts.lato(textStyle: PageTitle),
+            //style: GoogleFonts.lato(textStyle: PageTitle),
+          ),
 
-          // style: GoogleFonts.Lato(
-          //textStyle: style,
-          // ),
-          //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
-          //style: GoogleFonts.lato(textStyle: PageTitle),
-          //style: GoogleFonts.lato(textStyle: PageTitle),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          iconTheme:
+              const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
         ),
-
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        iconTheme: const IconThemeData(color: Colors.green),
-      ),
-
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-              child: Text(
-                'GoRecipe',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 116, 163, 126),
+                ),
+                child: Text(
+                  'GoRecipe',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
                 ),
               ),
-            ),
-            ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                                key: ObjectKey('welcome page'),
-                              )));
+              ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
 
-                  //idk why this isnt working
-                  //navigation im confused everything is giving me an error
-                  //onTap: () => HomeScreen(),
+                    //idk why this isnt working
+                    //navigation im confused everything is giving me an error
+                    //onTap: () => HomeScreen(),
 
-                  // onTap: () {
-                  //   Navigator.pop(context);
+                    // onTap: () {
+                    //   Navigator.pop(context);
 
-                  // },
-                }),
-            const ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
-            ),
-            const ListTile(
-              leading: Icon(Icons.book),
-              title: Text('MyCookBook'),
-            ),
-            const ListTile(
-              leading: Icon(Icons.calendar_today_outlined),
-              title: Text('Calendar'),
-            ),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Profile(
-                            key: ObjectKey('profile page'),
-                            title: 'profile page')));
-              },
-            ),
-            ListTile(
-                leading: const Icon(Icons.help_center),
-                title: const Text('Help'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(
-                              key: ObjectKey('welcome page'),
-                              title: 'welcome page')));
-                }),
-            ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(
-                              key: ObjectKey('welcome page'),
-                              title: 'welcome page')));
-                }),
-          ],
-        ),
-      ),
-
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 200,
-              height: 200,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    //this image needs to be replaced with the image they scanned into the app
-                    image: AssetImage("assets/images/scan.png"),
-                    fit: BoxFit.fill),
+                    // },
+                  }),
+              const ListTile(
+                leading: Icon(Icons.set_meal),
+                title: Text('Set Food Preference'),
               ),
-            ),
-            //Declaring sizes of field boxes
-            const SizedBox(height: 45.0),
-            startscanbutton,
-            const SizedBox(height: 25.0),
-          ],
+              const ListTile(
+                leading: Icon(Icons.book),
+                title: Text('MyCookBook'),
+              ),
+              const ListTile(
+                leading: Icon(Icons.calendar_today_outlined),
+                title: Text('Calendar'),
+              ),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Profile(
+                              key: ObjectKey('profile page'),
+                              title: 'profile page')));
+                },
+              ),
+              ListTile(
+                  leading: const Icon(Icons.help_center),
+                  title: const Text('Help'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen(
+                                key: ObjectKey('welcome page'),
+                                title: 'welcome page')));
+                  }),
+              ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Log Out'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen(
+                                key: ObjectKey('welcome page'),
+                                title: 'welcome page')));
+                  }),
+            ],
+          ),
         ),
-      ),
-    );
+        body: Center(
+          child: Stack(children: [
+            Positioned(
+                child: Column(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(40.0),
+                  child: const Image(
+                    image: AssetImage("assets/images/scan.png"),
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            )),
+            Positioned(
+                top: 450.0,
+                left: 20.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "READY TO FIND RECIPE?",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+                top: 500.0,
+                left: 50.0,
+                right: 50.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "Scan the food item you want to incoorporate.",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 9.0,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+                bottom: 70.0,
+                left: 90,
+                right: 90,
+                child: Column(
+                  children: <Widget>[
+                    //Declaring sizes of field boxes
+                    startscanbutton,
+                    const SizedBox(
+                      height: 3.0,
+                    ),
+                  ],
+                )),
+          ]),
+        ));
   }
 }
