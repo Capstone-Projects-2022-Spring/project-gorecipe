@@ -110,7 +110,7 @@ class _RecipesYou extends State<RecipesYou> {
                 tag: recipes[index].name,
                 child: Material(
                   child: Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                         border: index == 0
                             ? const Border() // This will create no border for the first item
@@ -120,24 +120,32 @@ class _RecipesYou extends State<RecipesYou> {
                                     color: Theme.of(context)
                                         .primaryColor)), // This will create top borders for the rest
                       ),
-                      child: ListTile(
-                        leading: Image.network(recipes[index].imageURL),
-                        title: Text(recipes[index].name),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            IconButton(
-                              icon: selected.elementAt(index)
-                                  ? firstImage
-                                  : secondImage,
-                              iconSize: 200,
-                              onPressed: () {
-                                //save to My Cookbook
-                                setState(() {
-                                  selected[index] = !selected.elementAt(index);
-                                });
-                              },
+                      child: Card(
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: Image.network(recipes[index].imageURL),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: selected.elementAt(index)
+                                        ? firstImage
+                                        : secondImage,
+                                    iconSize: 200,
+                                    onPressed: () {
+                                      //save to My Cookbook
+                                      setState(() {
+                                        selected[index] =
+                                            !selected.elementAt(index);
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
+                            const SizedBox(height: 10),
+                            Text(recipes[index].name),
                           ],
                         ),
                       )),
