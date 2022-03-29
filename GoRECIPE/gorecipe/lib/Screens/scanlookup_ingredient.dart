@@ -95,10 +95,7 @@ class _ScanLookup extends State<ScanLookup> {
                 Navigator.push(
                   context,
                   //Change it to the scan lookup page
-                  MaterialPageRoute(
-                      builder: (context) => const WantToAdd(
-                          key: ObjectKey(ScanLookup()),
-                          title: "Add Ingredient")),
+                  MaterialPageRoute(builder: (context) => const WantToAdd()),
                 );
               },
             ),
@@ -210,7 +207,7 @@ class _ScanLookup extends State<ScanLookup> {
             Positioned(
               left: 20,
               right: 20,
-              bottom: 320,
+              bottom: 310,
               child: Column(
                 children: <Widget>[
                   Container(),

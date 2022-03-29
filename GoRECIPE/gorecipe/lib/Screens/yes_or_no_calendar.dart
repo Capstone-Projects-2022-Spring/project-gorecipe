@@ -67,7 +67,7 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
     final NO = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 162, 218, 160),
+      color: Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -87,7 +87,7 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
     final YES = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 162, 218, 160),
+      color: Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -109,15 +109,27 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
         appBar: AppBar(
           title: const Text(
             'CALENDAR',
-            style: TextStyle(color: Colors.green),
+            style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
           ),
           backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          iconTheme: IconThemeData(color: Colors.green),
+          iconTheme: IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
         ),
         endDrawer: Drawer(
           child: ListView(
             padding: EdgeInsets.zero,
             children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Color.fromARGB(255, 116, 163, 126),
+                ),
+                child: Text(
+                  'GoRecipe',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                  ),
+                ),
+              ),
               ListTile(
                 leading: const Icon(Icons.home),
                 title: const Text('Home'),
@@ -184,7 +196,7 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                     style: TextStyle(
                       color: Colors.black,
                       fontSize: 15.0,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       fontFamily: "Consola",
                     ),
                   ),
@@ -199,9 +211,9 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                     textAlign: TextAlign.left,
                     textScaleFactor: 2.0,
                     style: TextStyle(
-                      color: Color.fromARGB(255, 152, 206, 150),
+                      color: Color.fromARGB(255, 116, 163, 126),
                       fontSize: 13.0,
-                      fontWeight: FontWeight.w700,
+                      fontWeight: FontWeight.w500,
                       fontFamily: "Consola",
                     ),
                   ),
@@ -225,7 +237,7 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                     child: Container(
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(30.0),
-                        color: Color.fromARGB(255, 162, 218, 160),
+                        color: Color.fromARGB(255, 116, 163, 126),
                       ),
                       width: 400,
                       padding: const EdgeInsets.all(10),
