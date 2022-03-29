@@ -149,26 +149,70 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
+      appBar: AppBar(
+        title: const Text('Display the Picture'),
+        backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+      ),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Column(
-        children: [
-          Image.file(File(widget.imagePath)),
-          const SizedBox(height: 40),
-          Row(
-            children: [
-              _nextbutton,
-              const SizedBox(width: 10),
-              _uploadbutton,
-            ],
+      body: Center(
+        child: Stack(children: [
+          Expanded(
+              child: Stack(children: [
+            Positioned(
+                child: Column(children: <Widget>[
+              Image.file(File(widget.imagePath)),
+            ])),
+            Positioned(
+              bottom: 150.0,
+              right: 90.0,
+              left: 90.0,
+              child: Column(
+                children: <Widget>[
+                  _uploadbutton,
+                ],
+              ),
+            ),
+          ])),
+          const Divider(
+            height: 100,
+            thickness: 2,
+            indent: 10,
+            endIndent: 10,
+            color: Color.fromARGB(211, 180, 180, 180),
           ),
-          const SizedBox(height: 40),
-          Text(_ingredient,
-              textAlign: TextAlign.center,
-              style: widget.style
-                  .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
-        ],
+          Expanded(
+              child: Stack(children: [
+            Positioned(
+                bottom: 90.0,
+                child: Column(children: <Widget>[
+                  Text(
+                    _ingredient,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+              bottom: 30.0,
+              right: 90.0,
+              left: 90.0,
+              child: Column(
+                children: <Widget>[
+                  //Declaring sizes of field boxes
+                  _nextbutton,
+                  const SizedBox(
+                    height: 3.0,
+                  ),
+                ],
+              ),
+            ),
+          ]))
+        ]),
       ),
     );
   }
