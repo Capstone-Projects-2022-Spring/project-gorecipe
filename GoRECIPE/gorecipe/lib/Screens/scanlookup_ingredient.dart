@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gorecipe/Screens/calendar_page.dart';
-import 'package:gorecipe/Screens/home_screen.dart';
-import 'package:gorecipe/Screens/preferences.dart';
-import 'package:gorecipe/Screens/profile.dart';
-import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
 import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+import 'package:gorecipe/Screens/create_account.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:gorecipe/Screens/profile.dart';
 
 class ScanLookup extends StatefulWidget {
   const ScanLookup({Key? key}) : super(key: key);
@@ -16,10 +14,38 @@ class ScanLookup extends StatefulWidget {
 }
 
 class _ScanLookup extends State<ScanLookup> {
-  TextStyle style = const TextStyle(
-    fontFamily: 'Montserrat',
-    fontSize: 20.0,
+  int _selectedIndex = 0;
+
+  static const TextStyle optionStyle = TextStyle(
+    fontSize: 30,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
   );
+
+  final style = const TextStyle(
+      fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black);
+
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text('Index 0: Home', style: optionStyle),
+    Text(
+      'Index 1: Search',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Scan',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 3: Account',
+      style: optionStyle,
+    ),
+  ];
+
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -32,91 +58,66 @@ class _ScanLookup extends State<ScanLookup> {
       ),
     );
 
-    final scanButton = IconButton(
-      icon: Image.asset("assets/images/scanbutton.PNG"),
-      iconSize: 200,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(builder: (context) => const ScanScreen()),
-        );
-      },
-    );
-
-    const lookupText = Text(
-      "Look Up Ingredient",
-      textAlign: TextAlign.center,
-      textScaleFactor: 2.0,
-      style: TextStyle(
-        fontWeight: FontWeight.bold,
+    final scanButton = Material(
+        child: Stack(children: [
+      InkWell(
+        splashColor: Colors.green,
+        onTap: () {},
+        child: Column(
+          children: [
+            IconButton(
+              icon: Image.asset("assets/images/scanbutton.PNG"),
+              iconSize: 300,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  //Change it to the scan lookup page
+                  MaterialPageRoute(builder: (context) => const ScanScreen()),
+                );
+              },
+            ),
+          ],
+        ),
       ),
-    );
+    ]));
 
-    final lookupButton = IconButton(
-      icon: Image.asset("assets/images/lookupbutton.PNG"),
-      iconSize: 200,
-      onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-              builder: (context) => const WantToAdd(
-                  key: ObjectKey(ScanLookup()), title: "Add Ingredient")),
-        );
-      },
-    );
+    final lookupButton = Material(
+        child: Stack(children: [
+      InkWell(
+        splashColor: Colors.green,
+        onTap: () {},
+        child: Column(
+          children: [
+            IconButton(
+              icon: Image.asset("assets/images/lookupbutton.PNG"),
+              iconSize: 300,
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  //Change it to the scan lookup page
+                  MaterialPageRoute(
+                      builder: (context) => const WantToAdd(
+                          key: ObjectKey(ScanLookup()),
+                          title: "Add Ingredient")),
+                );
+              },
+            ),
+          ],
+        ),
+      ),
+    ]));
 
     return Scaffold(
       appBar: AppBar(
-        //test is widgte that takes a string as an arug- and extracted in the first arg
-        //name of the app we are creating
         title: const Text(
-          'Add Ingredient',
-          style: TextStyle(color: Colors.green),
-
-          //style: GoogleFonts.Lato(
-          //textStyle: style,
-          //),
-          //),
-          //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
-          //style: GoogleFonts.lato(textStyle: PageTitle),
-          //style: GoogleFonts.lato(textStyle: PageTitle),
+          'ADD INGREDIENT',
+          style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
         ),
-
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        iconTheme: const IconThemeData(color: Colors.green),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
       ),
-      body: Center(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(32),
-          child: Padding(
-            padding: const EdgeInsets.all(36.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                //Declaring sizes of field boxes
-                const SizedBox(height: 55.0),
-                scanText,
-                const SizedBox(height: 65.0),
-                scanButton,
-                const Divider(
-                  color: Colors.black,
-                  height: 150.0,
-                  indent: 0,
-                  endIndent: 0,
-                ),
-                const SizedBox(height: 55.0),
-                lookupText,
-                const SizedBox(height: 65.0),
-                lookupButton,
-                const SizedBox(
-                  height: 35.0,
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+    
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -216,7 +217,7 @@ class _ScanLookup extends State<ScanLookup> {
           ],
         ),
       ),
-
+      
       //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
       bottomNavigationBar: Row(
         children: [
@@ -371,6 +372,80 @@ class _ScanLookup extends State<ScanLookup> {
                     ),
                   )))
         ],
+      ),
+
+      body: Center(
+        child: Stack(children: [
+          Expanded(
+              child: Stack(children: [
+            Positioned(
+                top: 50.0,
+                left: 20.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "SCAN INGREDIENT",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+              left: 20,
+              right: 20,
+              bottom: 320,
+              child: Column(
+                children: <Widget>[
+                  Container(),
+                  scanButton,
+                  const SizedBox(),
+                ],
+              ),
+            ),
+          ])),
+          const Divider(
+            height: 800,
+            thickness: 2,
+            indent: 10,
+            endIndent: 10,
+            color: Color.fromARGB(211, 180, 180, 180),
+          ),
+          Expanded(
+              child: Stack(children: [
+            Positioned(
+                top: 400.0,
+                left: 20.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "LOOK UP INGREDIENT",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+              left: 20,
+              right: 20,
+              top: 430.0,
+              child: Column(
+                children: <Widget>[
+                  Container(),
+                  lookupButton,
+                  const SizedBox(),
+                ],
+              ),
+            ),
+          ]))
+        ]),
       ),
     );
   }
