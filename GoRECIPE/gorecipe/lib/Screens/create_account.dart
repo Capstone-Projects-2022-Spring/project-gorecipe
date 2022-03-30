@@ -1,11 +1,13 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+// ignore: unused_import
 import 'dart:typed_data';
 import '../Models/User.dart';
-import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+// ignore: unused_import
 import 'package:shared_preferences/shared_preferences.dart';
+// ignore: unused_import
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
 //place holder for create account page
@@ -40,6 +42,7 @@ class _CreateAccount extends State<CreateAccount> {
   }
 
   Future createUser({required int userId}) async {
+    // ignore: unused_local_variable
     final response = await http.get(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
             userId.toString()),
@@ -74,6 +77,7 @@ class _CreateAccount extends State<CreateAccount> {
   Widget build(BuildContext context) {
     signup(firstName, lastName, username, email, password) async {
       //SharedPreferences prefs = await SharedPreferences.getInstance();
+      // ignore: avoid_print
       print("Calling Create Acc");
 
       Map<String, dynamic> data = {
@@ -90,6 +94,7 @@ class _CreateAccount extends State<CreateAccount> {
       };
 
       User user = User.fromJson(data);
+      // ignore: avoid_print
       print({
         "birthDate": "2022-03-22",
         "dietaryRestrictions": [],
@@ -103,7 +108,9 @@ class _CreateAccount extends State<CreateAccount> {
         "username": "testman"
       });
 
+      // ignore: avoid_print
       print("USER");
+      // ignore: avoid_print
       print(user);
 
       final response = await http.post(
@@ -115,7 +122,9 @@ class _CreateAccount extends State<CreateAccount> {
         body: jsonEncode(user.toJson()),
       );
 
+      // ignore: avoid_print
       print(response.statusCode);
+      // ignore: avoid_print
       print(response.body);
       if (response.statusCode == 200) {
         // setState(() {});
@@ -153,7 +162,7 @@ class _CreateAccount extends State<CreateAccount> {
         obscureText: false,
         style: style,
         decoration: InputDecoration(
-            fillColor: Colors.green,
+            fillColor: const Color.fromARGB(255, 116, 163, 126),
             filled: true,
             contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
             hintText: "First",
@@ -168,7 +177,7 @@ class _CreateAccount extends State<CreateAccount> {
         obscureText: false,
         style: style,
         decoration: InputDecoration(
-            fillColor: Colors.green,
+            fillColor: const Color.fromARGB(255, 116, 163, 126),
             filled: true,
             contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
             hintText: "Last",
@@ -181,7 +190,7 @@ class _CreateAccount extends State<CreateAccount> {
       obscureText: false,
       style: style,
       decoration: InputDecoration(
-          fillColor: Colors.green,
+          fillColor: const Color.fromARGB(255, 116, 163, 126),
           filled: true,
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Username",
@@ -193,7 +202,7 @@ class _CreateAccount extends State<CreateAccount> {
       obscureText: false,
       style: style,
       decoration: InputDecoration(
-          fillColor: Colors.green,
+          fillColor: const Color.fromARGB(255, 116, 163, 126),
           filled: true,
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Email",
@@ -206,7 +215,7 @@ class _CreateAccount extends State<CreateAccount> {
       obscureText: !_passwordVisible,
       style: style,
       decoration: InputDecoration(
-          fillColor: Colors.green,
+          fillColor: const Color.fromARGB(255, 116, 163, 126),
           filled: true,
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Password",
@@ -218,7 +227,7 @@ class _CreateAccount extends State<CreateAccount> {
       obscureText: !_passwordVisible,
       style: style,
       decoration: InputDecoration(
-          fillColor: Colors.green,
+          fillColor: const Color.fromARGB(255, 116, 163, 126),
           filled: true,
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
           hintText: "Confirm Password",
