@@ -6,7 +6,6 @@ import 'package:gorecipe/Screens/calendar_page.dart';
 import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
-
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 
@@ -89,7 +88,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     final startscanbutton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: const Color(0xFF689F38),
+      color: Color.fromARGB(255, 255, 255, 255),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -103,7 +102,9 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
         child: Text("Start Scan",
             textAlign: TextAlign.center,
             style: style.copyWith(
-                color: Colors.white, fontWeight: FontWeight.bold)),
+                color: Colors.black,
+                fontWeight: FontWeight.w500,
+                fontSize: 20)),
       ),
     );
 
@@ -111,27 +112,28 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     //Scaffold create a page with a white background
 
     return Scaffold(
-      //tool bar at the top of the screen
+        //tool bar at the top of the screen
+        backgroundColor: Color.fromARGB(255, 116, 163, 126),
+        appBar: AppBar(
+          //test is widgte that takes a string as an arug- and extracted in the first arg
+          //name of the app we are creating
+          title: const Text(
+            'SCAN',
+            style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
 
-      appBar: AppBar(
-        //test is widgte that takes a string as an arug- and extracted in the first arg
-        //name of the app we are creating
-        title: const Text(
-          'Scan',
-          style: TextStyle(color: Colors.green),
+            // style: GoogleFonts.Lato(
+            //textStyle: style,
+            // ),
+            //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
+            //style: GoogleFonts.lato(textStyle: PageTitle),
+            //style: GoogleFonts.lato(textStyle: PageTitle),
+          ),
 
-          // style: GoogleFonts.Lato(
-          //textStyle: style,
-          // ),
-          //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
-          //style: GoogleFonts.lato(textStyle: PageTitle),
-          //style: GoogleFonts.lato(textStyle: PageTitle),
+          backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+          iconTheme:
+              const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
         ),
-
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        iconTheme: const IconThemeData(color: Colors.green),
-      ),
-
+        
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -231,31 +233,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
           ],
         ),
       ),
-
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            Container(
-              width: 200,
-              height: 200,
-              decoration: const BoxDecoration(
-                image: DecorationImage(
-                    //this image needs to be replaced with the image they scanned into the app
-                    image: AssetImage("assets/images/scan.png"),
-                    fit: BoxFit.fill),
-              ),
-            ),
-            //Declaring sizes of field boxes
-            const SizedBox(height: 45.0),
-            startscanbutton,
-            const SizedBox(height: 25.0),
-          ],
-        ),
-      ),
-      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
-      bottomNavigationBar: Row(
+bottomNavigationBar: Row(
         children: [
           //HOME BUTTON
           Material(
@@ -409,6 +387,69 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                   )))
         ],
       ),
-    );
+      
+        body: Center(
+          child: Stack(children: [
+            Positioned(
+                child: Column(
+              children: <Widget>[
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(40.0),
+                  child: const Image(
+                    image: AssetImage("assets/images/scan.png"),
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ],
+            )),
+            Positioned(
+                top: 450.0,
+                left: 20.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "READY TO FIND RECIPE?",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w400,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+                top: 500.0,
+                left: 50.0,
+                right: 50.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "Scan the food item you want to incoorporate.",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 9.0,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Consola",
+                    ),
+                  ),
+                ])),
+            Positioned(
+                bottom: 70.0,
+                left: 90,
+                right: 90,
+                child: Column(
+                  children: <Widget>[
+                    //Declaring sizes of field boxes
+                    startscanbutton,
+                    const SizedBox(
+                      height: 3.0,
+                    ),
+                  ],
+                )),
+          ]),
+        ));
   }
 }

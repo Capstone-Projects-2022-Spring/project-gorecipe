@@ -1,32 +1,54 @@
 import 'dart:core';
+import 'dart:convert';
+import 'package:gorecipe/Models/Ingredient.dart';
 
 class Recipe {
-  final int id;
   final String content;
-  final String ingredients;
+  final List<dynamic> ingredients;
   final String name;
+  final int prepTime;
+  final String sourceURL;
+  final String imageURL;
+  final int spoonacularId;
   final String videoURL;
 
   const Recipe({
-    required this.id,
     required this.content,
     required this.ingredients,
     required this.name,
+    required this.prepTime,
+    required this.sourceURL,
+    required this.imageURL,
+    required this.spoonacularId,
     required this.videoURL,
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
+
+    List ingList =
+        Ingredient.verboseIngToList(jsonEncode(json['verboseIngredients']));
     return Recipe(
-      id: json['id'],
-      content: json['content'],
-      ingredients: json['ingredients'],
+      content: json['instructions'],
+      ingredients: ingList,
       name: json['name'],
-      videoURL: json['videoURL'],
+      prepTime: json['prepTime'],
+      sourceURL: json['sourceURL'],
+      spoonacularId: json['spoonacularId'],
+      imageURL: json['imageURL'],
+      videoURL: '',
     );
+  }
+
+  static List<Recipe> ingToList(String jsonData) {
+    List<Recipe> recipes = (jsonDecode(jsonData) as List)
+        .map((data) => Recipe.fromJson(data))
+        .toList();
+
+    return recipes;
   }
 
   @override
   String toString() {
-    return 'Recipe{id: $id, content: $content, ingredients: $ingredients, name: $name, videoURL: $videoURL }';
+    return 'Recipe{name: $name, content: $content, ingredients: $ingredients, videoURL: $videoURL }';
   }
 }
