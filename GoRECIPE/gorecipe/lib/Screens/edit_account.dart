@@ -1,23 +1,16 @@
-import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import '../Models/User.dart';
-
+import '../../globals.dart' as globals;
+import 'package:gorecipe/Screens/profile.dart';
 import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 //linked to the edit account button on profile page
 
 class EditAccount extends StatefulWidget {
   const EditAccount({Key? key}) : super(key: key);
-
-  // This widget is the home page of your application. It is stateful, meaning
-  // that it has a State object (defined below) that contains fields that affect
-  // how it looks.
-
-  // This class is the configuration for the state. It holds the values (in this
-  // case the title) provided by the parent (in this case the App widget) and
-  // used by the build method of the State. Fields in a Widget subclass are
-  // always marked "final".
 
   @override
   State<EditAccount> createState() => _EditAccount();
@@ -29,54 +22,47 @@ class _EditAccount extends State<EditAccount> {
     fontSize: 20.0,
   );
 
+  late User currentUser;
+  late Map<String, dynamic> userMap;
+
+  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
+
   @override
   void initState() {
     super.initState();
-    getUser(userId: 1);
+    currentUser = globals.user;
   }
 
-  late User currentUser;
-  bool isDone = false;
-
-  Future getUser({required int userId}) async {
-    final response = await http.get(
-        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
-            userId.toString()),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Access-Control-Allow-Origin': '*'
-        });
-
-    User user = User.fromJson(jsonDecode(response.body));
-
-    setState(() {
-      currentUser = user;
-      isDone = true;
-    });
+  Future<User> patchUser(
+      {required String usernamechange, required String emailchange}) async {
+    final response = await http.patch(
+      Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+          currentUser.id.toString()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        HttpHeaders.contentTypeHeader: 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: jsonEncode(<String, String>{
+        'username': usernamechange,
+        'email': emailchange,
+      }),
+    );
+    print(response.body);
+    return User.fromJson(jsonDecode(response.body));
   }
 
   @override
   Widget build(BuildContext context) {
-    if (isDone == false) {
-      return const CircularProgressIndicator();
-    }
     final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
       onPressed: () {},
     );
 
-    final nameField = TextField(
-      obscureText: true,
-      style: style,
-      decoration: InputDecoration(
-          contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: currentUser.firstName + " " + currentUser.lastName,
-          border:
-              OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
-    );
-
     final usernameField = TextField(
+      controller: usernameController,
       obscureText: false,
       style: style,
       decoration: InputDecoration(
@@ -86,12 +72,13 @@ class _EditAccount extends State<EditAccount> {
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
 
-    final locationField = TextField(
-      obscureText: true,
+    final emailField = TextField(
+      controller: emailController,
+      obscureText: false,
       style: style,
       decoration: InputDecoration(
           contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-          hintText: "Location",
+          hintText: "Email",
           border:
               OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
     );
@@ -104,7 +91,21 @@ class _EditAccount extends State<EditAccount> {
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
-          //send new data to serverm return to profile
+          setState(() {
+            currentUser.username = usernameController.text;
+            currentUser.email = emailController.text;
+            patchUser(
+                usernamechange: usernameController.text,
+                emailchange: emailController.text);
+          });
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => Profile(
+                      key: GlobalKey(),
+                      title: "Profile",
+                    )),
+          );
         },
         child: Text("Finish",
             textAlign: TextAlign.center,
@@ -127,12 +128,10 @@ class _EditAccount extends State<EditAccount> {
                   //Declaring sizes of field boxes
                   const SizedBox(height: 20.0),
                   profileButton,
-                  const SizedBox(height: 75.0),
-                  nameField,
                   const SizedBox(height: 25.0),
                   usernameField,
                   const SizedBox(height: 25.0),
-                  locationField,
+                  emailField,
                   const SizedBox(
                     height: 35.0,
                   ),
