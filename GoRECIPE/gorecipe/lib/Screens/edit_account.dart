@@ -92,8 +92,16 @@ class _EditAccount extends State<EditAccount> {
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
         onPressed: () {
           setState(() {
-            currentUser.username = usernameController.text;
-            currentUser.email = emailController.text;
+            if (usernameController.text != "") {
+              currentUser.username = usernameController.text;
+            } else {
+              usernameController.text = currentUser.username;
+            }
+            if (emailController.text != "") {
+              currentUser.email = emailController.text;
+            } else {
+              emailController.text = currentUser.email;
+            }
             patchUser(
                 usernamechange: usernameController.text,
                 emailchange: emailController.text);
