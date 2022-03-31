@@ -250,7 +250,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
               icon: Icon(Icons.account_box_rounded, size: 30),
               label: 'Profile'),
         ],
-        selectedItemColor: Colors.green,
+        selectedItemColor: Colors.black,
         elevation: 5.0,
         unselectedItemColor: Colors.black,
         backgroundColor: Colors.white,
