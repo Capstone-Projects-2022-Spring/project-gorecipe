@@ -148,15 +148,13 @@ class _Explore extends State<Explore> {
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: ''),
           BottomNavigationBarItem(
-              icon: Icon(Icons.home, size: 30), label: 'Home'),
+              icon: Icon(Icons.search, size: 30), label: ''),
           BottomNavigationBarItem(
-              icon: Icon(Icons.search, size: 30), label: 'Explore'),
+              icon: Icon(Icons.camera, size: 30), label: ''),
           BottomNavigationBarItem(
-              icon: Icon(Icons.camera, size: 30), label: 'Scan'),
-          BottomNavigationBarItem(
-              icon: Icon(Icons.account_box_rounded, size: 30),
-              label: 'Profile'),
+              icon: Icon(Icons.account_box_rounded, size: 30), label: ''),
         ],
         selectedItemColor: Colors.black,
         elevation: 5.0,
