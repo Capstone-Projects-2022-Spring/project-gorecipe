@@ -1,5 +1,8 @@
+// ignore_for_file: unused_import, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Models/Ingredient.dart';
+import 'package:gorecipe/Screens/event_editing.dart';
 import '../Models/Recipe.dart';
 import '../Models/Ingredient.dart';
 import 'package:http/http.dart' as http;
@@ -27,6 +30,7 @@ class _RecipesYou extends State<RecipesYou> {
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
+  late DateTime? fromDate;
 
   Future getRecipesBySearch() async {
     var response = await http.get(
@@ -46,6 +50,7 @@ class _RecipesYou extends State<RecipesYou> {
         recipes = temp;
       });
     } else {
+      // ignore: avoid_print
       print("cannot get data");
     }
   }
@@ -136,6 +141,17 @@ class _RecipesYou extends State<RecipesYou> {
                                 });
                               },
                             ),
+                            IconButton(
+                              icon: selected.elementAt(index)
+                                  ? const Icon(Icons.check_box_sharp)
+                                  : const Icon(Icons.calendar_today_outlined),
+                              onPressed: () {
+                                selected[index] = !selected.elementAt(index);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) => EventEditingPage(
+                                        recipes: recipes[index].name)));
+                              },
+                            )
                           ],
                         ),
                       )),
