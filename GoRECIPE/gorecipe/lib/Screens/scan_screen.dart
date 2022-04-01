@@ -65,6 +65,7 @@ class ScanScreenState extends State<ScanScreen> {
           transform: Matrix4.translationValues(-115.0, 0.0, 0.0),
           child: const Text("Scan"),
         ),
+        backgroundColor: const Color.fromARGB(255, 116, 163, 126),
       ),
       // You must wait until the controller is initialized before displaying the
       // camera preview. Use a FutureBuilder to display a loading spinner until the

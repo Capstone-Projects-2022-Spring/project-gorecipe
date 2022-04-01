@@ -15,7 +15,9 @@ import 'dart:convert';
 //linked to the finish scan button on scan page
 
 class RecipesYou extends StatefulWidget {
-  const RecipesYou({Key? key}) : super(key: key);
+  const RecipesYou({Key? key, required this.ingredientList}) : super(key: key);
+
+  final List<dynamic> ingredientList;
 
   @override
   State<RecipesYou> createState() => _RecipesYou();
@@ -30,18 +32,20 @@ class _RecipesYou extends State<RecipesYou> {
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
+
   late DateTime? fromDate;
 
   Future getRecipesBySearch() async {
     var response = await http.get(
       Uri.parse(
-          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?query=garlic'),
+          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?query=' +
+              widget.ingredientList[0].toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Access-Control-Allow-Origin': '*'
       },
     );
-    // print(response.body);
+    print(response.body);
     if (response.statusCode == 200) {
       List temp = (json.decode(response.body) as List)
           .map((i) => Recipe.fromJson(i))
@@ -113,7 +117,7 @@ class _RecipesYou extends State<RecipesYou> {
                 tag: recipes[index].name,
                 child: Material(
                   child: Container(
-                      padding: const EdgeInsets.all(20),
+                      padding: const EdgeInsets.all(2),
                       decoration: BoxDecoration(
                         border: index == 0
                             ? const Border() // This will create no border for the first item
@@ -123,24 +127,31 @@ class _RecipesYou extends State<RecipesYou> {
                                     color: Theme.of(context)
                                         .primaryColor)), // This will create top borders for the rest
                       ),
-                      child: ListTile(
-                        leading: Image.network(recipes[index].imageURL),
-                        title: Text(recipes[index].name),
-                        trailing: Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: <Widget>[
-                            IconButton(
-                              icon: selected.elementAt(index)
-                                  ? firstImage
-                                  : secondImage,
-                              iconSize: 200,
-                              onPressed: () {
-                                //save to My Cookbook
-                                setState(() {
-                                  selected[index] = !selected.elementAt(index);
-                                });
-                              },
+                      child: Card(
+                        child: Column(
+                          children: [
+                            ListTile(
+                              leading: Image.network(recipes[index].imageURL),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: <Widget>[
+                                  IconButton(
+                                    icon: selected.elementAt(index)
+                                        ? firstImage
+                                        : secondImage,
+                                    iconSize: 200,
+                                    onPressed: () {
+                                      //save to My Cookbook
+                                      setState(() {
+                                        selected[index] =
+                                            !selected.elementAt(index);
+                                      });
+                                    },
+                                  ),
+                                ],
+                              ),
                             ),
+
                             IconButton(
                               icon: selected.elementAt(index)
                                   ? const Icon(Icons.check_box_sharp)
@@ -152,6 +163,10 @@ class _RecipesYou extends State<RecipesYou> {
                                         recipes: recipes[index].name)));
                               },
                             )
+
+                            const SizedBox(height: 10),
+                            Text(recipes[index].name),
+
                           ],
                         ),
                       )),
