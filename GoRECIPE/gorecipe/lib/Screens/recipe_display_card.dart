@@ -64,7 +64,7 @@ class RecipePopupCard extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text("Total Time",
-                                        style: TextStyle(fontSize: 19),
+                                        style: TextStyle(fontSize: 15),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
@@ -74,23 +74,24 @@ class RecipePopupCard extends StatelessWidget {
                                   ),
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
-                                    child: Text("Prep Time",
-                                        style: TextStyle(fontSize: 19),
+                                    child: Text("Calories",
+                                        style: TextStyle(fontSize: 15),
+                                        maxLines: 1,
+                                        textAlign: TextAlign.center),
+                                  ),
+                                  VerticalDivider(
+                                    color: Colors.black,
+                                    thickness: 2,
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsets.all(8.0),
+                                    child: Text("Difficulty",
+                                        style: TextStyle(fontSize: 15),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
                                 ],
                               ),
-                            ),
-                            decoration: BoxDecoration(
-                              boxShadow: [
-                                BoxShadow(
-                                  color: Colors.grey.withOpacity(0.8),
-                                  spreadRadius: 1,
-                                  blurRadius: 3,
-                                  offset: Offset(1, 1),
-                                ),
-                              ],
                             ),
                           )
                         ],

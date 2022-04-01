@@ -24,6 +24,8 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
   var _foundIngredient = false;
   String _ingredient = "";
   List ingredients = <String>[];
+  bool uploaded = false;
+  List ingredientList = <String>[];
 
   @override
   void dispose() {
@@ -62,6 +64,8 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
       //print(json);
       setState(() {
         ingredients = Ingredient.ingToList(newResponse.body);
+        ingredientList = ingredients;
+        uploaded = true;
         print(ingredients);
         _ingredient = ingredients[0];
       });
@@ -152,23 +156,73 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
       appBar: AppBar(title: const Text('Display the Picture')),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
-      body: Column(
-        children: [
-          Image.file(File(widget.imagePath)),
-          const SizedBox(height: 40),
-          Row(
+      body: SingleChildScrollView(
+        child: Center(
+          child: Column(
             children: [
-              _nextbutton,
-              const SizedBox(width: 10),
-              _uploadbutton,
+              Image.file(File(widget.imagePath)),
+              const SizedBox(height: 40),
+              Row(
+                children: [
+                  _nextbutton,
+                  const SizedBox(width: 10),
+                  _uploadbutton,
+                ],
+              ),
+              const SizedBox(height: 40),
+              if (uploaded) ...[
+                const Divider(),
+                RemoveableList(ingredientList: ingredientList),
+              ],
+
+              // Text(_ingredient,
+              //     textAlign: TextAlign.center,
+              //     style: widget.style.copyWith(
+              //         color: Colors.black, fontWeight: FontWeight.bold)),
             ],
           ),
-          const SizedBox(height: 40),
-          Text(_ingredient,
-              textAlign: TextAlign.center,
-              style: widget.style
-                  .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
-        ],
+        ),
+      ),
+    );
+  }
+}
+
+class RemoveableList extends StatefulWidget {
+  const RemoveableList({Key? key, required this.ingredientList})
+      : super(key: key);
+
+  final List<dynamic> ingredientList;
+  @override
+  State<RemoveableList> createState() => _RemoveableListState();
+}
+
+class _RemoveableListState extends State<RemoveableList> {
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: MediaQuery.of(context).size.height * 0.65,
+      width: MediaQuery.of(context).size.width,
+      child: ListView.builder(
+        itemCount: widget.ingredientList.length,
+        padding: const EdgeInsets.symmetric(vertical: 16),
+        itemBuilder: (BuildContext context, int index) {
+          return Dismissible(
+            background: Container(
+              color: Colors.green,
+            ),
+            key: UniqueKey(),
+            onDismissed: (DismissDirection direction) {
+              setState(() {
+                widget.ingredientList.removeAt(index);
+              });
+            },
+            child: ListTile(
+              title: Text(
+                widget.ingredientList[index],
+              ),
+            ),
+          );
+        },
       ),
     );
   }
