@@ -81,7 +81,7 @@ class _CalendarPage extends State<CalendarPage> {
           child: const Icon(Icons.add, color: Colors.white),
           backgroundColor: Colors.red,
           onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const RecipesYou()),
+                MaterialPageRoute(builder: (context) => const EventEditingPage()),
 
                 //MaterialPageRoute(
                 //  builder: (context) => const EventEditingPage()),
