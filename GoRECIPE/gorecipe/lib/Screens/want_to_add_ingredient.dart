@@ -213,7 +213,7 @@ class _MyStatefulWidgetState extends State<WantToAdd> {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(20.0),
                     child: const Image(
-                      image: AssetImage("assets/images/yes_no_page.PNG"),
+                      image: AssetImage("assets/images/WantToAdd.PNG"),
                     ),
                   ),
                 ],

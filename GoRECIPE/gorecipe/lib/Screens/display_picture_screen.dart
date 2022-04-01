@@ -109,7 +109,7 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
       borderRadius: BorderRadius.circular(30.0),
       color: const Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width / 4,
+        minWidth: MediaQuery.of(context).size.width / 5,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
           if (ingredients.isEmpty) {
@@ -126,16 +126,18 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         },
         child: Text("Next",
             textAlign: TextAlign.center,
-            style: widget.style
-                .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
+            style: widget.style.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 15)),
       ),
     );
     final _uploadbutton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: const Color.fromARGB(255, 116, 163, 126),
+      color: Colors.white,
       child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width / 4,
+        minWidth: MediaQuery.of(context).size.width / 5,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
           upload(File(widget.imagePath));
@@ -143,8 +145,10 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         },
         child: Text("Upload",
             textAlign: TextAlign.center,
-            style: widget.style
-                .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
+            style: widget.style.copyWith(
+                color: Color.fromARGB(255, 116, 163, 126),
+                fontWeight: FontWeight.w500,
+                fontSize: 15)),
       ),
     );
 
@@ -161,12 +165,13 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
               child: Stack(children: [
             Positioned(
                 child: Column(children: <Widget>[
-              Image.file(File(widget.imagePath)),
+              Image.file(File(widget.imagePath),
+                  width: double.infinity, fit: BoxFit.cover),
             ])),
             Positioned(
-              bottom: 150.0,
-              right: 90.0,
-              left: 90.0,
+              bottom: 170.0,
+              // right: 110.0,
+              right: 10.0,
               child: Column(
                 children: <Widget>[
                   _uploadbutton,
@@ -174,13 +179,6 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
               ),
             ),
           ])),
-          const Divider(
-            height: 100,
-            thickness: 2,
-            indent: 10,
-            endIndent: 10,
-            color: Color.fromARGB(211, 180, 180, 180),
-          ),
           Expanded(
               child: Stack(children: [
             Positioned(
@@ -189,18 +187,18 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
                   Text(
                     _ingredient,
                     textAlign: TextAlign.center,
-                    style: TextStyle(
+                    style: const TextStyle(
                       color: Colors.black,
-                      fontSize: 15.0,
+                      fontSize: 25.0,
                       fontWeight: FontWeight.w400,
                       fontFamily: "Consola",
                     ),
                   ),
                 ])),
             Positioned(
-              bottom: 30.0,
-              right: 90.0,
-              left: 90.0,
+              bottom: 110.0,
+              right: 110.0,
+              left: 110.0,
               child: Column(
                 children: <Widget>[
                   //Declaring sizes of field boxes
