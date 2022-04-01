@@ -4,7 +4,6 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/profile.dart';
 
-
 class Explore extends StatefulWidget {
   //const Profile({Key? key}) : super(key: key);
   const Explore({required Key key, required this.title}) : super(key: key);
@@ -15,6 +14,20 @@ class Explore extends StatefulWidget {
 }
 
 class _Explore extends State<Explore> {
+  int _currentIndex = 0;
+
+  final _children = [
+    HomeScreen(),
+    Explore(key: ObjectKey('welcome page'), title: 'hi'),
+    ScanHomeScreen(),
+    Profile(key: ObjectKey('welcome page'), title: 'profile')
+  ];
+
+  _onTap() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            _children[_currentIndex])); // this has changed
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -53,8 +66,8 @@ class _Explore extends State<Explore> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const HomeScreen(
-                            key: ObjectKey('welcome page'),
-                          )));
+                                key: ObjectKey('welcome page'),
+                              )));
 
                   //idk why this isnt working
                   //   navigation im confused everything is giving me an error
@@ -103,9 +116,9 @@ class _Explore extends State<Explore> {
                       context,
                       MaterialPageRoute(
                           builder: (context) => const ScanHomeScreen(
-                            key: ObjectKey(
-                                'want to add this an ingredient?'),
-                          )));
+                                key: ObjectKey(
+                                    'want to add this an ingredient?'),
+                              )));
                 }),
 
             ListTile(
@@ -128,8 +141,32 @@ class _Explore extends State<Explore> {
           Row(),
           Row(),
         ],
-      )
+      ),
+
+      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.camera, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_box_rounded, size: 30), label: ''),
+        ],
+        selectedItemColor: Colors.black,
+        elevation: 5.0,
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          _onTap();
+        },
+      ),
     );
   }
-
 }
