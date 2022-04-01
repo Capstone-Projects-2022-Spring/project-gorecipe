@@ -13,6 +13,7 @@ import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
+// ignore: unused_import
 import 'package:gorecipe/Screens/bottom_nav_bar.dart';
 
 import 'package:gorecipe/Screens/preferences.dart';
@@ -49,6 +50,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<HomeScreen> {
+  // ignore: unused_field
   int _selectedIndex = 0;
 
   // ignore: unused_field
@@ -158,8 +160,8 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                   //},
                 }),
             ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
+              leading: const Icon(Icons.set_meal),
+              title: const Text('Set Food Preference'),
               onTap: () {
                 Navigator.push(
                     context,
@@ -167,7 +169,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                         builder: (context) => const Preferences()));
               },
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
@@ -232,7 +234,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         children: [
           //HOME BUTTON
           Material(
-              color: Color.fromARGB(255, 255, 255, 255),
+              color: const Color.fromARGB(255, 255, 255, 255),
 
               //ink well is a rectangluar area
               child: InkWell(
@@ -269,7 +271,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           //SEARCH BUTTON
           Expanded(
               child: Material(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
 
                   //ink well is a rectangluar area
                   child: InkWell(
@@ -308,7 +310,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
           Expanded(
               child: Material(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
 
                   //ink well is a rectangluar area
                   child: InkWell(
@@ -346,7 +348,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           //ACCOUNT BUTTON
           Expanded(
               child: Material(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
 
                   //ink well is a rectangluar area
                   child: InkWell(
@@ -383,6 +385,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         ],
       ),
     );
-    ;
+    // ignore: empty_statements
+    // ;
   }
 }

@@ -88,7 +88,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     final startscanbutton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 255, 255, 255),
+      color: const Color.fromARGB(255, 255, 255, 255),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -113,7 +113,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
 
     return Scaffold(
         //tool bar at the top of the screen
-        backgroundColor: Color.fromARGB(255, 116, 163, 126),
+        backgroundColor: const Color.fromARGB(255, 116, 163, 126),
         appBar: AppBar(
           //test is widgte that takes a string as an arug- and extracted in the first arg
           //name of the app we are creating
@@ -133,261 +133,259 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
           iconTheme:
               const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
         ),
-        
-      endDrawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
-          children: <Widget>[
-            const DrawerHeader(
-              decoration: BoxDecoration(
-                color: Colors.green,
-              ),
-              child: Text(
-                'GoRecipe',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 24,
+        endDrawer: Drawer(
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: <Widget>[
+              const DrawerHeader(
+                decoration: BoxDecoration(
+                  color: Colors.green,
                 ),
-              ),
-            ),
-            ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                                key: ObjectKey('welcome page'),
-                              )));
-
-                  //idk why this isnt working
-                  //navigation im confused everything is giving me an error
-                  //onTap: () => HomeScreen(),
-
-                  // onTap: () {
-                  //   Navigator.pop(context);
-
-                  // },
-                }),
-            ListTile(
-                leading: const Icon(Icons.set_meal),
-                title: const Text('Set Food Preference'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const Preferences(
-                                key: ObjectKey('preferences'),
-                              )));
-                }),
-            const ListTile(
-              leading: Icon(Icons.book),
-              title: Text('MyCookBook'),
-            ),
-            ListTile(
-                leading: const Icon(Icons.calendar_today_outlined),
-                title: const Text('Calendar'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const CalendarPage(
-                                key: ObjectKey('calendar page'),
-                              )));
-                }),
-            ListTile(
-              leading: const Icon(Icons.settings),
-              title: const Text('Settings'),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => const Profile(
-                            key: ObjectKey('profile page'),
-                            title: 'profile page')));
-              },
-            ),
-            ListTile(
-                leading: const Icon(Icons.help_center),
-                title: const Text('Help'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(
-                              key: ObjectKey('welcome page'),
-                              title: 'welcome page')));
-                }),
-            ListTile(
-                leading: const Icon(Icons.logout),
-                title: const Text('Log Out'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(
-                              key: ObjectKey('welcome page'),
-                              title: 'welcome page')));
-                }),
-          ],
-        ),
-      ),
-bottomNavigationBar: Row(
-        children: [
-          //HOME BUTTON
-          Material(
-              color: const Color.fromARGB(255, 255, 255, 255),
-
-              //ink well is a rectangluar area
-              child: InkWell(
-                //calling on tap
-                onTap: () {
-                  //print('called on tap');
-
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                                key: ObjectKey('welcome page'),
-                              )));
-                },
-
-                child: const SizedBox(
-                  height: kToolbarHeight,
-                  width: 150,
-                  child: Center(
-                    child: ListTile(
-                      leading: Icon(Icons.home),
-                    ),
-                    // child: Text(
-                    //   'HOME',
-                    //   textAlign: TextAlign.center,
-                    //   style: TextStyle(
-                    //     fontWeight: FontWeight.bold,
-                    //   ),
-                    // ),
+                child: Text(
+                  'GoRecipe',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
                   ),
                 ),
-              )),
+              ),
+              ListTile(
+                  leading: const Icon(Icons.home),
+                  title: const Text('Home'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
 
-          //SEARCH BUTTON
-          Expanded(
-              child: Material(
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                    //idk why this isnt working
+                    //navigation im confused everything is giving me an error
+                    //onTap: () => HomeScreen(),
 
-                  //ink well is a rectangluar area
-                  child: InkWell(
-                    //calling on tap
-                    onTap: () {
-                      //print('called on tap');
+                    // onTap: () {
+                    //   Navigator.pop(context);
 
-                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const HomeScreen(
-                                    key: ObjectKey('welcome page'),
-                                  )));
-                    },
+                    // },
+                  }),
+              ListTile(
+                  leading: const Icon(Icons.set_meal),
+                  title: const Text('Set Food Preference'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const Preferences(
+                                  key: ObjectKey('preferences'),
+                                )));
+                  }),
+              const ListTile(
+                leading: Icon(Icons.book),
+                title: Text('MyCookBook'),
+              ),
+              ListTile(
+                  leading: const Icon(Icons.calendar_today_outlined),
+                  title: const Text('Calendar'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const CalendarPage(
+                                  key: ObjectKey('calendar page'),
+                                )));
+                  }),
+              ListTile(
+                leading: const Icon(Icons.settings),
+                title: const Text('Settings'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Profile(
+                              key: ObjectKey('profile page'),
+                              title: 'profile page')));
+                },
+              ),
+              ListTile(
+                  leading: const Icon(Icons.help_center),
+                  title: const Text('Help'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen(
+                                key: ObjectKey('welcome page'),
+                                title: 'welcome page')));
+                  }),
+              ListTile(
+                  leading: const Icon(Icons.logout),
+                  title: const Text('Log Out'),
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const WelcomeScreen(
+                                key: ObjectKey('welcome page'),
+                                title: 'welcome page')));
+                  }),
+            ],
+          ),
+        ),
+        bottomNavigationBar: Row(
+          children: [
+            //HOME BUTTON
+            Material(
+                color: const Color.fromARGB(255, 255, 255, 255),
 
-                    child: const SizedBox(
-                      height: kToolbarHeight,
-                      width: 150,
-                      child: Center(
-                        child: ListTile(
-                          leading: Icon(Icons.search),
-                        ),
-                        // child: Text(
-                        //   'SEARCH',
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
+                //ink well is a rectangluar area
+                child: InkWell(
+                  //calling on tap
+                  onTap: () {
+                    //print('called on tap');
+
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
+                  },
+
+                  child: const SizedBox(
+                    height: kToolbarHeight,
+                    width: 150,
+                    child: Center(
+                      child: ListTile(
+                        leading: Icon(Icons.home),
                       ),
+                      // child: Text(
+                      //   'HOME',
+                      //   textAlign: TextAlign.center,
+                      //   style: TextStyle(
+                      //     fontWeight: FontWeight.bold,
+                      //   ),
+                      // ),
                     ),
-                  ))),
+                  ),
+                )),
 
-          //SCAN BUTTON
+            //SEARCH BUTTON
+            Expanded(
+                child: Material(
+                    color: const Color.fromARGB(255, 255, 255, 255),
 
-          Expanded(
-              child: Material(
-                  color: const Color.fromARGB(255, 255, 255, 255),
+                    //ink well is a rectangluar area
+                    child: InkWell(
+                      //calling on tap
+                      onTap: () {
+                        //print('called on tap');
 
-                  //ink well is a rectangluar area
-                  child: InkWell(
-                    //calling on tap
-                    onTap: () {
-                      //print('called on tap');
+                        //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const HomeScreen(
+                                      key: ObjectKey('welcome page'),
+                                    )));
+                      },
 
-                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const ScanHomeScreen(
-                                    key: ObjectKey('welcome page'),
-                                  )));
-                    },
-
-                    child: const SizedBox(
-                      height: kToolbarHeight,
-                      width: 150,
-                      child: Center(
-                        child: ListTile(
-                          leading: Icon(Icons.camera),
+                      child: const SizedBox(
+                        height: kToolbarHeight,
+                        width: 150,
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(Icons.search),
+                          ),
+                          // child: Text(
+                          //   'SEARCH',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
                         ),
-                        // child: Text(
-                        //   'SCAN',
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
                       ),
-                    ),
-                  ))),
+                    ))),
 
-          //ACCOUNT BUTTON
-          Expanded(
-              child: Material(
-                  color: const Color.fromARGB(255, 255, 255, 255),
+            //SCAN BUTTON
 
-                  //ink well is a rectangluar area
-                  child: InkWell(
-                    //calling on tap
-                    onTap: () {
-                      //print('called on tap');
+            Expanded(
+                child: Material(
+                    color: const Color.fromARGB(255, 255, 255, 255),
 
-                      //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => const Profile(
-                                  key: ObjectKey('profile page'),
-                                  title: 'profile page')));
-                    },
+                    //ink well is a rectangluar area
+                    child: InkWell(
+                      //calling on tap
+                      onTap: () {
+                        //print('called on tap');
 
-                    child: const SizedBox(
-                      height: kToolbarHeight,
-                      width: 150,
-                      child: Center(
-                        child: ListTile(
-                          leading: Icon(Icons.account_box_rounded),
+                        //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const ScanHomeScreen(
+                                      key: ObjectKey('welcome page'),
+                                    )));
+                      },
+
+                      child: const SizedBox(
+                        height: kToolbarHeight,
+                        width: 150,
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(Icons.camera),
+                          ),
+                          // child: Text(
+                          //   'SCAN',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
                         ),
-                        // child: Text(
-                        //   'ACCOUNT ',
-                        //   textAlign: TextAlign.center,
-                        //   style: TextStyle(
-                        //     fontWeight: FontWeight.bold,
-                        //   ),
-                        // ),
                       ),
-                    ),
-                  )))
-        ],
-      ),
-      
+                    ))),
+
+            //ACCOUNT BUTTON
+            Expanded(
+                child: Material(
+                    color: const Color.fromARGB(255, 255, 255, 255),
+
+                    //ink well is a rectangluar area
+                    child: InkWell(
+                      //calling on tap
+                      onTap: () {
+                        //print('called on tap');
+
+                        //THIS WILL CHANGE WHEN THE EXPLORE PAGE IS DONE
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => const Profile(
+                                    key: ObjectKey('profile page'),
+                                    title: 'profile page')));
+                      },
+
+                      child: const SizedBox(
+                        height: kToolbarHeight,
+                        width: 150,
+                        child: Center(
+                          child: ListTile(
+                            leading: Icon(Icons.account_box_rounded),
+                          ),
+                          // child: Text(
+                          //   'ACCOUNT ',
+                          //   textAlign: TextAlign.center,
+                          //   style: TextStyle(
+                          //     fontWeight: FontWeight.bold,
+                          //   ),
+                          // ),
+                        ),
+                      ),
+                    )))
+          ],
+        ),
         body: Center(
           child: Stack(children: [
             Positioned(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 //import 'package:gorecipe/Screens/Dropdown.dart';
 import 'package:gorecipe/Screens/event_editing.dart';
 import 'package:gorecipe/Screens/preferences.dart';
+import 'package:gorecipe/Screens/recipes_for_you.dart';
 import 'package:intl/intl.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
@@ -63,8 +64,10 @@ class _CalendarPage extends State<CalendarPage> {
           child: const Icon(Icons.add, color: Colors.white),
           backgroundColor: Colors.red,
           onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(
-                    builder: (context) => const EventEditingPage()),
+                MaterialPageRoute(builder: (context) => const RecipesYou()),
+
+                //MaterialPageRoute(
+                //  builder: (context) => const EventEditingPage()),
               )),
       // ignore: avoid_unnecessary_containers
       body: Container(
@@ -346,7 +349,8 @@ class _CalendarPage extends State<CalendarPage> {
     );
   }
 
-  final EventEditingPage page = const EventEditingPage();
+  // ignore: prefer_const_constructors
+  // final EventEditingPage page =  EventEditingPage();
 
   //right now this is just hard coding putting something on the calendar
   List<Meeting> _getDataSource() {
@@ -362,7 +366,8 @@ class _CalendarPage extends State<CalendarPage> {
   }
 }
 
-EventEditingPage page = const EventEditingPage();
+// ignore: prefer_const_constructors
+//EventEditingPage page =  EventEditingPage();
 
 List<Meeting> getDataSource() {
   final List<Meeting> meetings = <Meeting>[];

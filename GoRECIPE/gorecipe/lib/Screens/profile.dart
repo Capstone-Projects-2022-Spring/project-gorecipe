@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/edit_account.dart';
@@ -172,8 +174,8 @@ class _Profile extends State<Profile> {
                   //},
                 }),
             ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
+              leading: const Icon(Icons.set_meal),
+              title: const Text('Set Food Preference'),
               onTap: () {
                 Navigator.push(
                     context,
@@ -181,7 +183,7 @@ class _Profile extends State<Profile> {
                         builder: (context) => const Preferences()));
               },
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
@@ -411,7 +413,7 @@ class _Profile extends State<Profile> {
         children: [
           //HOME BUTTON
           Material(
-              color: Color.fromARGB(255, 255, 255, 255),
+              color: const Color.fromARGB(255, 255, 255, 255),
 
               //ink well is a rectangluar area
               child: InkWell(
@@ -448,7 +450,7 @@ class _Profile extends State<Profile> {
           //SEARCH BUTTON
           Expanded(
               child: Material(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
 
                   //ink well is a rectangluar area
                   child: InkWell(
@@ -487,7 +489,7 @@ class _Profile extends State<Profile> {
 
           Expanded(
               child: Material(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
 
                   //ink well is a rectangluar area
                   child: InkWell(
@@ -525,7 +527,7 @@ class _Profile extends State<Profile> {
           //ACCOUNT BUTTON
           Expanded(
               child: Material(
-                  color: Color.fromARGB(255, 255, 255, 255),
+                  color: const Color.fromARGB(255, 255, 255, 255),
 
                   //ink well is a rectangluar area
                   child: InkWell(
