@@ -5,6 +5,10 @@ import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/preferences.dart';
+import 'package:gorecipe/Screens/calendar_page.dart';
+import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/explore.dart';
 
 class ScanLookup extends StatefulWidget {
   const ScanLookup({Key? key}) : super(key: key);
@@ -45,6 +49,21 @@ class _ScanLookup extends State<ScanLookup> {
     setState(() {
       _selectedIndex = index;
     });
+  }
+
+  int _currentIndex = 0;
+
+  final _children = [
+    HomeScreen(),
+    Explore(key: ObjectKey('welcome page'), title: 'hi'),
+    ScanHomeScreen(),
+    Profile(key: ObjectKey('welcome page'), title: 'profile')
+  ];
+
+  _onTap() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            _children[_currentIndex])); // this has changed
   }
 
   @override
@@ -107,20 +126,21 @@ class _ScanLookup extends State<ScanLookup> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          'SCAN',
+          'ADD INGREDIENT',
           style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
         ),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         iconTheme:
             const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
       ),
+
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Color.fromARGB(255, 116, 163, 126),
+                color: Colors.green,
               ),
               child: Text(
                 'GoRecipe',
@@ -130,23 +150,52 @@ class _ScanLookup extends State<ScanLookup> {
                 ),
               ),
             ),
-            // ignore: prefer_const_constructors
             ListTile(
-              leading: const Icon(Icons.home),
-              title: const Text('Home'),
-            ),
-            const ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
-            ),
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen(
+                                key: ObjectKey('welcome page'),
+                              )));
+
+                  //idk why this isnt working
+                  //navigation im confused everything is giving me an error
+                  //onTap: () => HomeScreen(),
+
+                  // onTap: () {
+                  //   Navigator.pop(context);
+
+                  // },
+                }),
+            ListTile(
+                leading: const Icon(Icons.set_meal),
+                title: const Text('Set Food Preference'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Preferences(
+                                key: ObjectKey('preferences'),
+                              )));
+                }),
             const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
-            const ListTile(
-              leading: Icon(Icons.calendar_today_outlined),
-              title: Text('Calendar'),
-            ),
+            ListTile(
+                leading: const Icon(Icons.calendar_today_outlined),
+                title: const Text('Calendar'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CalendarPage(
+                                key: ObjectKey('calendar page'),
+                              )));
+                }),
             ListTile(
               leading: const Icon(Icons.settings),
               title: const Text('Settings'),
@@ -160,8 +209,8 @@ class _ScanLookup extends State<ScanLookup> {
               },
             ),
             ListTile(
-                leading: Icon(Icons.help_center),
-                title: Text('Help'),
+                leading: const Icon(Icons.help_center),
+                title: const Text('Help'),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -184,6 +233,32 @@ class _ScanLookup extends State<ScanLookup> {
           ],
         ),
       ),
+
+      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.camera, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_box_rounded, size: 30), label: ''),
+        ],
+        selectedItemColor: Colors.black,
+        elevation: 5.0,
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          _onTap();
+        },
+      ),
+
       body: Center(
         child: Stack(children: [
           Expanded(

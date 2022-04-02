@@ -3,6 +3,8 @@ import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/explore.dart';
+import 'package:gorecipe/Screens/scan_home_page.dart';
 
 void main() {
   runApp(const MyApp());
@@ -62,6 +64,21 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
     });
   }
 
+  int _currentIndex = 0;
+
+  final _children = [
+    HomeScreen(),
+    Explore(key: ObjectKey('welcome page'), title: 'hi'),
+    ScanHomeScreen(),
+    Profile(key: ObjectKey('welcome page'), title: 'profile')
+  ];
+
+  _onTap() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            _children[_currentIndex])); // this has changed
+  }
+
   @override
   Widget build(BuildContext context) {
     final NO = Material(
@@ -106,82 +123,69 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
     );
 
     return Scaffold(
-        appBar: AppBar(
-          title: const Text(
-            'CALENDAR',
-            style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
-          ),
-          backgroundColor: Color.fromARGB(255, 255, 255, 255),
-          iconTheme: IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
+      appBar: AppBar(
+        title: const Text(
+          'CALENDAR',
+          style: TextStyle(color: Colors.green),
         ),
-        endDrawer: Drawer(
-          child: ListView(
-            padding: EdgeInsets.zero,
-            children: <Widget>[
-              const DrawerHeader(
-                decoration: BoxDecoration(
-                  color: Color.fromARGB(255, 116, 163, 126),
-                ),
-                child: Text(
-                  'GoRecipe',
-                  style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 24,
-                  ),
-                ),
-              ),
-              ListTile(
-                leading: const Icon(Icons.home),
-                title: const Text('Home'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.set_meal),
-                title: Text('Set Food Preference'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.book),
-                title: Text('MyCookBook'),
-              ),
-              const ListTile(
-                leading: Icon(Icons.calendar_today_outlined),
-                title: Text('Calendar'),
-              ),
-              ListTile(
-                leading: const Icon(Icons.settings),
-                title: const Text('Settings'),
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
+        iconTheme: IconThemeData(color: Colors.green),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            ListTile(
+              leading: const Icon(Icons.home),
+              title: const Text('Home'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.set_meal),
+              title: Text('Set Food Preference'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.book),
+              title: Text('MyCookBook'),
+            ),
+            const ListTile(
+              leading: Icon(Icons.calendar_today_outlined),
+              title: Text('Calendar'),
+            ),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Profile(
+                            key: ObjectKey('profile page'),
+                            title: 'profile page')));
+              },
+            ),
+            ListTile(
+                leading: Icon(Icons.help_center),
+                title: Text('Help'),
                 onTap: () {
                   Navigator.push(
                       context,
                       MaterialPageRoute(
-                          builder: (context) => const Profile(
-                              key: ObjectKey('profile page'),
-                              title: 'profile page')));
-                },
-              ),
-              ListTile(
-                  leading: Icon(Icons.help_center),
-                  title: Text('Help'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const WelcomeScreen(
-                                key: ObjectKey('welcome page'),
-                                title: 'welcome page')));
-                  }),
-              ListTile(
-                  leading: const Icon(Icons.logout),
-                  title: const Text('Log Out'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const WelcomeScreen(
-                                key: ObjectKey('welcome page'),
-                                title: 'welcome page')));
-                  }),
-            ],
-          ),
+                          builder: (context) => const WelcomeScreen(
+                              key: ObjectKey('welcome page'),
+                              title: 'welcome page')));
+                }),
+            ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Log Out'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(
+                              key: ObjectKey('welcome page'),
+                              title: 'welcome page')));
+                }),
+          ],
         ),
         body: Center(
           child: Stack(children: [
@@ -215,20 +219,23 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                       fontSize: 13.0,
                       fontWeight: FontWeight.w500,
                       fontFamily: "Consola",
+
                     ),
                   ),
-                ])),
-            Positioned(
-              left: 20,
-              right: 20,
-              bottom: 250,
+                )
+              ],
+            ),
+          ),
+          Positioned(
+              bottom: 150.0,
+              right: 90.0,
+              left: 90.0,
               child: Column(
                 children: <Widget>[
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(20.0),
-                    child: const Image(
-                      image: AssetImage("assets/images/yes_no_page.PNG"),
-                    ),
+                  //Declaring sizes of field boxes
+                  YES,
+                  const SizedBox(
+                    height: 3.0,
                   ),
                   Positioned(
                     bottom: 30,
@@ -252,35 +259,46 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                     ),
                   )
                 ],
-              ),
-            ),
-            Positioned(
-                bottom: 150.0,
-                right: 90.0,
-                left: 90.0,
-                child: Column(
-                  children: <Widget>[
-                    //Declaring sizes of field boxes
-                    YES,
-                    const SizedBox(
-                      height: 3.0,
-                    ),
-                  ],
-                )),
-            Positioned(
-                bottom: 50.0,
-                right: 90.0,
-                left: 90.0,
-                child: Column(
-                  children: <Widget>[
-                    //Declaring sizes
-                    NO,
-                    const SizedBox(
-                      height: 3.0,
-                    ),
-                  ],
-                ))
-          ]),
-        ));
+              )),
+          Positioned(
+              bottom: 50.0,
+              right: 90.0,
+              left: 90.0,
+              child: Column(
+                children: <Widget>[
+                  //Declaring sizes
+                  NO,
+                  const SizedBox(
+                    height: 3.0,
+                  ),
+                ],
+              ))
+        ]),
+      ),
+      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.camera, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_box_rounded, size: 30), label: ''),
+        ],
+        selectedItemColor: Colors.black,
+        elevation: 5.0,
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          _onTap();
+        },
+      ),
+    );
   }
 }

@@ -2,9 +2,9 @@ import 'dart:core';
 
 class User {
   final int id;
-  final String username;
+  String username;
   final String password;
-  final String email;
+  String email;
   final String firstName;
   final String lastName;
   final String birthDate;
@@ -14,7 +14,7 @@ class User {
   //final List<dynamic> favoriteIngredients;
   //final List<Object> savedRecipes;
 
-  const User(
+  User(
       {required this.id,
       required this.username,
       required this.password,
@@ -51,7 +51,7 @@ class User {
       "lastName": lastName,
       "password": password,
       "savedRecipes": [],
-      "username": username
+      "username": username,
     };
   }
 
