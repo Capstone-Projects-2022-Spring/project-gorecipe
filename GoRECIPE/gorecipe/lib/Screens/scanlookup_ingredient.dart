@@ -122,7 +122,6 @@ class _ScanLookup extends State<ScanLookup> {
               iconSize: 300,
               onPressed: () {
                 Navigator.push(
-
                     context,
                     //Change it to the scan lookup page
                     MaterialPageRoute(
@@ -292,7 +291,7 @@ class _ScanLookup extends State<ScanLookup> {
             Positioned(
               left: 20,
               right: 20,
-              bottom: 310,
+              bottom: 320,
               child: Column(
                 children: <Widget>[
                   Container(),

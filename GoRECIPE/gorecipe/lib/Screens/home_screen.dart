@@ -80,7 +80,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
   // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
-    WantToAdd(),
+    WantToAdd(key: ObjectKey('title'), title: 'title'),
     Text('Index 0: Home', style: optionStyle),
     Text(
       'Index 1: Search',
