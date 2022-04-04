@@ -1,3 +1,5 @@
+// ignore_for_file: unused_field, file_names, unused_element, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/calendar_page.dart';
 // ignore: unused_import
@@ -13,6 +15,7 @@ import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
+// ignore: unused_import
 import 'package:gorecipe/Screens/bottom_nav_bar.dart';
 
 import 'package:gorecipe/Screens/preferences.dart';
@@ -83,7 +86,7 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
     final Next = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 82, 146, 26),
+      color: const Color.fromARGB(255, 82, 146, 26),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -172,8 +175,8 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                     //},
                   }),
               ListTile(
-                leading: Icon(Icons.set_meal),
-                title: Text('Set Food Preference'),
+                leading: const Icon(Icons.set_meal),
+                title: const Text('Set Food Preference'),
                 onTap: () {
                   Navigator.push(
                       context,
@@ -181,7 +184,7 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                           builder: (context) => const Preferences()));
                 },
               ),
-              ListTile(
+              const ListTile(
                 leading: Icon(Icons.book),
                 title: Text('MyCookBook'),
               ),
@@ -288,4 +291,3 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
   }
 }
 //The second scan page
-

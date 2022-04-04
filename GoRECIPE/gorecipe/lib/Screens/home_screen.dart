@@ -13,6 +13,7 @@ import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
+// ignore: unused_import
 import 'package:gorecipe/Screens/bottom_nav_bar.dart';
 
 import 'package:gorecipe/Screens/preferences.dart';
@@ -50,6 +51,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<HomeScreen> {
+
   int _currentIndex = 0;
 
   final _children = [
@@ -64,6 +66,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         builder: (BuildContext context) =>
             _children[_currentIndex])); // this has changed
   }
+
 
   // ignore: unused_field
   static const TextStyle optionStyle = TextStyle(
@@ -165,8 +168,8 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                   //},
                 }),
             ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
+              leading: const Icon(Icons.set_meal),
+              title: const Text('Set Food Preference'),
               onTap: () {
                 Navigator.push(
                     context,
@@ -174,7 +177,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                         builder: (context) => const Preferences()));
               },
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
@@ -200,12 +203,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                             )));
               },
             ),
-            const ListTile(
-              leading: Icon(Icons.help_center),
-              title: Text('Help'),
-            ),
-            // putting the scan oon the dropdown menu for now
-
+           
             ListTile(
                 leading: const Icon(Icons.camera),
                 title: const Text('Scan'),
@@ -234,8 +232,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         ),
       ),
 
-      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
-      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -260,5 +257,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         },
       ),
     );
+
   }
 }

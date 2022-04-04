@@ -1,6 +1,14 @@
+// ignore_for_file: unused_element, unused_local_variable
+
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Screens/calendar_page.dart';
+import 'package:gorecipe/Screens/preferences.dart';
+import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
+import 'package:gorecipe/Screens/search_by_ingredient.dart';
+// ignore: unused_import
 import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
+// ignore: unused_import
 import 'package:gorecipe/Screens/create_account.dart';
 import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
@@ -18,6 +26,7 @@ class ScanLookup extends StatefulWidget {
 }
 
 class _ScanLookup extends State<ScanLookup> {
+  // ignore: unused_field
   int _selectedIndex = 0;
 
   static const TextStyle optionStyle = TextStyle(
@@ -29,6 +38,7 @@ class _ScanLookup extends State<ScanLookup> {
   final style = const TextStyle(
       fontSize: 30, fontWeight: FontWeight.bold, color: Colors.black);
 
+  // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
     Text('Index 0: Home', style: optionStyle),
     Text(
@@ -112,10 +122,19 @@ class _ScanLookup extends State<ScanLookup> {
               iconSize: 300,
               onPressed: () {
                 Navigator.push(
-                  context,
-                  //Change it to the scan lookup page
-                  MaterialPageRoute(builder: (context) => const WantToAdd()),
-                );
+
+                    context,
+                    //Change it to the scan lookup page
+                    MaterialPageRoute(
+                        builder: (context) => const SearchByIngredient(
+                              key: ObjectKey('search'),
+                              title: 'title',
+                            ))
+                    //MaterialPageRoute(
+                    //  builder: (context) => const WantToAdd(
+                    //    key: ObjectKey(ScanLookup()),
+                    //  title: "Add Ingredient")),
+                    );
               },
             ),
           ],
@@ -208,17 +227,7 @@ class _ScanLookup extends State<ScanLookup> {
                             title: 'profile page')));
               },
             ),
-            ListTile(
-                leading: const Icon(Icons.help_center),
-                title: const Text('Help'),
-                onTap: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const WelcomeScreen(
-                              key: ObjectKey('welcome page'),
-                              title: 'welcome page')));
-                }),
+         
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
@@ -233,6 +242,7 @@ class _ScanLookup extends State<ScanLookup> {
           ],
         ),
       ),
+
 
       //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
 
