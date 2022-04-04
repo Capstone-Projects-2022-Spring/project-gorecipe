@@ -187,42 +187,42 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                 }),
           ],
         ),
-        body: Center(
-          child: Stack(children: [
-            Positioned(
-                top: 50.0,
-                left: 10.0,
-                child: Column(children: const <Widget>[
-                  Text(
-                    "ADD AN RECIPE",
-                    textAlign: TextAlign.left,
-                    textScaleFactor: 2.0,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 15.0,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "Consola",
-                    ),
+      ),
+      body: Center(
+        child: Stack(children: [
+          Positioned(
+              top: 50.0,
+              left: 10.0,
+              child: Column(children: const <Widget>[
+                Text(
+                  "ADD AN RECIPE",
+                  textAlign: TextAlign.left,
+                  textScaleFactor: 2.0,
+                  style: TextStyle(
+                    color: Colors.black,
+                    fontSize: 15.0,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "Consola",
                   ),
-                ])),
-            Positioned(
-                top: 120.0,
-                left: 10.0,
-                right: 10.0,
-                child: Column(children: const <Widget>[
-                  Text(
-                    "DO YOU WANT TO ADD\n   INGREDIENT NAME?",
-                    textAlign: TextAlign.left,
-                    textScaleFactor: 2.0,
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 116, 163, 126),
-                      fontSize: 13.0,
-                      fontWeight: FontWeight.w500,
-                      fontFamily: "Consola",
-
-                    ),
+                ),
+              ])),
+          Positioned(
+            top: 120.0,
+            left: 10.0,
+            right: 10.0,
+            child: Column(
+              children: const <Widget>[
+                Text(
+                  "DO YOU WANT TO ADD\n   INGREDIENT NAME?",
+                  textAlign: TextAlign.left,
+                  textScaleFactor: 2.0,
+                  style: TextStyle(
+                    color: Color.fromARGB(255, 116, 163, 126),
+                    fontSize: 13.0,
+                    fontWeight: FontWeight.w500,
+                    fontFamily: "Consola",
                   ),
-                )
+                ),
               ],
             ),
           ),
@@ -275,6 +275,7 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
               ))
         ]),
       ),
+
       //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
 
       bottomNavigationBar: BottomNavigationBar(
