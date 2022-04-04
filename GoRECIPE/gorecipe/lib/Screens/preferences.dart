@@ -161,8 +161,8 @@ class _MyStatefulWidgetState extends State<Preferences> {
                   //},
                 }),
             ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
+              leading: const Icon(Icons.set_meal),
+              title: const Text('Set Food Preference'),
               onTap: () {
                 Navigator.push(
                     context,
@@ -170,7 +170,7 @@ class _MyStatefulWidgetState extends State<Preferences> {
                         builder: (context) => const Preferences()));
               },
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
@@ -196,11 +196,6 @@ class _MyStatefulWidgetState extends State<Preferences> {
                             title: 'profile page')));
               },
             ),
-            const ListTile(
-              leading: Icon(Icons.help_center),
-              title: Text('Help'),
-            ),
-            // putting the scan oon the dropdown menu for now
 
             ListTile(
                 leading: const Icon(Icons.camera),
@@ -230,7 +225,7 @@ class _MyStatefulWidgetState extends State<Preferences> {
         ),
       ),
 
-      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+     
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -256,7 +251,7 @@ class _MyStatefulWidgetState extends State<Preferences> {
       ),
 
       body: ListView(
-        padding: EdgeInsets.all(12),
+        padding: const EdgeInsets.all(12),
         children: [
           const Text('SET DIET', style: TextStyle(fontSize: 25)),
           //converting the checkbox state to a widget
@@ -289,7 +284,7 @@ class _MyStatefulWidgetState extends State<Preferences> {
         value: checkbox.value,
         title: Text(
           checkbox.title,
-          style: TextStyle(fontSize: 20),
+          style: const TextStyle(fontSize: 20),
         ),
         //so the value change and the Ui gets updated
         onChanged: (value) => setState(() => checkbox.value = value!),
