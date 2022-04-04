@@ -84,7 +84,7 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
     final NO = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 162, 218, 160),
+      color: Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -104,7 +104,7 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
     final YES = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 162, 218, 160),
+      color: Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
@@ -187,72 +187,39 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                 }),
           ],
         ),
-      ),
-      body: Center(
-        child: Stack(children: [
-          Positioned(
-              top: 50.0,
-              left: 10.0,
-              child: Column(children: const <Widget>[
-                Text(
-                  "ADD AN RECIPE",
-                  textAlign: TextAlign.left,
-                  textScaleFactor: 2.0,
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 15.0,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Consola",
-                  ),
-                ),
-              ])),
-          Positioned(
-              top: 120.0,
-              left: 10.0,
-              right: 10.0,
-              child: Column(children: const <Widget>[
-                Text(
-                  "DO YOU WANT TO ADD\n   INGREDIENT NAME?",
-                  textAlign: TextAlign.left,
-                  textScaleFactor: 2.0,
-                  style: TextStyle(
-                    color: Color.fromARGB(255, 152, 206, 150),
-                    fontSize: 13.0,
-                    fontWeight: FontWeight.w700,
-                    fontFamily: "Consola",
-                  ),
-                ),
-              ])),
-          Positioned(
-            left: 20,
-            right: 20,
-            bottom: 250,
-            child: Column(
-              children: <Widget>[
-                ClipRRect(
-                  borderRadius: BorderRadius.circular(20.0),
-                  child: const Image(
-                    image: AssetImage("assets/images/yes_no_page.PNG"),
-                  ),
-                ),
-                Positioned(
-                  bottom: 30,
-                  left: 20,
-                  right: 20,
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30.0),
-                      color: Color.fromARGB(255, 162, 218, 160),
+        body: Center(
+          child: Stack(children: [
+            Positioned(
+                top: 50.0,
+                left: 10.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "ADD AN RECIPE",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Colors.black,
+                      fontSize: 15.0,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Consola",
                     ),
-                    width: 400,
-                    padding: const EdgeInsets.all(10),
-                    child: const Text(
-                      'Recipe Name',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w400),
+                  ),
+                ])),
+            Positioned(
+                top: 120.0,
+                left: 10.0,
+                right: 10.0,
+                child: Column(children: const <Widget>[
+                  Text(
+                    "DO YOU WANT TO ADD\n   INGREDIENT NAME?",
+                    textAlign: TextAlign.left,
+                    textScaleFactor: 2.0,
+                    style: TextStyle(
+                      color: Color.fromARGB(255, 116, 163, 126),
+                      fontSize: 13.0,
+                      fontWeight: FontWeight.w500,
+                      fontFamily: "Consola",
+
                     ),
                   ),
                 )
@@ -270,6 +237,27 @@ class _MyStatefulWidgetState extends State<yes_or_no_calendar> {
                   const SizedBox(
                     height: 3.0,
                   ),
+                  Positioned(
+                    bottom: 30,
+                    left: 20,
+                    right: 20,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(30.0),
+                        color: Color.fromARGB(255, 116, 163, 126),
+                      ),
+                      width: 400,
+                      padding: const EdgeInsets.all(10),
+                      child: const Text(
+                        'Recipe Name',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                            fontSize: 25,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w400),
+                      ),
+                    ),
+                  )
                 ],
               )),
           Positioned(

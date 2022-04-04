@@ -113,7 +113,7 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
       borderRadius: BorderRadius.circular(30.0),
       color: const Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width / 4,
+        minWidth: MediaQuery.of(context).size.width / 5,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
           if (ingredients.isEmpty) {
@@ -130,16 +130,18 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         },
         child: Text("Next",
             textAlign: TextAlign.center,
-            style: widget.style
-                .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
+            style: widget.style.copyWith(
+                color: Colors.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 15)),
       ),
     );
     final _uploadbutton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: const Color.fromARGB(255, 116, 163, 126),
+      color: Colors.white,
       child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width / 4,
+        minWidth: MediaQuery.of(context).size.width / 5,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
           upload(File(widget.imagePath));
@@ -147,15 +149,21 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         },
         child: Text("Upload",
             textAlign: TextAlign.center,
-            style: widget.style
-                .copyWith(color: Colors.black, fontWeight: FontWeight.bold)),
+            style: widget.style.copyWith(
+                color: Color.fromARGB(255, 116, 163, 126),
+                fontWeight: FontWeight.w500,
+                fontSize: 15)),
       ),
     );
 
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
+      appBar: AppBar(
+        title: const Text('Display the Picture'),
+        backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+      ),
       // The image is stored as a file on the device. Use the `Image.file`
       // constructor with the given path to display the image.
+
       body: SingleChildScrollView(
         child: Center(
           child: Column(
