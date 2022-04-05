@@ -151,7 +151,6 @@ class _RecipesYou extends State<RecipesYou> {
                                 ],
                               ),
                             ),
-
                             IconButton(
                               icon: selected.elementAt(index)
                                   ? const Icon(Icons.check_box_sharp)
@@ -159,14 +158,12 @@ class _RecipesYou extends State<RecipesYou> {
                               onPressed: () {
                                 selected[index] = !selected.elementAt(index);
                                 Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) => EventEditingPage(
-                                        recipes: recipes[index].name)));
+                                    builder: (context) =>
+                                        const EventEditingPage()));
                               },
-                            )
-
+                            ),
                             const SizedBox(height: 10),
                             Text(recipes[index].name),
-
                           ],
                         ),
                       )),
