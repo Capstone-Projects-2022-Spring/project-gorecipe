@@ -29,6 +29,7 @@ class _CookBook extends State<CookBook> {
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
+
   Future getSavedRecipes() async {
     var response = await http.get(
       Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
@@ -52,10 +53,22 @@ class _CookBook extends State<CookBook> {
     }
   }
 
+  Future deleteRecipe({required int id}) async {
+    final response = await http.delete(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            currentUser.id.toString() +
+            '/recipes/' +
+            id.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+  }
+
   @override
   initState() {
-    currentUser = globals.user;
     getSavedRecipes();
+    currentUser = globals.user;
     super.initState();
   }
 
@@ -78,7 +91,7 @@ class _CookBook extends State<CookBook> {
   @override
   Widget build(BuildContext context) {
     for (var i = 0; i < recipes.length; i++) {
-      selected.add(false);
+      selected.add(true);
     }
 
     return Scaffold(
@@ -125,7 +138,7 @@ class _CookBook extends State<CookBook> {
                                         : secondImage,
                                     iconSize: 200,
                                     onPressed: () {
-                                      //save to My Cookbook
+                                      deleteRecipe(id: recipes[index].id);
                                       setState(() {
                                         selected[index] =
                                             !selected.elementAt(index);
