@@ -6,6 +6,9 @@ import 'package:http/http.dart' as http;
 import 'package:gorecipe/Screens/Components/hero_dialog_route.dart';
 import 'package:gorecipe/Screens/recipe_display_card.dart';
 import 'dart:convert';
+import '../Models/User.dart';
+import '../../globals.dart' as globals;
+import 'package:gorecipe/Screens/profile.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
 
@@ -26,6 +29,7 @@ class _RecipesYou extends State<RecipesYou> {
     fontSize: 20.0,
   );
 
+  late User currentUser;
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
@@ -55,6 +59,7 @@ class _RecipesYou extends State<RecipesYou> {
   @override
   initState() {
     getRecipesBySearch();
+    currentUser = globals.user;
     super.initState();
   }
 
@@ -62,6 +67,18 @@ class _RecipesYou extends State<RecipesYou> {
     final response = await http.get(
         Uri.parse(
             'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/'),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+  }
+
+  Future saveRecipe({required int id}) async {
+    final response = await http.post(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            currentUser.id.toString() +
+            '/recipes/' +
+            id.toString()),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
           'Access-Control-Allow-Origin': '*'
@@ -134,7 +151,7 @@ class _RecipesYou extends State<RecipesYou> {
                                         : secondImage,
                                     iconSize: 200,
                                     onPressed: () {
-                                      //save to My Cookbook
+                                      saveRecipe(id: recipes[index].id);
                                       setState(() {
                                         selected[index] =
                                             !selected.elementAt(index);
