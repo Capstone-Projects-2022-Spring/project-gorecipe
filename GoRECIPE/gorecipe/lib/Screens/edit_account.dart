@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import '../Models/User.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:gorecipe/Screens/pick_from_gallery.dart';
 
 //linked to the edit account button on profile page
 
@@ -32,7 +33,7 @@ class _EditAccount extends State<EditAccount> {
   @override
   void initState() {
     super.initState();
-    getUser(userId: 1);
+    getUser(userId: 5);
   }
 
   late User currentUser;
@@ -63,7 +64,10 @@ class _EditAccount extends State<EditAccount> {
     final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
-      onPressed: () {},
+      onPressed: () {Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MyImagePicker(title: 'Upload Image')));},
     );
 
     final nameField = TextField(
