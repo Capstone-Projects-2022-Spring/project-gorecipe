@@ -1,7 +1,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gorecipe">
+
+        <uses-permission android:name="android.permission.INTERNET" />   keytool -genkey -v -keystore ~/upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+
    <application
-        android:label="gorecipe"
+        android:label="GoRecipe"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
