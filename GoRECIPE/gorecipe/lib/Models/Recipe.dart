@@ -24,7 +24,6 @@ class Recipe {
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
-
     List ingList =
         Ingredient.verboseIngToList(jsonEncode(json['verboseIngredients']));
     return Recipe(
@@ -45,6 +44,22 @@ class Recipe {
         .toList();
 
     return recipes;
+  }
+
+  static bool checkIngredient(String ingredient, List<dynamic> ingList) {
+    for (String item in ingList) {
+      print("ITEM:" + item);
+      if (item.contains(ingredient)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static List<String> instructionsToList(String instructions) {
+    String parsed = instructions.replaceAll("\n", " ");
+    //print(parsed);
+    return List.from(parsed.split('.').where((time) => time != ""));
   }
 
   @override
