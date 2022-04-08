@@ -51,7 +51,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<HomeScreen> {
-
   int _currentIndex = 0;
 
   final _children = [
@@ -67,7 +66,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
             _children[_currentIndex])); // this has changed
   }
 
-
   // ignore: unused_field
   static const TextStyle optionStyle = TextStyle(
     fontSize: 30,
@@ -80,7 +78,9 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
   // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
-    WantToAdd(),
+    WantToAdd(
+      title: '',
+    ),
     Text('Index 0: Home', style: optionStyle),
     Text(
       'Index 1: Search',
@@ -203,7 +203,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                             )));
               },
             ),
-           
             ListTile(
                 leading: const Icon(Icons.camera),
                 title: const Text('Scan'),
@@ -216,7 +215,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                                     'want to add this an ingredient?'),
                               )));
                 }),
-
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
@@ -231,8 +229,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           ],
         ),
       ),
-
-
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -257,6 +253,5 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         },
       ),
     );
-
   }
 }
