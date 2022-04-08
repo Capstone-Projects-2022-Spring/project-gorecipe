@@ -39,7 +39,7 @@ class _RecipesYou extends State<RecipesYou> {
         'Access-Control-Allow-Origin': '*'
       },
     );
-    print(response.body);
+    //print(response.body);
     if (response.statusCode == 200) {
       List temp = (json.decode(response.body) as List)
           .map((i) => Recipe.fromJson(i))
@@ -101,7 +101,9 @@ class _RecipesYou extends State<RecipesYou> {
                 Navigator.of(context).push(
                   HeroDialogRoute(
                     builder: (context) => Center(
-                      child: RecipePopupCard(recipe: recipes[index]),
+                      child: RecipePopupCard(
+                        recipe: recipes[index],
+                      ),
                     ),
                   ),
                 );
