@@ -6,6 +6,7 @@ import '../../globals.dart' as globals;
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:gorecipe/Screens/profile_picture.dart';
 
 //linked to the edit account button on profile page
 
@@ -58,7 +59,10 @@ class _EditAccount extends State<EditAccount> {
     final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
-      onPressed: () {},
+      onPressed: () {Navigator.push(
+          context,
+          MaterialPageRoute(
+              builder: (context) => const MyImagePicker(title: 'UPLOAD IMAGE')));},
     );
 
     final usernameField = TextField(
