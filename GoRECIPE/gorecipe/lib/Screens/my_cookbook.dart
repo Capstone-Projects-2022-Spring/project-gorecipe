@@ -30,6 +30,13 @@ class _CookBook extends State<CookBook> {
 
   List recipes = <Recipe>[];
 
+  @override
+  initState() {
+    currentUser = globals.user;
+    getSavedRecipes();
+    super.initState();
+  }
+
   Future getSavedRecipes() async {
     var response = await http.get(
       Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
@@ -63,13 +70,6 @@ class _CookBook extends State<CookBook> {
           'Content-Type': 'application/json; charset=UTF-8',
           'Access-Control-Allow-Origin': '*'
         });
-  }
-
-  @override
-  initState() {
-    getSavedRecipes();
-    currentUser = globals.user;
-    super.initState();
   }
 
   Image firstImage = const Image(

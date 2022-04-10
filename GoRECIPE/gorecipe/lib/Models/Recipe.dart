@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:gorecipe/Models/Ingredient.dart';
 
 class Recipe {
+  final int id;
   final String content;
   final List<dynamic> ingredients;
   final String name;
@@ -13,6 +14,7 @@ class Recipe {
   final String videoURL;
 
   const Recipe({
+    required this.id,
     required this.content,
     required this.ingredients,
     required this.name,
@@ -24,10 +26,10 @@ class Recipe {
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
-
     List ingList =
         Ingredient.verboseIngToList(jsonEncode(json['verboseIngredients']));
     return Recipe(
+      id: json['id'],
       content: json['instructions'],
       ingredients: ingList,
       name: json['name'],
@@ -49,6 +51,6 @@ class Recipe {
 
   @override
   String toString() {
-    return 'Recipe{name: $name, content: $content, ingredients: $ingredients, videoURL: $videoURL }';
+    return 'Recipe{id: $id, name: $name, content: $content, ingredients: $ingredients, videoURL: $videoURL }';
   }
 }

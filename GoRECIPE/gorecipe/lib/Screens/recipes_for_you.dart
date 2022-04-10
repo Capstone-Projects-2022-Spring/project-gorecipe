@@ -83,6 +83,8 @@ class _RecipesYou extends State<RecipesYou> {
           'Content-Type': 'application/json; charset=UTF-8',
           'Access-Control-Allow-Origin': '*'
         });
+    print(currentUser.id);
+    print(id);
   }
 
   Image firstImage = const Image(
@@ -152,10 +154,6 @@ class _RecipesYou extends State<RecipesYou> {
                                     iconSize: 200,
                                     onPressed: () {
                                       saveRecipe(id: recipes[index].id);
-                                      setState(() {
-                                        selected[index] =
-                                            !selected.elementAt(index);
-                                      });
                                     },
                                   ),
                                 ],
