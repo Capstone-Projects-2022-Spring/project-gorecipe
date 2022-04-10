@@ -60,7 +60,7 @@ class _CalendarPage extends State<CalendarPage> {
         //name of the app we are creating
         title: const Text(
           'Calendar',
-          style: TextStyle(color: Colors.green),
+          style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
 
           //style: GoogleFonts.Lato(
           //textStyle: style,
@@ -72,16 +72,18 @@ class _CalendarPage extends State<CalendarPage> {
         ),
 
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        iconTheme: const IconThemeData(color: Colors.green),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
       ),
       //  endDrawer: const MyDrawer(ObjectKey('title')),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       //FloatingActionButtonLocation.centerTop,
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add, color: Colors.white),
-          backgroundColor: Colors.red,
+          backgroundColor: Color.fromARGB(255, 116, 163, 126),
           onPressed: () => Navigator.of(context).push(
-                MaterialPageRoute(builder: (context) => const EventEditingPage()),
+                MaterialPageRoute(
+                    builder: (context) => const EventEditingPage()),
 
                 //MaterialPageRoute(
                 //  builder: (context) => const EventEditingPage()),
@@ -99,7 +101,7 @@ class _CalendarPage extends State<CalendarPage> {
             CalendarView.schedule
           ],
           showNavigationArrow: true,
-          todayHighlightColor: Colors.red,
+          todayHighlightColor: Color.fromARGB(255, 1, 99, 5),
           dataSource: MeetingDataSource(_getDataSource()),
           //trying to figure out how to save events using this
           // dataSource: page.getDataSource(),
@@ -115,7 +117,7 @@ class _CalendarPage extends State<CalendarPage> {
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Color.fromARGB(255, 116, 163, 126),
               ),
               child: Text(
                 'GoRecipe',
@@ -247,7 +249,8 @@ class _CalendarPage extends State<CalendarPage> {
     final DateTime endTime = startTime.add(const Duration(hours: 2));
     meetings.add(
         // Meeting('Recipe', startTime, endTime, const Color(0xFF0F8644), false));
-        Meeting('recipe', startTime, endTime, const Color(0xFF0F8644), false));
+        Meeting('recipe', startTime, endTime,
+            const Color.fromARGB(255, 116, 163, 126), false));
     return meetings;
   }
 }
@@ -266,7 +269,7 @@ List<Meeting> getDataSource() {
 String recipe = '';
 DateTime from = 0 as DateTime;
 DateTime to = 0 as DateTime;
-Color back = const Color(0xFF0F8644);
+Color back = const Color.fromARGB(255, 116, 163, 126);
 bool flag = false;
 
 void addToCal(

@@ -78,7 +78,9 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
   // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
-    WantToAdd(),
+    WantToAdd(
+      title: '',
+    ),
     Text('Index 0: Home', style: optionStyle),
     Text(
       'Index 1: Search',
@@ -227,7 +229,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           ],
         ),
       ),
-      body: RecipesYou(ingredientList: ["apple"], choice: 2),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

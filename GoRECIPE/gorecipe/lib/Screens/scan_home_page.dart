@@ -168,9 +168,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                   ),
                 ),
               ),
-              
               ListTile(
-
                   leading: const Icon(Icons.home),
                   title: const Text('Home'),
                   onTap: () {
@@ -206,7 +204,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                 title: Text('MyCookBook'),
               ),
               ListTile(
-                 leading: const Icon(Icons.calendar_today_outlined),
+                  leading: const Icon(Icons.calendar_today_outlined),
                   title: const Text('Calendar'),
                   onTap: () {
                     Navigator.push(
@@ -228,7 +226,6 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                               title: 'profile page')));
                 },
               ),
-           
               ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Log Out'),
@@ -269,7 +266,6 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
             _onTap();
           },
         ),
-      
         body: Center(
           child: Stack(children: [
             Positioned(
@@ -319,7 +315,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                   ),
                 ])),
             Positioned(
-                bottom: 70.0,
+                bottom: 40.0,
                 left: 90,
                 right: 90,
                 child: Column(
