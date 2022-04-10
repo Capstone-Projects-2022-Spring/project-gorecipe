@@ -24,7 +24,6 @@ class Recipe {
   });
 
   factory Recipe.fromJson(Map<String, dynamic> json) {
-
     List ingList =
         Ingredient.verboseIngToList(jsonEncode(json['verboseIngredients']));
     return Recipe(
@@ -34,7 +33,7 @@ class Recipe {
       prepTime: json['prepTime'],
       sourceURL: json['sourceURL'],
       spoonacularId: json['spoonacularId'],
-      imageURL: json['imageURL'],
+      imageURL: json['imageURL'] ?? "https://via.placeholder.com/200",
       videoURL: '',
     );
   }

@@ -3,6 +3,7 @@ import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/recipes_for_you.dart';
 
 class Explore extends StatefulWidget {
   //const Profile({Key? key}) : super(key: key);
@@ -135,13 +136,7 @@ class _Explore extends State<Explore> {
           ],
         ),
       ),
-      body: ListView(
-        children: [
-          Row(),
-          Row(),
-          Row(),
-        ],
-      ),
+      body: RecipesYou(ingredientList: ["apple"], choice: 2),
 
       //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
 

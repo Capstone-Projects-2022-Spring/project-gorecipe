@@ -15,7 +15,7 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 
 // ignore: unused_import
 import 'package:gorecipe/Screens/bottom_nav_bar.dart';
-
+import 'package:gorecipe/Screens/recipes_for_you.dart';
 import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/explore.dart';
 
@@ -51,7 +51,6 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _MyStatefulWidgetState extends State<HomeScreen> {
-
   int _currentIndex = 0;
 
   final _children = [
@@ -66,7 +65,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         builder: (BuildContext context) =>
             _children[_currentIndex])); // this has changed
   }
-
 
   // ignore: unused_field
   static const TextStyle optionStyle = TextStyle(
@@ -203,7 +201,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                             )));
               },
             ),
-           
             ListTile(
                 leading: const Icon(Icons.camera),
                 title: const Text('Scan'),
@@ -216,7 +213,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                                     'want to add this an ingredient?'),
                               )));
                 }),
-
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
@@ -231,8 +227,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           ],
         ),
       ),
-
-
+      body: RecipesYou(ingredientList: ["apple"], choice: 2),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
@@ -257,6 +252,5 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         },
       ),
     );
-
   }
 }
