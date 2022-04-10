@@ -11,6 +11,7 @@ import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
 import '../Models/User.dart';
+import '../Models/FoodImage.dart';
 import '../../globals.dart' as globals;
 
 class DisplayPictureScreen extends StatefulWidget {
@@ -67,11 +68,18 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
       _foundIngredient = true;
 
       //print(json);
+      FoodImage fImage = FoodImage.fromJson(json);
+      //print("FOOD IMAGE");
+      // print(fImage.imageOf);
+      // print(fImage.s3objectId);
+      // User user1 = fImage.uploadedBy;
+      // print(user1);
       setState(() {
-        ingredients = Ingredient.ingToList(newResponse.body);
+        ingredients = Ingredient.ingToList(jsonEncode(fImage.imageOf));
         ingredientList = ingredients;
+        // print(ingredientList.join(','));
         uploaded = true;
-        print(ingredients);
+        // print(ingredients);
         _ingredient = ingredients[0];
       });
 
