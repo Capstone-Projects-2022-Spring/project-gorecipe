@@ -9,15 +9,19 @@ import 'package:http/http.dart' as http;
 import 'package:gorecipe/Screens/Components/hero_dialog_route.dart';
 import 'package:gorecipe/Screens/recipe_display_card.dart';
 import 'dart:convert';
-
+import '../Models/User.dart';
+import '../../globals.dart' as globals;
 //import 'package:shared_preferences/shared_preferences.dart';
 
 //linked to the finish scan button on scan page
 
 class RecipesYou extends StatefulWidget {
-  const RecipesYou({Key? key, required this.ingredientList}) : super(key: key);
+  const RecipesYou(
+      {Key? key, required this.ingredientList, required this.choice})
+      : super(key: key);
 
   final List<dynamic> ingredientList;
+  final int choice;
 
   @override
   State<RecipesYou> createState() => _RecipesYou();
@@ -34,6 +38,8 @@ class _RecipesYou extends State<RecipesYou> {
   List recipes = <Recipe>[];
 
   late DateTime? fromDate;
+
+  late User currentUser;
 
   Future getRecipesBySearch() async {
     var response = await http.get(
@@ -61,18 +67,38 @@ class _RecipesYou extends State<RecipesYou> {
 
   @override
   initState() {
-    getRecipesBySearch();
+    currentUser = globals.user;
+    if (widget.choice == 1) {
+      getRecipesBySearch();
+    } else {
+      getRandomRecipes(id: currentUser.id);
+    }
     super.initState();
   }
 
-  Future getRecipe({required int id}) async {
-    final response = await http.get(
-        Uri.parse(
-            'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Access-Control-Allow-Origin': '*'
-        });
+  Future getRandomRecipes({required int id}) async {
+    var response = await http.get(
+      Uri.parse(
+          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/recommend/' +
+              id.toString()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      },
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      List temp = (json.decode(response.body) as List)
+          .map((i) => Recipe.fromJson(i))
+          .toList();
+      setState(() {
+        recipes = temp;
+      });
+    } else {
+      // ignore: avoid_print
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Error Status Code" + response.statusCode.toString())));
+    }
   }
 
   Image firstImage = const Image(
