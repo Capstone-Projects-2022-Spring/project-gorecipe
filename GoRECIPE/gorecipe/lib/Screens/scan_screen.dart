@@ -1,14 +1,14 @@
 import 'dart:async';
-import 'dart:io';
+//import 'dart:io';
 // ignore: unused_import
 import 'dart:typed_data';
 import 'package:gorecipe/Screens/display_picture_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:http_parser/http_parser.dart';
+//import 'package:http/http.dart' as http;
+//import 'package:http_parser/http_parser.dart';
 
-import 'dart:convert';
+//import 'dart:convert';
 
 // A screen that allows users to take a picture using a given camera.
 class ScanScreen extends StatefulWidget {
