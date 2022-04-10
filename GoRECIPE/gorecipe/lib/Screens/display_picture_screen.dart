@@ -10,6 +10,8 @@ import 'package:gorecipe/Screens/recipes_for_you.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
+import '../Models/User.dart';
+import '../../globals.dart' as globals;
 
 class DisplayPictureScreen extends StatefulWidget {
   const DisplayPictureScreen({Key? key, required this.imagePath})
@@ -26,6 +28,7 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
   List ingredients = <String>[];
   bool uploaded = false;
   List ingredientList = <String>[];
+  late User currentUser;
 
   @override
   void dispose() {
@@ -35,13 +38,15 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
   @override
   void initState() {
     super.initState();
+    currentUser = globals.user;
   }
 
   @override
   Widget build(BuildContext context) {
     upload(File img) async {
       var postUri = Uri.parse(
-          "http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/3");
+          "http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/" +
+              currentUser.id.toString());
       var request = http.MultipartRequest("POST", postUri);
       request.files.add(http.MultipartFile.fromBytes(
         'image',
@@ -124,7 +129,7 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      RecipesYou(ingredientList: ingredients)),
+                      RecipesYou(ingredientList: ingredients, choice: 1)),
             );
           }
         },

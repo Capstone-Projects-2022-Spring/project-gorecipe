@@ -15,7 +15,7 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 
 // ignore: unused_import
 import 'package:gorecipe/Screens/bottom_nav_bar.dart';
-
+import 'package:gorecipe/Screens/recipes_for_you.dart';
 import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/explore.dart';
 
