@@ -36,7 +36,7 @@ class Recipe {
       prepTime: json['prepTime'],
       sourceURL: json['sourceURL'],
       spoonacularId: json['spoonacularId'],
-      imageURL: json['imageURL'],
+      imageURL: json['imageURL'] ?? "https://via.placeholder.com/200",
       videoURL: '',
     );
   }
@@ -47,6 +47,22 @@ class Recipe {
         .toList();
 
     return recipes;
+  }
+
+  static bool checkIngredient(String ingredient, List<dynamic> ingList) {
+    for (String item in ingList) {
+      print("ITEM:" + item);
+      if (item.contains(ingredient)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  static List<String> instructionsToList(String instructions) {
+    String parsed = instructions.replaceAll("\n", " ");
+    //print(parsed);
+    return List.from(parsed.split('.').where((time) => time != ""));
   }
 
   @override

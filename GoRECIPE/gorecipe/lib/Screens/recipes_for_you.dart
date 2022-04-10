@@ -1,5 +1,8 @@
+// ignore_for_file: unused_import, unused_local_variable
+
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Models/Ingredient.dart';
+import 'package:gorecipe/Screens/event_editing.dart';
 import '../Models/Recipe.dart';
 import '../Models/Ingredient.dart';
 import 'package:http/http.dart' as http;
@@ -8,16 +11,18 @@ import 'package:gorecipe/Screens/recipe_display_card.dart';
 import 'dart:convert';
 import '../Models/User.dart';
 import '../../globals.dart' as globals;
-import 'package:gorecipe/Screens/profile.dart';
 
 //import 'package:shared_preferences/shared_preferences.dart';
 
 //linked to the finish scan button on scan page
 
 class RecipesYou extends StatefulWidget {
-  const RecipesYou({Key? key, required this.ingredientList}) : super(key: key);
+  const RecipesYou(
+      {Key? key, required this.ingredientList, required this.choice})
+      : super(key: key);
 
   final List<dynamic> ingredientList;
+  final int choice;
 
   @override
   State<RecipesYou> createState() => _RecipesYou();
@@ -33,11 +38,50 @@ class _RecipesYou extends State<RecipesYou> {
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
+
+  late DateTime? fromDate;
+
   Future getRecipesBySearch() async {
     var response = await http.get(
       Uri.parse(
           'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?query=' +
               widget.ingredientList[0].toString()),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      },
+    );
+    //print(response.body);
+    if (response.statusCode == 200) {
+      List temp = (json.decode(response.body) as List)
+          .map((i) => Recipe.fromJson(i))
+          .toList();
+      setState(() {
+        recipes = temp;
+      });
+    } else {
+      // ignore: avoid_print
+      print("cannot get data");
+    }
+  }
+
+  @override
+  initState() {
+    currentUser = globals.user;
+    if (widget.choice == 1) {
+      getRecipesBySearch();
+    } else {
+      getRandomRecipes(id: currentUser.id);
+    }
+
+    super.initState();
+  }
+
+  Future getRandomRecipes({required int id}) async {
+    var response = await http.get(
+      Uri.parse(
+          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/recommend/' +
+              id.toString()),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Access-Control-Allow-Origin': '*'
@@ -52,25 +96,10 @@ class _RecipesYou extends State<RecipesYou> {
         recipes = temp;
       });
     } else {
-      print("cannot get data");
+      // ignore: avoid_print
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text("Error Status Code" + response.statusCode.toString())));
     }
-  }
-
-  @override
-  initState() {
-    getRecipesBySearch();
-    currentUser = globals.user;
-    super.initState();
-  }
-
-  Future getRecipe({required int id}) async {
-    final response = await http.get(
-        Uri.parse(
-            'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/'),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Access-Control-Allow-Origin': '*'
-        });
   }
 
   Future saveRecipe({required int id}) async {
@@ -120,7 +149,9 @@ class _RecipesYou extends State<RecipesYou> {
                 Navigator.of(context).push(
                   HeroDialogRoute(
                     builder: (context) => Center(
-                      child: RecipePopupCard(recipe: recipes[index]),
+                      child: RecipePopupCard(
+                        recipe: recipes[index],
+                      ),
                     ),
                   ),
                 );
@@ -158,6 +189,17 @@ class _RecipesYou extends State<RecipesYou> {
                                   ),
                                 ],
                               ),
+                            ),
+                            IconButton(
+                              icon: selected.elementAt(index)
+                                  ? const Icon(Icons.check_box_sharp)
+                                  : const Icon(Icons.calendar_today_outlined),
+                              onPressed: () {
+                                selected[index] = !selected.elementAt(index);
+                                Navigator.of(context).push(MaterialPageRoute(
+                                    builder: (context) =>
+                                        const EventEditingPage()));
+                              },
                             ),
                             const SizedBox(height: 10),
                             Text(recipes[index].name),

@@ -1,3 +1,5 @@
+// ignore_for_file: unused_import
+
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/edit_account.dart';
@@ -188,8 +190,8 @@ class _Profile extends State<Profile> {
                   //},
                 }),
             ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
+              leading: const Icon(Icons.set_meal),
+              title: const Text('Set Food Preference'),
               onTap: () {
                 Navigator.push(
                     context,
@@ -197,7 +199,7 @@ class _Profile extends State<Profile> {
                         builder: (context) => const Preferences()));
               },
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
             ),
@@ -223,11 +225,6 @@ class _Profile extends State<Profile> {
                             title: 'profile page')));
               },
             ),
-            const ListTile(
-              leading: Icon(Icons.help_center),
-              title: Text('Help'),
-            ),
-            // putting the scan oon the dropdown menu for now
 
             ListTile(
                 leading: const Icon(Icons.camera),
@@ -423,6 +420,7 @@ class _Profile extends State<Profile> {
       ),
 
       //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+
 
       bottomNavigationBar: BottomNavigationBar(
         items: const [

@@ -14,8 +14,9 @@ import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/welcome_screen.dart';
 
+// ignore: unused_import
 import 'package:gorecipe/Screens/bottom_nav_bar.dart';
-
+import 'package:gorecipe/Screens/recipes_for_you.dart';
 import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/explore.dart';
 
@@ -78,7 +79,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
 
   // ignore: unused_field
   static const List<Widget> _widgetOptions = <Widget>[
-    WantToAdd(key: ObjectKey('title'), title: 'title'),
+    WantToAdd(),
     Text('Index 0: Home', style: optionStyle),
     Text(
       'Index 1: Search',
@@ -166,8 +167,8 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                   //},
                 }),
             ListTile(
-              leading: Icon(Icons.set_meal),
-              title: Text('Set Food Preference'),
+              leading: const Icon(Icons.set_meal),
+              title: const Text('Set Food Preference'),
               onTap: () {
                 Navigator.push(
                     context,
@@ -175,7 +176,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                         builder: (context) => const Preferences()));
               },
             ),
-            ListTile(
+            const ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
               onTap: () {
@@ -205,12 +206,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                             )));
               },
             ),
-            const ListTile(
-              leading: Icon(Icons.help_center),
-              title: Text('Help'),
-            ),
-            // putting the scan oon the dropdown menu for now
-
             ListTile(
                 leading: const Icon(Icons.camera),
                 title: const Text('Scan'),
@@ -223,7 +218,6 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
                                     'want to add this an ingredient?'),
                               )));
                 }),
-
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
@@ -238,9 +232,7 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
           ],
         ),
       ),
-
-      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
-      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+      body: RecipesYou(ingredientList: ["apple"], choice: 2),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,

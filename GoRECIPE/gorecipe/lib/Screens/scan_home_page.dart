@@ -107,7 +107,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
     final startscanbutton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: Color.fromARGB(255, 255, 255, 255),
+      color: const Color.fromARGB(255, 255, 255, 255),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
@@ -132,7 +132,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
 
     return Scaffold(
         //tool bar at the top of the screen
-        backgroundColor: Color.fromARGB(255, 116, 163, 126),
+        backgroundColor: const Color.fromARGB(255, 116, 163, 126),
         appBar: AppBar(
           //test is widgte that takes a string as an arug- and extracted in the first arg
           //name of the app we are creating
@@ -168,7 +168,9 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                   ),
                 ),
               ),
+              
               ListTile(
+
                   leading: const Icon(Icons.home),
                   title: const Text('Home'),
                   onTap: () {
@@ -204,7 +206,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                 title: Text('MyCookBook'),
               ),
               ListTile(
-                  leading: const Icon(Icons.calendar_today_outlined),
+                 leading: const Icon(Icons.calendar_today_outlined),
                   title: const Text('Calendar'),
                   onTap: () {
                     Navigator.push(
@@ -226,17 +228,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                               title: 'profile page')));
                 },
               ),
-              ListTile(
-                  leading: const Icon(Icons.help_center),
-                  title: const Text('Help'),
-                  onTap: () {
-                    Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => const WelcomeScreen(
-                                key: ObjectKey('welcome page'),
-                                title: 'welcome page')));
-                  }),
+           
               ListTile(
                   leading: const Icon(Icons.logout),
                   title: const Text('Log Out'),
@@ -251,6 +243,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
             ],
           ),
         ),
+
 //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
 
         bottomNavigationBar: BottomNavigationBar(
@@ -276,6 +269,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
             _onTap();
           },
         ),
+      
         body: Center(
           child: Stack(children: [
             Positioned(

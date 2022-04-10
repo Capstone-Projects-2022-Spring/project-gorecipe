@@ -13,6 +13,7 @@ class RecipePopupCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<String> instructions = Recipe.instructionsToList(recipe.content);
     return Hero(
       tag: recipe.name,
       // createRectTween: (begin, end) {
@@ -64,7 +65,7 @@ class RecipePopupCard extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text("Total Time",
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(fontSize: 14),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
@@ -75,7 +76,7 @@ class RecipePopupCard extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text("Calories",
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(fontSize: 14),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
@@ -86,7 +87,7 @@ class RecipePopupCard extends StatelessWidget {
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text("Difficulty",
-                                        style: TextStyle(fontSize: 15),
+                                        style: TextStyle(fontSize: 14),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
@@ -102,7 +103,9 @@ class RecipePopupCard extends StatelessWidget {
                       //Ingredient List
                       if (recipe.ingredients != null) ...[
                         const Divider(),
-                        _RecipeItemsBox(ingredients: recipe.ingredients),
+                        _RecipeItemsBox(
+                          ingredients: recipe.ingredients,
+                        )
                       ],
                       Container(
                         margin: const EdgeInsets.all(8),
@@ -110,6 +113,22 @@ class RecipePopupCard extends StatelessWidget {
                           color: Colors.black12,
                           borderRadius: BorderRadius.circular(8),
                         ),
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * 0.65,
+                        width: MediaQuery.of(context).size.width,
+                        child: ListView.builder(
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                            itemCount: instructions.length,
+                            itemBuilder: (BuildContext ctxt, int index) {
+                              return Row(children: [
+                                Flexible(
+                                    child: Text((index + 1).toString() +
+                                        ") " +
+                                        instructions[index])),
+                              ]);
+                            }),
                       ),
                     ],
                   ),
