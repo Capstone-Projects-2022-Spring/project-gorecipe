@@ -2,6 +2,8 @@ import 'dart:core';
 import 'dart:convert';
 import 'package:gorecipe/Models/Ingredient.dart';
 
+int default_id = 7;
+
 class Recipe {
   final int? id;
   final String content;
@@ -29,7 +31,7 @@ class Recipe {
     List ingList =
         Ingredient.verboseIngToList(jsonEncode(json['verboseIngredients']));
     return Recipe(
-      id: json['id'],
+      id: json['id'] ?? default_id,
       content: json['instructions'],
       ingredients: ingList,
       name: json['name'],

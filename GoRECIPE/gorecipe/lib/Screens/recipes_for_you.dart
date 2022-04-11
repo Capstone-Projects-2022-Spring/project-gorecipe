@@ -182,9 +182,7 @@ class _RecipesYou extends State<RecipesYou> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   IconButton(
-                                    icon: selected.elementAt(index)
-                                        ? firstImage
-                                        : secondImage,
+                                    icon: secondImage,
                                     iconSize: 200,
                                     onPressed: () {
                                       saveRecipe(id: recipes[index].id);

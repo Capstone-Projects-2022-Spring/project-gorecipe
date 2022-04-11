@@ -133,16 +133,10 @@ class _CookBook extends State<CookBook> {
                                 mainAxisSize: MainAxisSize.min,
                                 children: <Widget>[
                                   IconButton(
-                                    icon: selected.elementAt(index)
-                                        ? firstImage
-                                        : secondImage,
+                                    icon: firstImage,
                                     iconSize: 200,
                                     onPressed: () {
                                       deleteRecipe(id: recipes[index].id);
-                                      setState(() {
-                                        selected[index] =
-                                            !selected.elementAt(index);
-                                      });
                                     },
                                   ),
                                 ],
