@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:gorecipe/Models/Ingredient.dart';
 
 class Recipe {
-  final int id;
+  final int? id;
   final String content;
   final List<dynamic> ingredients;
   final String name;
@@ -67,6 +67,6 @@ class Recipe {
 
   @override
   String toString() {
-    return 'Recipe{id: $id, name: $name, content: $content, ingredients: $ingredients, videoURL: $videoURL }';
+    return 'Recipe{id: $id, name: $name, content: $content, ingredients: $ingredients, spoonacularId: $spoonacularId, videoURL: $videoURL }';
   }
 }
