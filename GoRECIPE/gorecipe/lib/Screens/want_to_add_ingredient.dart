@@ -19,7 +19,9 @@ class MyApp extends StatefulWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: _title,
-      home: WantToAdd(),
+      home: WantToAdd(
+        title: '',
+      ),
     );
   }
 
@@ -31,7 +33,7 @@ class MyApp extends StatefulWidget {
 }
 
 class WantToAdd extends StatefulWidget {
-  const WantToAdd({Key? key}) : super(key: key);
+  const WantToAdd({Key? key, required String title}) : super(key: key);
   @override
   State<WantToAdd> createState() => _MyStatefulWidgetState();
 }

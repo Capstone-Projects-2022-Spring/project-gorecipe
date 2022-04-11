@@ -9,6 +9,7 @@ import 'package:gorecipe/Screens/calendar_page.dart';
 //import 'package:gorecipe/Screens/forgot_password.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/scan_screen.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
 //import 'package:gorecipe/Screens/want_to_add_ingredient.dart';
@@ -119,7 +120,7 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                 Navigator.push(
                   context,
                   //Change it to the scan lookup page
-                  MaterialPageRoute(builder: (context) => const ScanLookup()),
+                  MaterialPageRoute(builder: (context) => const ScanScreen()),
                 );
               },
             ),

@@ -44,13 +44,18 @@ class _RecipesYou extends State<RecipesYou> {
   Future getRecipesBySearch() async {
     var response = await http.get(
       Uri.parse(
-          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?query=' +
-              widget.ingredientList[0].toString()),
+          'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?ingredients=' +
+              widget.ingredientList.join(',') +
+              "&query=food"),
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
         'Access-Control-Allow-Origin': '*'
       },
     );
+    // print(
+    //     'http://gorecipe.us-east-2.elasticbeanstalk.com/api/recipes/search?ingredients=' +
+    //         widget.ingredientList.join(',') +
+    //         "&query=food");
     //print(response.body);
     if (response.statusCode == 200) {
       List temp = (json.decode(response.body) as List)
@@ -87,7 +92,7 @@ class _RecipesYou extends State<RecipesYou> {
         'Access-Control-Allow-Origin': '*'
       },
     );
-    print(response.body);
+    //print(response.body);
     if (response.statusCode == 200) {
       List temp = (json.decode(response.body) as List)
           .map((i) => Recipe.fromJson(i))
@@ -97,8 +102,6 @@ class _RecipesYou extends State<RecipesYou> {
       });
     } else {
       // ignore: avoid_print
-      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-          content: Text("Error Status Code" + response.statusCode.toString())));
     }
   }
 

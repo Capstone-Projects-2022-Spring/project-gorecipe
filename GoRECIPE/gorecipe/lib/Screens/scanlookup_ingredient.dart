@@ -96,7 +96,7 @@ class _ScanLookup extends State<ScanLookup> {
           children: [
             IconButton(
               icon: Image.asset("assets/images/scanbutton.PNG"),
-              iconSize: 300,
+              iconSize: 250,
               onPressed: () {
                 Navigator.push(
                   context,
@@ -119,22 +119,21 @@ class _ScanLookup extends State<ScanLookup> {
           children: [
             IconButton(
               icon: Image.asset("assets/images/lookupbutton.PNG"),
-              iconSize: 300,
+              iconSize: 250,
               onPressed: () {
                 Navigator.push(
-
-                    context,
-                    //Change it to the scan lookup page
-                    MaterialPageRoute(
+                  context,
+                  //Change it to the scan lookup page
+                  /*   MaterialPageRoute(
                         builder: (context) => const SearchByIngredient(
                               key: ObjectKey('search'),
                               title: 'title',
-                            ))
-                    //MaterialPageRoute(
-                    //  builder: (context) => const WantToAdd(
-                    //    key: ObjectKey(ScanLookup()),
-                    //  title: "Add Ingredient")),
-                    );
+                            ))*/
+                  MaterialPageRoute(
+                      builder: (context) => const WantToAdd(
+                          key: ObjectKey(ScanLookup()),
+                          title: "Add Ingredient")),
+                );
               },
             ),
           ],
@@ -227,7 +226,6 @@ class _ScanLookup extends State<ScanLookup> {
                             title: 'profile page')));
               },
             ),
-         
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
@@ -242,7 +240,6 @@ class _ScanLookup extends State<ScanLookup> {
           ],
         ),
       ),
-
 
       //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
 
@@ -292,7 +289,7 @@ class _ScanLookup extends State<ScanLookup> {
             Positioned(
               left: 20,
               right: 20,
-              bottom: 310,
+              bottom: 300,
               child: Column(
                 children: <Widget>[
                   Container(),
