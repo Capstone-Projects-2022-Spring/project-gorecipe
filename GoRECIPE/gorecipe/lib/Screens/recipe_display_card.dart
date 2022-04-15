@@ -115,7 +115,7 @@ class RecipePopupCard extends StatelessWidget {
                         ),
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height * 0.65,
+                        height: MediaQuery.of(context).size.height,
                         width: MediaQuery.of(context).size.width,
                         child: ListView.builder(
                             shrinkWrap: true,

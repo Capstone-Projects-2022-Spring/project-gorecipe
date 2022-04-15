@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Models/Ingredient.dart';
 import 'package:gorecipe/Screens/event_editing.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
 import '../Models/Recipe.dart';
 import '../Models/Ingredient.dart';
 import 'package:http/http.dart' as http;
@@ -32,6 +33,10 @@ class _RecipesYou extends State<RecipesYou> {
     fontFamily: 'Montserrat',
     fontSize: 20.0,
   );
+
+  bool _found = false;
+
+  bool _visible = false;
 
   List<bool> selected = <bool>[];
 
@@ -63,10 +68,11 @@ class _RecipesYou extends State<RecipesYou> {
           .toList();
       setState(() {
         recipes = temp;
+        _found = true;
       });
     } else {
       // ignore: avoid_print
-      print("cannot get data");
+      throw Exception("Cannot get data" + response.statusCode.toString());
     }
   }
 
@@ -98,6 +104,7 @@ class _RecipesYou extends State<RecipesYou> {
           .toList();
       setState(() {
         recipes = temp;
+        _found = true;
       });
     } else {
       // ignore: avoid_print
@@ -122,11 +129,83 @@ class _RecipesYou extends State<RecipesYou> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.choice == 1) {
+      _visible = true;
+    } else {
+      _visible = false;
+    }
+    if (!_found) {
+      return Scaffold(
+          appBar: _visible
+              ? AppBar(
+                  title: Text("Recipes"),
+                  automaticallyImplyLeading: false,
+                  backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+                  leading: IconButton(
+                    icon: Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen(
+                                    key: ObjectKey('welcome page'),
+                                  )));
+                    },
+                  ),
+                )
+              : null,
+          body: const CircularProgressIndicator());
+    }
+
     for (var i = 0; i < recipes.length; i++) {
       selected.add(false);
     }
 
+    if (recipes.isEmpty) {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Recipes"),
+            automaticallyImplyLeading: false,
+            backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+            leading: IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen(
+                              key: ObjectKey('welcome page'),
+                            )));
+              },
+            ),
+          ),
+          body: Column(
+            children: [
+              SizedBox(height: 20),
+              Text("No Recipes Found Try again with smaller search parameters"),
+            ],
+          ));
+    }
+
     return Scaffold(
+      appBar: _visible
+          ? AppBar(
+              title: Text("Recipes"),
+              automaticallyImplyLeading: false,
+              backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+              leading: IconButton(
+                icon: Icon(Icons.home),
+                onPressed: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen(
+                                key: ObjectKey('welcome page'),
+                              )));
+                },
+              ),
+            )
+          : null,
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView.builder(
