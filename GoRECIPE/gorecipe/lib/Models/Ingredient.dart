@@ -2,7 +2,6 @@ import 'dart:core';
 
 import 'dart:convert';
 
-
 class Ingredient {
   final String name;
 
@@ -17,11 +16,18 @@ class Ingredient {
   }
 
   static List ingToList(String jsonData) {
+    print(jsonData);
     List ingredients = (jsonDecode(jsonData) as List)
         .map((data) => Ingredient.fromJson(data).name)
         .toList();
 
     return ingredients;
+  }
+
+  static Map<String, dynamic> toJson(String name) {
+    return {
+      "name": name,
+    };
   }
 
   static List verboseIngToList(String jsonData) {
