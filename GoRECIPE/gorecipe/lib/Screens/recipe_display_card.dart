@@ -26,7 +26,7 @@ class RecipePopupCard extends StatelessWidget {
           padding: const EdgeInsets.all(16.0),
           child: Material(
             borderRadius: BorderRadius.circular(16),
-            color: Colors.green,
+            color: Color.fromARGB(255, 116, 163, 126),
             child: SizedBox(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
@@ -36,6 +36,7 @@ class RecipePopupCard extends StatelessWidget {
                     children: [
                       //Title
                       _RecipeTitle(title: recipe.name),
+
                       const SizedBox(
                         height: 8,
                       ),
@@ -46,6 +47,7 @@ class RecipePopupCard extends StatelessWidget {
                           Container(
                             height: 300.0,
                             decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(60.0),
                               image: DecorationImage(
                                 fit: BoxFit.cover,
                                 alignment: FractionalOffset.center,
@@ -56,38 +58,47 @@ class RecipePopupCard extends StatelessWidget {
                           Container(
                             margin: const EdgeInsets.only(top: 260),
                             width: MediaQuery.of(context).size.width * 0.75,
-                            height: MediaQuery.of(context).size.width * 0.20,
+                            height: MediaQuery.of(context).size.width * 0.13,
                             child: Material(
-                              color: Colors.lightGreen,
+                              color: Colors.white,
                               borderRadius: BorderRadius.circular(30.0),
                               child: Row(
                                 children: const [
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text("Total Time",
-                                        style: TextStyle(fontSize: 14),
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Color.fromARGB(
+                                                255, 50, 71, 55)),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
                                   VerticalDivider(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(255, 50, 71, 55),
                                     thickness: 2,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text("Calories",
-                                        style: TextStyle(fontSize: 14),
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Color.fromARGB(
+                                                255, 50, 71, 55)),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
                                   VerticalDivider(
-                                    color: Colors.black,
+                                    color: Color.fromARGB(255, 50, 71, 55),
                                     thickness: 2,
                                   ),
                                   Padding(
                                     padding: EdgeInsets.all(8.0),
                                     child: Text("Difficulty",
-                                        style: TextStyle(fontSize: 14),
+                                        style: TextStyle(
+                                            fontSize: 14,
+                                            color: Color.fromARGB(
+                                                255, 50, 71, 55)),
                                         maxLines: 1,
                                         textAlign: TextAlign.center),
                                   ),
@@ -155,7 +166,11 @@ class _RecipeTitle extends StatelessWidget {
   Widget build(BuildContext context) {
     return Text(
       title,
-      style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+      textAlign: TextAlign.center,
+      style: const TextStyle(
+          color: Color.fromARGB(255, 50, 71, 55),
+          fontWeight: FontWeight.bold,
+          fontSize: 16),
     );
   }
 }

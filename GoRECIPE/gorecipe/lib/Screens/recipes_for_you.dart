@@ -188,101 +188,145 @@ class _RecipesYou extends State<RecipesYou> {
     }
 
     return Scaffold(
-      appBar: _visible
-          ? AppBar(
-              title: Text("Recipes"),
-              automaticallyImplyLeading: false,
-              backgroundColor: const Color.fromARGB(255, 116, 163, 126),
-              leading: IconButton(
-                icon: Icon(Icons.home),
-                onPressed: () {
-                  Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (context) => const HomeScreen(
-                                key: ObjectKey('welcome page'),
-                              )));
-                },
+        backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+        appBar: _visible
+            ? AppBar(
+                title: Text("Recipes"),
+                automaticallyImplyLeading: false,
+                backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+                leading: IconButton(
+                  icon: Icon(Icons.home),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
+                  },
+                ),
+              )
+            : null,
+        body: Padding(
+          padding: EdgeInsets.all(20),
+          child: Stack(children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60.0),
               ),
-            )
-          : null,
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: ListView.builder(
-          itemCount: recipes.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  HeroDialogRoute(
-                    builder: (context) => Center(
-                      child: RecipePopupCard(
-                        recipe: recipes[index],
+            ),
+            ListView.builder(
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      HeroDialogRoute(
+                        builder: (context) => Center(
+                          child: RecipePopupCard(
+                            recipe: recipes[index],
+                          ),
+                        ),
                       ),
+                    );
+                  },
+                  child: Hero(
+                    tag: recipes[index].name,
+                    child: Material(
+                      child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 116, 163, 126),
+                            border: index == 0
+                                ? const Border() // This will create no border for the first item
+                                : Border(
+                                    top: BorderSide(
+                                        width: 1,
+                                        color: Color.fromARGB(255, 50, 71,
+                                            55))), // This will create top borders for the rest
+                          ),
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: Positioned(
+                                    left: 300,
+                                    child: Column(children: <Widget>[
+                                      Text(
+                                        recipes[index].name,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 50, 71, 55),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: /*Transform(
+                                    transform: Matrix4.identity()
+                                      ..translate(0.0, 10.0)
+                                      ..scale(1.5),
+                                    child:*/
+                                      ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image.network(
+                                      recipes[index].imageURL,
+                                      scale: 0.5,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    //  ),
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      IconButton(
+                                        icon: selected.elementAt(index)
+                                            ? firstImage
+                                            : secondImage,
+                                        onPressed: () {
+                                          //save to My Cookbook
+                                          setState(() {
+                                            selected[index] =
+                                                !selected.elementAt(index);
+                                          });
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: selected.elementAt(index)
+                                            ? const Icon(Icons.check_box_sharp)
+                                            : const Icon(
+                                                Icons.calendar_today_outlined),
+                                        onPressed: () {
+                                          selected[index] =
+                                              !selected.elementAt(index);
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const EventEditingPage()));
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                              ],
+                            ),
+                          )),
                     ),
                   ),
                 );
               },
-              child: Hero(
-                tag: recipes[index].name,
-                child: Material(
-                  child: Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        border: index == 0
-                            ? const Border() // This will create no border for the first item
-                            : Border(
-                                top: BorderSide(
-                                    width: 1,
-                                    color: Theme.of(context)
-                                        .primaryColor)), // This will create top borders for the rest
-                      ),
-                      child: Card(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: Image.network(recipes[index].imageURL),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: selected.elementAt(index)
-                                        ? firstImage
-                                        : secondImage,
-                                    iconSize: 200,
-                                    onPressed: () {
-                                      //save to My Cookbook
-                                      setState(() {
-                                        selected[index] =
-                                            !selected.elementAt(index);
-                                      });
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            IconButton(
-                              icon: selected.elementAt(index)
-                                  ? const Icon(Icons.check_box_sharp)
-                                  : const Icon(Icons.calendar_today_outlined),
-                              onPressed: () {
-                                selected[index] = !selected.elementAt(index);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EventEditingPage()));
-                              },
-                            ),
-                            const SizedBox(height: 10),
-                            Text(recipes[index].name),
-                          ],
-                        ),
-                      )),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
+            ),
+          ]),
+        ));
   }
 }

@@ -101,7 +101,7 @@ class _CalendarPage extends State<CalendarPage> {
             CalendarView.schedule
           ],
           showNavigationArrow: true,
-          todayHighlightColor: Color.fromARGB(255, 1, 99, 5),
+          todayHighlightColor: Color.fromARGB(255, 56, 79, 61),
           dataSource: MeetingDataSource(_getDataSource()),
           //trying to figure out how to save events using this
           // dataSource: page.getDataSource(),

@@ -59,10 +59,11 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
+      backgroundColor: const Color.fromARGB(255, 116, 163, 126),
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Color.fromARGB(255, 116, 163, 126),
         foregroundColor: Colors.white,
-        shadowColor: Colors.pink,
+        shadowColor: Color.fromARGB(255, 32, 95, 8),
         leading: const CloseButton(),
         actions: buildEditingActions(),
       ),
@@ -83,6 +84,11 @@ class _EventEditingPageState extends State<EventEditingPage> {
                   const SizedBox(height: 12),
                   // buildDateTimePickers(),
                   DropdownButton(
+                      dropdownColor: Color.fromARGB(255, 70, 100, 77),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
                       value: recipe,
                       items: dropdownItems,
                       onChanged: (String? newValue) {
@@ -91,7 +97,11 @@ class _EventEditingPageState extends State<EventEditingPage> {
                         });
                       }),
                   DropdownButton<DateTime>(
-
+                      dropdownColor: Color.fromARGB(255, 70, 100, 77),
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 25,
+                      ),
                       // hint: const Text('Choose A Date'),
                       items: ['Choose A Date']
                           .map(
@@ -100,11 +110,25 @@ class _EventEditingPageState extends State<EventEditingPage> {
                       onChanged: (DateTime? value) {
                         setState(() {
                           showDatePicker(
-                                  context: context,
-                                  initialDate: DateTime.now(),
-                                  firstDate: DateTime(2001),
-                                  lastDate: DateTime(2099))
-                              .then(
+                              context: context,
+                              initialDate: DateTime.now(),
+                              firstDate: DateTime(2001),
+                              lastDate: DateTime(2099),
+                              builder: (context, child) {
+                                return Theme(
+                                  data: Theme.of(context).copyWith(
+                                    colorScheme: ColorScheme.light(
+                                      primary: Color.fromARGB(255, 70, 100, 77),
+                                      onPrimary:
+                                          Colors.white, // header text color
+                                      onSurface:
+                                          Color.fromARGB(255, 50, 71, 55),
+                                      // body text color
+                                    ),
+                                  ),
+                                  child: child!,
+                                );
+                              }).then(
                             (date) {
                               setState(() {
                                 fromDate = date;
@@ -131,22 +155,28 @@ class _EventEditingPageState extends State<EventEditingPage> {
         ),
       ];
 
-  Widget buildTitle() => TextFormField(
-        style: style,
-        minLines: 1,
-        maxLines: 5,
-        decoration: const InputDecoration(
-          //border: UnderlineInputBorder(),
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.vertical(),
-          ),
-          hintText: 'Add Notes',
+  Widget buildTitle() => Positioned(
+      bottom: 90.0,
+      child: Column(children: <Widget>[
+        TextFormField(
+          style: style,
+          minLines: 1,
+          maxLines: 5,
+          decoration: InputDecoration(
+              filled: true,
+              fillColor: Colors.white,
+              //border: UnderlineInputBorder(),
+              contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+              hintText: "Add Notes",
+              border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(15.0))),
+
+          onFieldSubmitted: (_) => saveForm(),
+          //validator: (title) =>
+          //  title != null && title.isEmpty ? 'Title cannot be empty' : null,
+          controller: titleController,
         ),
-        onFieldSubmitted: (_) => saveForm(),
-        //validator: (title) =>
-        //  title != null && title.isEmpty ? 'Title cannot be empty' : null,
-        controller: titleController,
-      );
+      ]));
 
   static const headerText = Text(
     "Add Recipe & Date",
@@ -154,6 +184,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
     textScaleFactor: 2.0,
     style: TextStyle(
       fontWeight: FontWeight.bold,
+      color: Colors.white,
     ),
   );
 
@@ -288,8 +319,8 @@ class _EventEditingPageState extends State<EventEditingPage> {
     final DateTime startTime =
         DateTime(today.year, today.month, today.day, 9, 0, 0);
     final DateTime endTime = startTime.add(const Duration(hours: 2));
-    meetings.add(
-        Meeting(recipe, fromDate, endTime, const Color(0xFF0F8644), false));
+    meetings.add(Meeting(recipe, fromDate, endTime,
+        const Color.fromARGB(255, 116, 163, 126), false));
     return meetings;
   }
 
@@ -334,7 +365,7 @@ class Event {
     //required this.description,
     required this.from,
     required this.to,
-    this.backgroundColor = Colors.lightGreen,
+    this.backgroundColor = const Color.fromARGB(255, 116, 163, 126),
     //this.isAllDay = false,
   });
 }
