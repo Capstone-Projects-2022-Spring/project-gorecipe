@@ -121,32 +121,6 @@ class _Profile extends State<Profile> {
         ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
-
-        /*actions: <Widget>[
-            IconButton(
-              icon: const Icon(Icons.menu),
-              iconSize: 50,
-              color: Colors.black,
-              tooltip: 'Go to the next page',
-              onPressed: () {
-                Navigator.push(context, MaterialPageRoute<void>(
-                  builder: (BuildContext context) {
-                    return Scaffold(
-                      appBar: AppBar(
-                        title: const Text('Next page'),
-                      ),
-                      body: const Center(
-                        child: Text(
-                          'This is the next page',
-                          style: TextStyle(fontSize: 24),
-                        ),
-                      ),
-                    );
-                  },
-                ));
-              },
-            ),
-          ],*/
       ),
       endDrawer: Drawer(
         child: ListView(
