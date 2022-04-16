@@ -113,7 +113,7 @@ class _MyStatefulWidgetState extends State<Preferences> {
         //name of the app we are creating
         title: const Text(
           'Set Food Preferences',
-          style: TextStyle(color: Colors.green),
+          style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
 
           //style: GoogleFonts.Lato(
           //textStyle: style,
@@ -125,7 +125,8 @@ class _MyStatefulWidgetState extends State<Preferences> {
         ),
 
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        iconTheme: const IconThemeData(color: Colors.green),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
       ),
 
       endDrawer: Drawer(
@@ -238,9 +239,9 @@ class _MyStatefulWidgetState extends State<Preferences> {
           BottomNavigationBarItem(
               icon: Icon(Icons.account_box_rounded, size: 30), label: ''),
         ],
-        selectedItemColor: Colors.black,
+        selectedItemColor: Color.fromARGB(255, 91, 128, 99),
         elevation: 5.0,
-        unselectedItemColor: Colors.black,
+        unselectedItemColor: Color.fromARGB(255, 91, 128, 99),
         backgroundColor: Colors.white,
         onTap: (index) {
           setState(() {
@@ -253,10 +254,14 @@ class _MyStatefulWidgetState extends State<Preferences> {
       body: ListView(
         padding: const EdgeInsets.all(12),
         children: [
-          const Text('SET DIET', style: TextStyle(fontSize: 25)),
+          const Text('SET DIET',
+              style: TextStyle(
+                  fontSize: 25, color: Color.fromARGB(255, 91, 128, 99))),
           //converting the checkbox state to a widget
           ...diet.map(buildSingleCheckbox).toList(),
-          const Text('SET INTROLERANCE', style: TextStyle(fontSize: 25)),
+          const Text('SET INTROLERANCE',
+              style: TextStyle(
+                  fontSize: 25, color: Color.fromARGB(255, 91, 128, 99))),
           //converting the checkbox state to a widget
           ...intolerance.map(buildSingleCheckbox).toList(),
 
@@ -280,11 +285,12 @@ class _MyStatefulWidgetState extends State<Preferences> {
   Widget buildSingleCheckbox(CheckBoxState checkbox) => CheckboxListTile(
         //moves checkbox to the left of word
         controlAffinity: ListTileControlAffinity.leading,
-        activeColor: Colors.green,
+        activeColor: Color.fromARGB(255, 116, 163, 126),
         value: checkbox.value,
         title: Text(
           checkbox.title,
-          style: const TextStyle(fontSize: 20),
+          style: const TextStyle(
+              fontSize: 20, color: Color.fromARGB(255, 91, 128, 99)),
         ),
         //so the value change and the Ui gets updated
         // onChanged: (value) => setState(() => checkbox.value = value!),
