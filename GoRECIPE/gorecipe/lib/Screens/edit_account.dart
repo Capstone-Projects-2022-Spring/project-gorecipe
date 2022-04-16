@@ -86,7 +86,7 @@ class _EditAccount extends State<EditAccount> {
     final editButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
-      color: const Color(0xFF689F38),
+      color: Color.fromARGB(255, 116, 163, 126),
       child: MaterialButton(
         minWidth: MediaQuery.of(context).size.width,
         padding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),

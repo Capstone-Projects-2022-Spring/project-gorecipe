@@ -78,6 +78,7 @@ class _Profile extends State<Profile> {
       textScaleFactor: 2.25,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
+        color: Color.fromARGB(255, 50, 71, 55),
       ),
     );
     final lastName = Text(
@@ -86,6 +87,7 @@ class _Profile extends State<Profile> {
       textScaleFactor: 2.25,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
+        color: Color.fromARGB(255, 50, 71, 55),
       ),
     );
 
@@ -95,6 +97,8 @@ class _Profile extends State<Profile> {
       textScaleFactor: 2.0,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
+        fontSize: 12,
+        color: Color.fromARGB(255, 50, 71, 55),
       ),
     );
 
@@ -104,6 +108,8 @@ class _Profile extends State<Profile> {
       textScaleFactor: 2.0,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
+        fontSize: 12,
+        color: Color.fromARGB(255, 50, 71, 55),
       ),
     );
 
@@ -113,6 +119,8 @@ class _Profile extends State<Profile> {
       textScaleFactor: 2.0,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
+        fontSize: 12,
+        color: Color.fromARGB(255, 50, 71, 55),
       ),
     );
 
@@ -121,11 +129,11 @@ class _Profile extends State<Profile> {
         title: const Text(
           'ACCOUNT',
           style: TextStyle(
-            color: Colors.green,
+            color: Color.fromARGB(255, 116, 163, 126),
           ),
         ),
         backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: Colors.green),
+        iconTheme: IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
 
         /*actions: <Widget>[
             IconButton(
@@ -225,7 +233,6 @@ class _Profile extends State<Profile> {
                             title: 'profile page')));
               },
             ),
-
             ListTile(
                 leading: const Icon(Icons.camera),
                 title: const Text('Scan'),
@@ -238,7 +245,6 @@ class _Profile extends State<Profile> {
                                     'want to add this an ingredient?'),
                               )));
                 }),
-
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),
@@ -260,6 +266,7 @@ class _Profile extends State<Profile> {
             children: [
               Container(
                 decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(60.0),
                   image: DecorationImage(
                     image: const AssetImage("assets/images/ingredients.png"),
                     fit: BoxFit.cover,
@@ -314,13 +321,15 @@ class _Profile extends State<Profile> {
                       children: const [
                         Icon(
                           Icons.book,
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 91, 128, 99),
                         ),
                         Text('    MyCookbook',
                             textDirection: TextDirection.ltr,
                             textAlign: TextAlign.justify,
                             textScaleFactor: 1.5,
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 91, 128, 99),
+                            )),
                       ],
                     ),
                   ),
@@ -343,13 +352,14 @@ class _Profile extends State<Profile> {
                       children: const [
                         Icon(
                           Icons.wysiwyg_rounded,
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 91, 128, 99),
                         ),
                         Text('    Calendar',
                             textDirection: TextDirection.ltr,
                             textAlign: TextAlign.justify,
                             textScaleFactor: 1.5,
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 91, 128, 99))),
                       ],
                     ),
                   ),
@@ -372,13 +382,14 @@ class _Profile extends State<Profile> {
                       children: const [
                         Icon(
                           Icons.wifi_protected_setup,
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 91, 128, 99),
                         ),
                         Text('    Update Food Preferences',
                             textDirection: TextDirection.ltr,
                             textAlign: TextAlign.justify,
                             textScaleFactor: 1.5,
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 91, 128, 99))),
                       ],
                     ),
                   ),
@@ -402,13 +413,14 @@ class _Profile extends State<Profile> {
                       children: const [
                         Icon(
                           Icons.app_settings_alt,
-                          color: Colors.green,
+                          color: Color.fromARGB(255, 91, 128, 99),
                         ),
                         Text('    Edit Profile',
                             textDirection: TextDirection.ltr,
                             textAlign: TextAlign.justify,
                             textScaleFactor: 1.5,
-                            style: TextStyle(color: Colors.black)),
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 91, 128, 99))),
                       ],
                     ),
                   ),
@@ -420,7 +432,6 @@ class _Profile extends State<Profile> {
       ),
 
       //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
-
 
       bottomNavigationBar: BottomNavigationBar(
         items: const [
