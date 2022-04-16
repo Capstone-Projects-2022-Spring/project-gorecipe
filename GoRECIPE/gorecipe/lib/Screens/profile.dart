@@ -17,7 +17,6 @@ import 'package:gorecipe/Screens/explore.dart';
 // View profile page
 
 class Profile extends StatefulWidget {
-  //const Profile({Key? key}) : super(key: key);
   const Profile({required Key key, required this.title}) : super(key: key);
 
   final String title;
@@ -32,7 +31,6 @@ class _Profile extends State<Profile> {
   void initState() {
     super.initState();
     currentUser = globals.user;
-    //getUser(userId: 1);
   }
 
   /*Future getUser({required int userId}) async {
@@ -75,7 +73,7 @@ class _Profile extends State<Profile> {
     final firstName = Text(
       currentUser.firstName,
       textAlign: TextAlign.center,
-      textScaleFactor: 2.25,
+      textScaleFactor: 3.0,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
         color: Color.fromARGB(255, 50, 71, 55),
@@ -84,7 +82,7 @@ class _Profile extends State<Profile> {
     final lastName = Text(
       currentUser.lastName,
       textAlign: TextAlign.center,
-      textScaleFactor: 2.25,
+      textScaleFactor: 3.0,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
         color: Color.fromARGB(255, 50, 71, 55),
@@ -94,7 +92,7 @@ class _Profile extends State<Profile> {
     final userName = Text(
       currentUser.username,
       textAlign: TextAlign.center,
-      textScaleFactor: 2.0,
+      textScaleFactor: 2.25,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 12,
@@ -105,18 +103,7 @@ class _Profile extends State<Profile> {
     final email = Text(
       currentUser.email,
       textAlign: TextAlign.center,
-      textScaleFactor: 2.0,
-      style: const TextStyle(
-        fontWeight: FontWeight.bold,
-        fontSize: 12,
-        color: Color.fromARGB(255, 50, 71, 55),
-      ),
-    );
-
-    final birthday = Text(
-      currentUser.birthDate,
-      textAlign: TextAlign.center,
-      textScaleFactor: 2.0,
+      textScaleFactor: 2.25,
       style: const TextStyle(
         fontWeight: FontWeight.bold,
         fontSize: 12,
@@ -280,7 +267,7 @@ class _Profile extends State<Profile> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: <Widget>[
-                      Container(
+                      /*Container(
                         width: 200,
                         height: 200,
                         decoration: const BoxDecoration(
@@ -290,14 +277,13 @@ class _Profile extends State<Profile> {
                                   AssetImage("assets/images/default_pfp.png"),
                               fit: BoxFit.fill),
                         ),
-                      ),
+                      ),*/
                       const SizedBox(height: 15.0),
                       firstName,
                       lastName,
                       const SizedBox(height: 15.0),
                       userName,
                       email,
-                      birthday,
                       const SizedBox(
                         height: 25.0,
                       ),
