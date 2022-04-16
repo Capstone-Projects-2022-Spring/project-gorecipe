@@ -55,11 +55,11 @@ class _EditAccount extends State<EditAccount> {
 
   @override
   Widget build(BuildContext context) {
-    final profileButton = IconButton(
+    /*final profileButton = IconButton(
       icon: Image.asset('assets/images/default_pfp.png'),
       iconSize: 200,
       onPressed: () {},
-    );
+    );*/
 
     final usernameField = TextField(
       controller: usernameController,
@@ -134,8 +134,8 @@ class _EditAccount extends State<EditAccount> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   //Declaring sizes of field boxes
-                  const SizedBox(height: 20.0),
-                  profileButton,
+                  const SizedBox(height: 200.0),
+                  //profileButton,
                   const SizedBox(height: 25.0),
                   usernameField,
                   const SizedBox(height: 25.0),
