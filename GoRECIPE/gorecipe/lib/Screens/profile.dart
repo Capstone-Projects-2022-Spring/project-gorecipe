@@ -252,15 +252,13 @@ class _Profile extends State<Profile> {
                               fit: BoxFit.fill),
                         ),
                       ),*/
-                      const SizedBox(height: 15.0),
+                      const SizedBox(height: 100.0),
                       firstName,
                       lastName,
-                      const SizedBox(height: 15.0),
+                      const SizedBox(height: 25.0),
                       userName,
                       email,
-                      const SizedBox(
-                        height: 25.0,
-                      ),
+                      const SizedBox(height: 100.0,),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const <Widget>[],
