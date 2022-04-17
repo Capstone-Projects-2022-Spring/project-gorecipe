@@ -29,7 +29,7 @@ class MyImagePicker extends StatefulWidget {
 
 class _MyImagePickerState extends State<MyImagePicker> {
   PickedFile? _imageFile;
-  final String uploadUrl = 'https://api.imgur.com/3/upload';
+  final String uploadUrl = 'http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/5';
   final ImagePicker _picker = ImagePicker();
 
   Future uploadImage(filepath, url) async {
