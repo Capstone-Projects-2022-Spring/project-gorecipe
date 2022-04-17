@@ -102,6 +102,7 @@ class _MyImagePickerState extends State<MyImagePicker> {
               color: Color.fromARGB(255, 116, 163, 126),
             ),),
         backgroundColor: Colors.white,
+        iconTheme: IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
       ),
       body: Center(
           child: FutureBuilder<void>(
