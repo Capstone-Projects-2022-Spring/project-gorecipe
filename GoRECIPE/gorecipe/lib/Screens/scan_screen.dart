@@ -5,6 +5,7 @@ import 'dart:typed_data';
 import 'package:gorecipe/Screens/display_picture_screen.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Screens/upload.dart';
 //import 'package:http/http.dart' as http;
 //import 'package:http_parser/http_parser.dart';
 
@@ -82,7 +83,80 @@ class ScanScreenState extends State<ScanScreen> {
           }
         },
       ),
-      floatingActionButton: FloatingActionButton(
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: Stack(
+        fit: StackFit.expand,
+        children: [
+          Positioned(
+            left: 30,
+            bottom: 20,
+            child: FloatingActionButton(
+              heroTag: 'gallery',
+              onPressed: () => Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const MyImagePicker( key: ObjectKey('upload'),
+                          title: 'UPLOAD IMAGE'))),
+              tooltip: 'Pick Image from gallery',
+              child: const Icon(
+                Icons.photo_library,
+                size: 40,
+              ),
+              backgroundColor: Color.fromARGB(255, 116, 163, 126),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+          Positioned(
+            bottom: 20,
+            right: 30,
+            child: FloatingActionButton(
+              heroTag: 'shutter',
+              onPressed: () async {
+                // Take the Picture in a try / catch block. If anything goes wrong,
+                // catch the error.
+                try {
+                  // Ensure that the camera is initialized.
+                  await _initializeControllerFuture;
+
+                  // Attempt to take a picture and get the file `image`
+                  // where it was saved.
+                  final image = await _controller.takePicture();
+                  // ignore: avoid_print
+                  print("IMAGE PATH: " + image.path);
+                  //final bytes = await File(image.path).readAsBytes();
+
+                  // If the picture was taken, display it on a new screen.
+                  await Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DisplayPictureScreen(
+                        // Pass the automatically generated path to
+                        // the DisplayPictureScreen widget.
+                        imagePath: image.path,
+                      ),
+                    ),
+                  );
+                } catch (e) {
+                  // If an error occurs, log the error to the console.
+                  // ignore: avoid_print
+                  print(e);
+                }
+              },
+              tooltip: 'Take photo',
+              child: const Icon(
+                Icons.camera_alt,
+                size: 40,
+              ),
+              backgroundColor: Color.fromARGB(255, 116, 163, 126),
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(10),
+              ),
+            ),
+          ),
+        ],
+      ),
+      /*floatingActionButton: FloatingActionButton(
         // Provide an onPressed callback.
         onPressed: () async {
           // Take the Picture in a try / catch block. If anything goes wrong,
@@ -115,7 +189,7 @@ class ScanScreenState extends State<ScanScreen> {
           }
         },
         child: const Icon(Icons.camera_alt),
-      ),
+      ),*/
     );
   }
 }
