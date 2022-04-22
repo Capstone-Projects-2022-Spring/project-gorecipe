@@ -12,6 +12,7 @@ import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/explore.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/profile.dart';
+import 'package:gorecipe/Screens/my_cookbook.dart';
 
 //moethod doesnt return nothing
 void main() {
@@ -199,9 +200,15 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
                                   key: ObjectKey('preferences'),
                                 )));
                   }),
-              const ListTile(
-                leading: Icon(Icons.book),
-                title: Text('MyCookBook'),
+              ListTile(
+                leading: const Icon(Icons.book),
+                title: const Text('MyCookBook'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CookBook()));
+                },
               ),
               ListTile(
                   leading: const Icon(Icons.calendar_today_outlined),

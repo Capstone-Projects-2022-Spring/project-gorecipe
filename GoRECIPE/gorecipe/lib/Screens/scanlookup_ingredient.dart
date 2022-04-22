@@ -17,6 +17,7 @@ import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/calendar_page.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/explore.dart';
+import 'package:gorecipe/Screens/my_cookbook.dart';
 
 class ScanLookup extends StatefulWidget {
   const ScanLookup({Key? key}) : super(key: key);
@@ -199,9 +200,13 @@ class _ScanLookup extends State<ScanLookup> {
                                 key: ObjectKey('preferences'),
                               )));
                 }),
-            const ListTile(
-              leading: Icon(Icons.book),
-              title: Text('MyCookBook'),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: const Text('MyCookBook'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CookBook()));
+              },
             ),
             ListTile(
                 leading: const Icon(Icons.calendar_today_outlined),
