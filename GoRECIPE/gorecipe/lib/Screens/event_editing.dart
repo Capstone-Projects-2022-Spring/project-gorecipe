@@ -1,12 +1,20 @@
+// ignore_for_file: unused_import
+
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Models/User.dart';
 import 'package:intl/intl.dart';
 import 'package:gorecipe/Screens/calendar_page.dart';
 import 'package:syncfusion_flutter_calendar/calendar.dart';
+import 'package:http/http.dart' as http;
+import '../../globals.dart' as globals;
+import '../Models/Recipe.dart';
 
 class EventEditingPage extends StatefulWidget {
   //const EventEditingPage(this.event) : super(key: key);
 
-  final Event? event;
+  final Meeting? event;
   const EventEditingPage({Key? key, this.event}) : super(key: key);
 
   @override
@@ -20,21 +28,37 @@ class _EventEditingPageState extends State<EventEditingPage> {
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   late final void Function()? onChanged;
+  late User currentUser;
+  List recipes = <Recipe>[];
+
+  Future getSavedRecipes() async {
+    var response = await http.get(
+      Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+          currentUser.id.toString() +
+          '/recipes'),
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+        'Access-Control-Allow-Origin': '*'
+      },
+    );
+    print(response.body);
+    if (response.statusCode == 200) {
+      List temp = (json.decode(response.body) as List)
+          .map((i) => Recipe.fromJson(i))
+          .toList();
+      setState(() {
+        recipes = temp;
+      });
+    } else {
+      print("cannot get data");
+    }
+  }
 
   @override
   void initState() {
+    currentUser = globals.user;
+    getSavedRecipes();
     super.initState();
-
-    if (widget.event == null) {
-      fromDate = DateTime.now();
-      toDate = DateTime.now().add(const Duration(hours: 2));
-    } else {
-      final event = widget.event!;
-
-      titleController.text = event.title;
-      fromDate = event.from;
-      toDate = event.to;
-    }
   }
 
 //hardcoded recipe list right now
@@ -56,7 +80,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
   TextStyle style = const TextStyle(
       fontFamily: 'Montserrat', fontSize: 20.0, fontWeight: FontWeight.bold);
-
+  DateTime selectedDate = DateTime.now();
   @override
   Widget build(BuildContext context) => Scaffold(
       backgroundColor: const Color.fromARGB(255, 116, 163, 126),
@@ -72,7 +96,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
           child: Form(
               key: _formKey,
               child: Column(
-                //mainAxisSize: MainAxisSize.min,
+                mainAxisSize: MainAxisSize.min,
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
@@ -82,62 +106,14 @@ class _EventEditingPageState extends State<EventEditingPage> {
                     height: 10,
                   ),
                   const SizedBox(height: 12),
-                  // buildDateTimePickers(),
-                  DropdownButton(
-                      dropdownColor: Color.fromARGB(255, 70, 100, 77),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                      value: recipe,
-                      items: dropdownItems,
-                      onChanged: (String? newValue) {
-                        setState(() {
-                          recipe = newValue;
-                        });
-                      }),
-                  DropdownButton<DateTime>(
-                      dropdownColor: Color.fromARGB(255, 70, 100, 77),
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 25,
-                      ),
-                      // hint: const Text('Choose A Date'),
-                      items: ['Choose A Date']
-                          .map(
-                              (e) => DropdownMenuItem<DateTime>(child: Text(e)))
-                          .toList(),
-                      onChanged: (DateTime? value) {
-                        setState(() {
-                          showDatePicker(
-                              context: context,
-                              initialDate: DateTime.now(),
-                              firstDate: DateTime(2001),
-                              lastDate: DateTime(2099),
-                              builder: (context, child) {
-                                return Theme(
-                                  data: Theme.of(context).copyWith(
-                                    colorScheme: ColorScheme.light(
-                                      primary: Color.fromARGB(255, 70, 100, 77),
-                                      onPrimary:
-                                          Colors.white, // header text color
-                                      onSurface:
-                                          Color.fromARGB(255, 50, 71, 55),
-                                      // body text color
-                                    ),
-                                  ),
-                                  child: child!,
-                                );
-                              }).then(
-                            (date) {
-                              setState(() {
-                                fromDate = date;
-                                //meetings.add
-                              });
-                            },
-                          );
-                        });
-                      }),
+                  ElevatedButton(
+                    onPressed: () {
+                      _selectDate(context);
+                    },
+                    child: Text("Choose date"),
+                  ),
+                  Text(
+                      "${selectedDate.month}/${selectedDate.day}/${selectedDate.year}"),
                   buildTitle(),
                   //, onClicked: onClicked)
                 ],
@@ -145,15 +121,33 @@ class _EventEditingPageState extends State<EventEditingPage> {
 
   List<Widget> buildEditingActions() => [
         ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            primary: Colors.transparent,
-            shadowColor: Colors.transparent,
-          ),
-          icon: const Icon(Icons.done),
-          label: const Text('SAVE'),
-          onPressed: saveForm,
-        ),
+            style: ElevatedButton.styleFrom(
+              primary: Colors.transparent,
+              shadowColor: Colors.transparent,
+            ),
+            icon: const Icon(Icons.done),
+            label: const Text('SAVE'),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const CalendarPage()));
+            } //saveForm,
+            ),
       ];
+
+  _selectDate(BuildContext context) async {
+    final DateTime? selected = await showDatePicker(
+      context: context,
+      initialDate: selectedDate,
+      firstDate: DateTime(2010),
+      lastDate: DateTime(2025),
+    );
+    if (selected != null && selected != selectedDate)
+      setState(() {
+        selectedDate = selected;
+      });
+  }
 
   Widget buildTitle() => Positioned(
       bottom: 90.0,
@@ -165,21 +159,23 @@ class _EventEditingPageState extends State<EventEditingPage> {
           decoration: InputDecoration(
               filled: true,
               fillColor: Colors.white,
-              //border: UnderlineInputBorder(),
+
+              /// border: UnderlineInputBorder(),
               contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
               hintText: "Add Notes",
               border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15.0))),
+        )
 
-          onFieldSubmitted: (_) => saveForm(),
-          //validator: (title) =>
-          //  title != null && title.isEmpty ? 'Title cannot be empty' : null,
-          controller: titleController,
-        ),
+        //onFieldSubmitted: (_) => saveForm(),
+        //validator: (title) =>
+        //  title != null && title.isEmpty ? 'Title cannot be empty' : null,
+        //  controller: titleController,
+        // ),
       ]));
 
   static const headerText = Text(
-    "Add Recipe & Date",
+    "Add Recipe",
     textAlign: TextAlign.center,
     textScaleFactor: 2.0,
     style: TextStyle(
@@ -192,192 +188,107 @@ class _EventEditingPageState extends State<EventEditingPage> {
     return recipe;
   }
 
-  Widget buildDateTimePickers() => Column(
-        children: [
-          buildFrom(),
-          buildTo(),
-        ],
-      );
-
-  Widget buildFrom() => buildHeader(
-        header: 'FROM',
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: buildDropDownMenuField(
-                text: MeetingDataSource.toDate(toDate),
-                onClicked: () => pickFromDateTime(pickDate: true),
-              ),
-            ),
-            Expanded(
-                child: buildDropDownMenuField(
-                    text: MeetingDataSource.toTime(toDate),
-                    onClicked: () => pickFromDateTime(pickDate: false)))
-          ],
-        ),
-      );
-
-  Future pickFromDateTime({required bool pickDate}) async {
-    final date = await pickDateTime(toDate, pickDate: pickDate);
-    if (date == null) return;
-
-    if (date.isAfter(toDate)) {
-      toDate =
-          DateTime(date.year, date.month, date.day, toDate.hour, toDate.minute);
-    }
-
-    setState(() => fromDate = date);
-  }
-
-  Future<DateTime?> pickDateTime(
-    DateTime initialDate, {
-    required bool pickDate,
-    DateTime? firstDate,
-  }) async {
-    if (pickDate) {
-      final date = await showDatePicker(
-        context: context,
-        initialDate: initialDate,
-        firstDate: firstDate ?? DateTime(2015, 8),
-        lastDate: DateTime(2101),
-      );
-
-      if (date == null) return null;
-
-      final time =
-          Duration(hours: initialDate.hour, minutes: initialDate.minute);
-      return date.add(time);
-    } else {
-      final timeOfDay = await showTimePicker(
-        context: context,
-        initialTime: TimeOfDay.fromDateTime(initialDate),
-      );
-      if (timeOfDay == null) return null;
-      final date =
-          DateTime(initialDate.year, initialDate.month, initialDate.day);
-      final time = Duration(hours: timeOfDay.hour, minutes: timeOfDay.minute);
-      return date.add(time);
-    }
-  }
-
-  Widget buildTo() => buildHeader(
-        header: 'TO',
-        child: Row(
-          children: [
-            Expanded(
-              flex: 2,
-              child: buildDropDownMenuField(
-                text: MeetingDataSource.toDate(toDate),
-                onClicked: () => pickToDateTime(pickDate: true),
-              ),
-            ),
-            Expanded(
-                child: buildDropDownMenuField(
-              text: MeetingDataSource.toTime(toDate),
-              onClicked: () => pickToDateTime(pickDate: false),
-            ))
-          ],
-        ),
-      );
-
-  Future pickToDateTime({required bool pickDate}) async {
-    final date = await pickDateTime(toDate,
-        pickDate: pickDate, firstDate: pickDate ? fromDate : null);
-    if (date == null) return;
-
-    // if (date.isAfter(toDate)) {
-    // toDate =
-    //   DateTime(date.year, date.month, date.day, toDate.hour, toDate.minute);
-    // }
-
-    setState(() => toDate = date);
-  }
-
-  Widget buildDropDownMenuField({
-    required String text,
-    required VoidCallback onClicked,
-  }) =>
-      ListTile(
-          title: Text(text),
-          trailing: const Icon(Icons.arrow_drop_down),
-          onTap: onClicked);
-
-  Widget buildHeader({
-    required String header,
-    required Widget child,
-  }) =>
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [Text(header, style: style)],
-      );
-
 // ignore: unused_element
-  List<Meeting> _getDataSource() {
+  List<Meeting> getTheDataSource() {
     final List<Meeting> meetings = <Meeting>[];
-    final DateTime today = DateTime.now();
-    final DateTime startTime =
-        DateTime(today.year, today.month, today.day, 9, 0, 0);
-    final DateTime endTime = startTime.add(const Duration(hours: 2));
-    meetings.add(Meeting(recipe, fromDate, endTime,
+    //final DateTime today = DateTime.now();
+    //final DateTime startTime =
+    // DateTime(today.year, today.month, today.day, 9, 0, 0);
+    //final DateTime endTime = startTime.add(const Duration(hours: 2));
+    meetings.add(Meeting(recipes, selectedDate,
         const Color.fromARGB(255, 116, 163, 126), false));
     return meetings;
+  }
+
+  DateTime returnDate() {
+    DateTime date = selectedDate;
+    return date;
   }
 
   final List<Meeting> meetingss = [];
 
 //still trying to figure this out
   Future saveForm() async {
+    //final List<Meeting> meetings = <Meeting>[];
+    // Text((recipes.length > 0 ? recipes[0]['recipe'] : ''));
+    //var recipes2 = recipes;
+
+    // ignore: unnecessary_null_comparison
+    //if (recipes != null && recipes.length != 0) {
+    //meetings.add(Meeting(recipes2[0].name, selectedDate,
+    //  const Color.fromARGB(255, 116, 163, 126), false));
+    // }
     final isValid = _formKey.currentState!.validate();
 
+    //final isValid = formKey.currentState!.validate();
+
     if (isValid) {
-      // meeting.addToCal();
+      //meeting.addToCal();
       // ignore: unused_local_variable
-      final event = Event(
-        title: titleController.text,
-        // description: 'Description',
-        from: fromDate,
-        to: toDate,
-        //isAllDay: false,
-      );
+      //  final me = Meeting(
+      //      title: titleController.text,
+      //     description: 'Description',
+      // from: fromDate,
+      //t/o: toDate,
+      //isAllDay: false,
+      //);
       Navigator.of(context).pop();
     }
+    //return meetings;
   }
 }
 
-class Event {
-  // Event(this.eventName, this.from, this.to, this.background, this.isAllDay);
+class MeetingDataSources extends CalendarDataSource {
+  DateTime? time;
 
-  //String eventName;
-  // DateTime from;
-  // DateTime to;
-  //Color background;
-  //bool isAllDay;
-  final String title;
-  //final String description;
-  final DateTime? from;
-  final DateTime to;
-  final Color backgroundColor;
-  //final bool isAllDay;
-
-  Event({
-    required this.title,
-    //required this.description,
-    required this.from,
-    required this.to,
-    this.backgroundColor = const Color.fromARGB(255, 116, 163, 126),
-    //this.isAllDay = false,
-  });
-}
-
-class EventDataSource extends CalendarDataSource {
-  EventDataSource(List<Event> source) {
+  MeetingDataSources(List<dynamic> source) {
     //this.source = source;
     appointments = source;
   }
 
+  //@override
   static String toDate(DateTime datetime) {
     final date = DateFormat.yMMMEd().format(datetime);
     return date;
   }
+
+  static String toTime(DateTime dateTime) {
+    final time = DateFormat.Hm().format(dateTime);
+    return time;
+  }
+
+  @override
+  DateTime getStartTime(int index) {
+    return appointments![index].from;
+  }
+
+  @override
+  DateTime getEndTime(int index) {
+    return appointments![index].to;
+  }
+
+  @override
+  String getSubject(int index) {
+    return appointments![index].eventName;
+  }
+
+  @override
+  Color getColor(int index) {
+    return appointments![index].background;
+  }
+
+  @override
+  bool isAllDay(int index) {
+    return appointments![index].isAllDay;
+  }
+}
+
+class Meeting {
+  Meeting(this.eventName, this.from, this.background, this.isAllDay);
+
+  List<dynamic> eventName;
+  DateTime? from;
+  //DateTime to;
+  Color background;
+  bool isAllDay;
 }
