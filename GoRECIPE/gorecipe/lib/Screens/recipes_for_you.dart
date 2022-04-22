@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Models/Ingredient.dart';
 import 'package:gorecipe/Screens/event_editing.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
 import '../Models/Recipe.dart';
 import '../Models/Ingredient.dart';
 import 'package:http/http.dart' as http;
@@ -35,6 +36,11 @@ class _RecipesYou extends State<RecipesYou> {
   );
 
   late User currentUser;
+
+  bool _found = false;
+
+  bool _visible = false;
+
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
@@ -63,10 +69,11 @@ class _RecipesYou extends State<RecipesYou> {
           .toList();
       setState(() {
         recipes = temp;
+        _found = true;
       });
     } else {
       // ignore: avoid_print
-      print("cannot get data");
+      throw Exception("Cannot get data" + response.statusCode.toString());
     }
   }
 
@@ -99,6 +106,7 @@ class _RecipesYou extends State<RecipesYou> {
           .toList();
       setState(() {
         recipes = temp;
+        _found = true;
       });
     } else {
       // ignore: avoid_print
@@ -137,24 +145,198 @@ class _RecipesYou extends State<RecipesYou> {
 
   @override
   Widget build(BuildContext context) {
+    if (widget.choice == 1) {
+      _visible = true;
+    } else {
+      _visible = false;
+    }
+    if (!_found) {
+      return Scaffold(
+          appBar: _visible
+              ? AppBar(
+                  title: Text("Recipes"),
+                  automaticallyImplyLeading: false,
+                  backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+                  leading: IconButton(
+                    icon: Icon(Icons.home),
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const HomeScreen(
+                                    key: ObjectKey('welcome page'),
+                                  )));
+                    },
+                  ),
+                )
+              : null,
+          body: const CircularProgressIndicator());
+    }
+
     for (var i = 0; i < recipes.length; i++) {
       selected.add(false);
     }
 
+    if (recipes.isEmpty) {
+      return Scaffold(
+          appBar: AppBar(
+            title: Text("Recipes"),
+            automaticallyImplyLeading: false,
+            backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+            leading: IconButton(
+              icon: Icon(Icons.home),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const HomeScreen(
+                              key: ObjectKey('welcome page'),
+                            )));
+              },
+            ),
+          ),
+          body: Column(
+            children: [
+              SizedBox(height: 20),
+              Text("No Recipes Found Try again with smaller search parameters"),
+            ],
+          ));
+    }
+
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: ListView.builder(
-          itemCount: recipes.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  HeroDialogRoute(
-                    builder: (context) => Center(
-                      child: RecipePopupCard(
-                        recipe: recipes[index],
+        backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+        appBar: _visible
+            ? AppBar(
+                title: Text("Recipes"),
+                automaticallyImplyLeading: false,
+                backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+                leading: IconButton(
+                  icon: Icon(Icons.home),
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const HomeScreen(
+                                  key: ObjectKey('welcome page'),
+                                )));
+                  },
+                ),
+              )
+            : null,
+        body: Padding(
+          padding: EdgeInsets.all(20),
+          child: Stack(children: [
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(60.0),
+              ),
+            ),
+            ListView.builder(
+              itemCount: recipes.length,
+              itemBuilder: (context, index) {
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).push(
+                      HeroDialogRoute(
+                        builder: (context) => Center(
+                          child: RecipePopupCard(
+                            recipe: recipes[index],
+                          ),
+                        ),
                       ),
+                    );
+                  },
+                  child: Hero(
+                    tag: recipes[index].name,
+                    child: Material(
+                      child: Container(
+                          padding: const EdgeInsets.all(8),
+                          decoration: BoxDecoration(
+                            color: const Color.fromARGB(255, 116, 163, 126),
+                            border: index == 0
+                                ? const Border() // This will create no border for the first item
+                                : Border(
+                                    top: BorderSide(
+                                        width: 1,
+                                        color: Color.fromARGB(255, 50, 71,
+                                            55))), // This will create top borders for the rest
+                          ),
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(20.0),
+                            ),
+                            child: Column(
+                              children: [
+                                Container(
+                                  child: Positioned(
+                                    left: 300,
+                                    child: Column(children: <Widget>[
+                                      Text(
+                                        recipes[index].name,
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 50, 71, 55),
+                                          fontSize: 16,
+                                        ),
+                                      ),
+                                    ]),
+                                  ),
+                                ),
+                                ListTile(
+                                  leading: /*Transform(
+                                    transform: Matrix4.identity()
+                                      ..translate(0.0, 10.0)
+                                      ..scale(1.5),
+                                    child:*/
+                                      ClipRRect(
+                                    borderRadius: BorderRadius.circular(20.0),
+                                    child: Image.network(
+                                      recipes[index].imageURL,
+                                      scale: 0.5,
+                                      fit: BoxFit.fill,
+                                    ),
+                                    //  ),
+                                  ),
+                                  trailing: Row(
+                                    mainAxisSize: MainAxisSize.min,
+                                    children: <Widget>[
+                                      IconButton(
+                                        icon: selected.elementAt(index)
+                                            ? firstImage
+                                            : secondImage,
+                                        onPressed: () {
+                                          //save to My Cookbook
+                                          setState(() {
+                                            selected[index] =
+                                                !selected.elementAt(index);
+                                          });
+                                        },
+                                      ),
+                                      IconButton(
+                                        icon: selected.elementAt(index)
+                                            ? const Icon(Icons.check_box_sharp)
+                                            : const Icon(
+                                                Icons.calendar_today_outlined),
+                                        onPressed: () {
+                                          selected[index] =
+                                              !selected.elementAt(index);
+                                          Navigator.of(context).push(
+                                              MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const EventEditingPage()));
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                              ],
+                            ),
+                          )),
                     ),
                   ),
                 );

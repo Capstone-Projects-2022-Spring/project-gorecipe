@@ -15,7 +15,7 @@ class FoodImage {
   });
 
   factory FoodImage.fromJson(Map<String, dynamic> json) {
-    List ingList = Ingredient.verboseIngToList(jsonEncode(json['imageOf']));
+    List ingList = Ingredient.ingToList(jsonEncode(json['imageOf']));
     return FoodImage(
       s3objectId: json['s3objectId'],
       imageOf: ingList,
@@ -23,7 +23,7 @@ class FoodImage {
     );
   }
 
-  static List<FoodImage> ingToList(String jsonData) {
+  static List<FoodImage> foodImgToList(String jsonData) {
     List<FoodImage> FoodImages = (jsonDecode(jsonData) as List)
         .map((data) => FoodImage.fromJson(data))
         .toList();

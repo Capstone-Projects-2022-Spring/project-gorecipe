@@ -7,7 +7,6 @@ import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Models/Ingredient.dart';
 import 'package:gorecipe/Screens/recipes_for_you.dart';
-import 'package:gorecipe/Screens/unknown_ingredient.dart';
 import 'package:http/http.dart' as http;
 import 'package:http_parser/http_parser.dart';
 import 'dart:convert';
@@ -15,23 +14,35 @@ import '../Models/User.dart';
 import '../Models/FoodImage.dart';
 import '../../globals.dart' as globals;
 
-class DisplayPictureScreen extends StatefulWidget {
-  const DisplayPictureScreen({Key? key, required this.imagePath})
+class UnknownIngredientScreen extends StatefulWidget {
+  const UnknownIngredientScreen(
+      {Key? key,
+      required this.imagePath,
+      required this.ingredientList,
+      required this.imageId,
+      required this.network})
       : super(key: key);
   final TextStyle style =
       const TextStyle(fontFamily: 'Montserrat', fontSize: 20.0);
   final String imagePath;
-  DisplayScreenState createState() => DisplayScreenState();
+  final List<dynamic> ingredientList;
+  final String imageId;
+  final bool network;
+  UnknownIngredientState createState() => UnknownIngredientState();
 }
 
-class DisplayScreenState extends State<DisplayPictureScreen> {
+class UnknownIngredientState extends State<UnknownIngredientScreen> {
   var _foundIngredient = false;
   String _ingredient = "";
   List ingredients = <String>[];
   bool uploaded = false;
   List ingredientList = <String>[];
   late User currentUser;
-  late FoodImage fImage;
+
+  TextStyle style = const TextStyle(
+    fontFamily: 'Montserrat',
+    fontSize: 20.0,
+  );
 
   @override
   void dispose() {
@@ -44,79 +55,23 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
     currentUser = globals.user;
   }
 
+  final addIngredientController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
-    upload(File img) async {
-      var postUri = Uri.parse(
-          "http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/" +
-              currentUser.id.toString());
-      var request = http.MultipartRequest("POST", postUri);
-      request.files.add(http.MultipartFile.fromBytes(
-        'image',
-        await img.readAsBytes(),
-        filename: 'image.jpg',
-        contentType: MediaType('image', 'jpg'),
-      ));
-      // ignore: avoid_print
-      //print("Request:");
-      // ignore: avoid_print
-      //print(request);
-
-      var response = await request.send();
-      var newResponse = await http.Response.fromStream(response);
-      var json = jsonDecode(newResponse.body);
-      // ignore: avoid_print
-
-      _foundIngredient = true;
-
-      //print(json);
-      fImage = FoodImage.fromJson(json);
-      //print("FOOD IMAGE");
-      // print(fImage.imageOf);
-      print(fImage.s3objectId);
-      // User user1 = fImage.uploadedBy;
-      // print(user1);
-      setState(() {
-        print(jsonEncode(fImage.imageOf));
-        ingredients = fImage.imageOf;
-        ingredientList = ingredients;
-        // print(ingredientList.join(','));
-        uploaded = true;
-        // print(ingredients);
-        _ingredient = ingredients[0];
-      });
-
-      //print(jason[0]['name']);
-      /*
-      response.stream.transform(utf8.decoder).listen((value) {
-        // ignore: avoid_print
-        var formated = value.replaceAll('{', '');
-        var formated2 = formated.replaceAll('}', '');
-        var formated3 = formated2.replaceAll('[', '{');
-        var formated4 = formated3.replaceAll(']', '}');
-        var dataSp = formated4.split(',');
-        Map<String, String> mapData = Map();
-        dataSp.forEach((element) =>
-            mapData[element.split(':')[0]] = element.split(':')[1]);
-
-        print(newResponse);
-      });
-      */
-    }
+    ingredientList = widget.ingredientList;
 
     submitList() async {
       final response = await http.post(
         Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/' +
-            fImage.s3objectId),
+            widget.imageId),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',
         },
-        body: jsonEncode(ingredients),
+        body: jsonEncode(ingredientList),
       );
 
-      //print("HEREERERERE");
-      print(jsonEncode(ingredients));
-      print(ingredients);
+      print(jsonEncode(ingredientList));
 
       if (response.statusCode == 200) {
         print(jsonDecode(response.body));
@@ -147,15 +102,23 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
       });
     }
     */
+    final addIngredientField = SizedBox(
+      width: 145.0,
+      child: TextField(
+        controller: addIngredientController,
+        obscureText: false,
+        style: style,
+        decoration: InputDecoration(
+            fillColor: const Color.fromARGB(255, 116, 163, 126),
+            filled: true,
+            contentPadding: const EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+            hintText: "Add Here",
+            border:
+                OutlineInputBorder(borderRadius: BorderRadius.circular(15.0))),
+      ),
+    );
 
-    final _swipeText = Text("Swipe to Dismiss Ingredients",
-        textAlign: TextAlign.center,
-        style: widget.style.copyWith(
-            color: Color.fromARGB(255, 116, 163, 126),
-            fontWeight: FontWeight.w500,
-            fontSize: 15));
-
-    final _nextbutton = Material(
+    final _submitbutton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
       color: const Color.fromARGB(255, 116, 163, 126),
@@ -163,20 +126,20 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         minWidth: MediaQuery.of(context).size.width / 5,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
-          if (ingredients.isEmpty) {
+          if (ingredientList.isEmpty) {
             ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Upload Image First")));
+                const SnackBar(content: Text("Cannot Send Empty List")));
           } else {
-            print(ingredients);
+            submitList();
             Navigator.push(
               context,
               MaterialPageRoute(
                   builder: (context) =>
-                      RecipesYou(ingredientList: ingredients, choice: 1)),
+                      RecipesYou(ingredientList: ingredientList, choice: 1)),
             );
           }
         },
-        child: Text("Next",
+        child: Text("Submit List",
             textAlign: TextAlign.center,
             style: widget.style.copyWith(
                 color: Colors.white,
@@ -184,7 +147,8 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
                 fontSize: 15)),
       ),
     );
-    final _uploadbutton = Material(
+
+    final _addButton = Material(
       elevation: 5.0,
       borderRadius: BorderRadius.circular(30.0),
       color: Colors.white,
@@ -192,10 +156,11 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         minWidth: MediaQuery.of(context).size.width / 5,
         padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
         onPressed: () {
-          upload(File(widget.imagePath));
-          //getData();
+          setState(() {
+            widget.ingredientList.add(addIngredientController.text);
+          });
         },
-        child: Text("Upload",
+        child: Text("Add",
             textAlign: TextAlign.center,
             style: widget.style.copyWith(
                 color: Color.fromARGB(255, 116, 163, 126),
@@ -204,39 +169,12 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
       ),
     );
 
-    final _unknownIngredientButton = Material(
-      elevation: 5.0,
-      borderRadius: BorderRadius.circular(30.0),
-      color: Colors.white,
-      child: MaterialButton(
-        minWidth: MediaQuery.of(context).size.width / 5,
-        padding: const EdgeInsets.fromLTRB(10.0, 5.0, 10.0, 5.0),
-        onPressed: () {
-          if (!uploaded) {
-            ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Upload Image First")));
-          } else {
-            Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => UnknownIngredientScreen(
-                  ingredientList: fImage.imageOf,
-                  imagePath: widget.imagePath,
-                  imageId: fImage.s3objectId,
-                  network: false,
-                ),
-              ),
-            );
-          }
-        },
-        child: Text("Ingredient Not Here",
-            textAlign: TextAlign.center,
-            style: widget.style.copyWith(
-                color: Color.fromARGB(255, 116, 163, 126),
-                fontWeight: FontWeight.w500,
-                fontSize: 15)),
-      ),
-    );
+    final _addText = Text("Swipe to Dismiss or Add using the textfield",
+        textAlign: TextAlign.center,
+        style: widget.style.copyWith(
+            color: Color.fromARGB(255, 116, 163, 126),
+            fontWeight: FontWeight.w500,
+            fontSize: 15));
 
     return Scaffold(
       appBar: AppBar(
@@ -250,24 +188,24 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
         child: Center(
           child: Column(
             children: [
-              Image.file(File(widget.imagePath)),
+              if (!widget.network) ...{
+                Image.file(File(widget.imagePath)),
+              } else ...{
+                Image.network(widget.imagePath),
+              },
               const SizedBox(height: 40),
+              _addText,
               Row(
                 children: [
-                  //const SizedBox(width: 40),
-                  _nextbutton,
-                  const SizedBox(width: 10),
-                  _uploadbutton,
-                  const SizedBox(width: 10),
-                  //_unknownIngredientButton
+                  addIngredientField,
+                  const SizedBox(width: 20),
+                  _addButton,
+                  const SizedBox(width: 20),
+                  _submitbutton,
                 ],
               ),
               const SizedBox(height: 40),
-              if (uploaded) ...[
-                const Divider(),
-                _swipeText,
-                RemoveableList(ingredientList: ingredientList),
-              ],
+              RemoveableList(ingredientList: ingredientList),
 
               // Text(_ingredient,
               //     textAlign: TextAlign.center,

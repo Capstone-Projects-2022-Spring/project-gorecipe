@@ -9,6 +9,7 @@ import 'package:gorecipe/Screens/calendar_page.dart';
 //import 'package:gorecipe/Screens/forgot_password.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/scan_option.dart';
 import 'package:gorecipe/Screens/scan_screen.dart';
 // ignore: unused_import
 import 'package:gorecipe/Screens/want_to_add_ingredient.dart';

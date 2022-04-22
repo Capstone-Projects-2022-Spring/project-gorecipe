@@ -64,7 +64,8 @@ class Recipe {
   static List<String> instructionsToList(String instructions) {
     String parsed = instructions.replaceAll("\n", " ");
     //print(parsed);
-    return List.from(parsed.split('.').where((time) => time != ""));
+    return List.from(
+        parsed.split('.').where((time) => time != "" && time != '"'));
   }
 
   @override

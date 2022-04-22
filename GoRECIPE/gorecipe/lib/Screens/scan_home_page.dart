@@ -158,7 +158,7 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
             children: <Widget>[
               const DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.green,
+                  color: Color.fromARGB(255, 116, 163, 126),
                 ),
                 child: Text(
                   'GoRecipe',
@@ -242,7 +242,6 @@ class _MyStatefulWidgetState extends State<ScanHomeScreen> {
         ),
 
 //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
-
         bottomNavigationBar: BottomNavigationBar(
           currentIndex: _currentIndex,
           items: const [

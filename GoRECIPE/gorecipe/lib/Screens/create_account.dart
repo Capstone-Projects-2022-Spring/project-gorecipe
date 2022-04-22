@@ -1,6 +1,8 @@
 // ignore_for_file: file_names
 
 import 'package:flutter/material.dart';
+import 'package:gorecipe/Screens/Components/welcome_page.dart';
+import 'package:gorecipe/Screens/welcome_screen.dart';
 // ignore: unused_import
 import 'dart:typed_data';
 import '../Models/User.dart';
@@ -140,6 +142,12 @@ class _CreateAccount extends State<CreateAccount> {
         // }
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Account Created")));
+
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => const WelcomeScreen(
+                    key: ObjectKey('Welcome Page'), title: 'Welcome Page')));
       } else {
         ScaffoldMessenger.of(context)
             .showSnackBar(const SnackBar(content: Text("Please Try again")));

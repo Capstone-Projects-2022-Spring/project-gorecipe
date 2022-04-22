@@ -37,7 +37,7 @@ class _Explore extends State<Explore> {
         title: const Text(
           'EXPLORE',
           style: TextStyle(
-            color: Colors.green,
+            color: Color.fromARGB(255, 116, 163, 126),
           ),
         ),
         backgroundColor: Colors.white,
@@ -49,7 +49,7 @@ class _Explore extends State<Explore> {
           children: <Widget>[
             const DrawerHeader(
               decoration: BoxDecoration(
-                color: Colors.green,
+                color: Color.fromARGB(255, 116, 163, 126),
               ),
               child: Text(
                 'GoRecipe',
