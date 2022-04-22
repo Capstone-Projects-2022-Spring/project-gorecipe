@@ -180,8 +180,8 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
               },
             ),
             ListTile(
-              leading: const Icon(Icons.book),
-              title: const Text('MyCookBook'),
+              leading: Icon(Icons.book),
+              title: Text('MyCookBook'),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => const CookBook()));
