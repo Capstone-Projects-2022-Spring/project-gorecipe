@@ -12,7 +12,6 @@ import 'package:gorecipe/Screens/recipe_display_card.dart';
 import 'dart:convert';
 import '../Models/User.dart';
 import '../../globals.dart' as globals;
-
 //import 'package:shared_preferences/shared_preferences.dart';
 
 //linked to the finish scan button on scan page
@@ -35,8 +34,6 @@ class _RecipesYou extends State<RecipesYou> {
     fontSize: 20.0,
   );
 
-  late User currentUser;
-
   bool _found = false;
 
   bool _visible = false;
@@ -46,6 +43,8 @@ class _RecipesYou extends State<RecipesYou> {
   List recipes = <Recipe>[];
 
   late DateTime? fromDate;
+
+  late User currentUser;
 
   Future getRecipesBySearch() async {
     var response = await http.get(
@@ -77,6 +76,20 @@ class _RecipesYou extends State<RecipesYou> {
     }
   }
 
+  Future saveRecipe({required int id}) async {
+    final response = await http.post(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            currentUser.id.toString() +
+            '/recipes/' +
+            id.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+    print(currentUser.id);
+    print(id);
+  }
+
   @override
   initState() {
     currentUser = globals.user;
@@ -85,7 +98,6 @@ class _RecipesYou extends State<RecipesYou> {
     } else {
       getRandomRecipes(id: currentUser.id);
     }
-
     super.initState();
   }
 
@@ -111,20 +123,6 @@ class _RecipesYou extends State<RecipesYou> {
     } else {
       // ignore: avoid_print
     }
-  }
-
-  Future saveRecipe({required int id}) async {
-    final response = await http.post(
-        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
-            currentUser.id.toString() +
-            '/recipes/' +
-            id.toString()),
-        headers: <String, String>{
-          'Content-Type': 'application/json; charset=UTF-8',
-          'Access-Control-Allow-Origin': '*'
-        });
-    print(currentUser.id);
-    print(id);
   }
 
   Image firstImage = const Image(
@@ -307,11 +305,7 @@ class _RecipesYou extends State<RecipesYou> {
                                             ? firstImage
                                             : secondImage,
                                         onPressed: () {
-                                          //save to My Cookbook
-                                          setState(() {
-                                            selected[index] =
-                                                !selected.elementAt(index);
-                                          });
+                                          saveRecipe(id: recipes[index].id);
                                         },
                                       ),
                                       IconButton(
@@ -341,60 +335,8 @@ class _RecipesYou extends State<RecipesYou> {
                   ),
                 );
               },
-              child: Hero(
-                tag: recipes[index].name,
-                child: Material(
-                  child: Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        border: index == 0
-                            ? const Border() // This will create no border for the first item
-                            : Border(
-                                top: BorderSide(
-                                    width: 1,
-                                    color: Theme.of(context)
-                                        .primaryColor)), // This will create top borders for the rest
-                      ),
-                      child: Card(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: Image.network(recipes[index].imageURL),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: secondImage,
-                                    iconSize: 200,
-                                    onPressed: () {
-                                      saveRecipe(id: recipes[index].id);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            IconButton(
-                              icon: selected.elementAt(index)
-                                  ? const Icon(Icons.check_box_sharp)
-                                  : const Icon(Icons.calendar_today_outlined),
-                              onPressed: () {
-                                selected[index] = !selected.elementAt(index);
-                                Navigator.of(context).push(MaterialPageRoute(
-                                    builder: (context) =>
-                                        const EventEditingPage()));
-                              },
-                            ),
-                            const SizedBox(height: 10),
-                            Text(recipes[index].name),
-                          ],
-                        ),
-                      )),
-                ),
-              ),
-            );
-          },
-        ),
-      ),
-    );
+            ),
+          ]),
+        ));
   }
 }
