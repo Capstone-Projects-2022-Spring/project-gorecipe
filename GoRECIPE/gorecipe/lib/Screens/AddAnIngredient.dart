@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Screens/calendar_page.dart';
+import 'package:gorecipe/Screens/my_cookbook.dart';
 // ignore: unused_import
 
 // import 'package:gorecipe/Screens/forgot_password.dart';
@@ -186,9 +187,15 @@ class _MyStatefulWidgetState extends State<AddAnIngredient> {
                           builder: (context) => const Preferences()));
                 },
               ),
-              const ListTile(
+              ListTile(
                 leading: Icon(Icons.book),
                 title: Text('MyCookBook'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CookBook()));
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.calendar_today_outlined),

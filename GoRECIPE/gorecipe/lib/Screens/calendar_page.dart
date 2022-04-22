@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 //import 'package:gorecipe/Screens/Dropdown.dart';
 import 'package:gorecipe/Screens/event_editing.dart';
+import 'package:gorecipe/Screens/my_cookbook.dart';
 import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/recipes_for_you.dart';
 import 'package:intl/intl.dart';
@@ -149,9 +150,13 @@ class _CalendarPage extends State<CalendarPage> {
                                 key: ObjectKey('welcome page'),
                               )));
                 }),
-            const ListTile(
+            ListTile(
               leading: Icon(Icons.book),
               title: Text('MyCookBook'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CookBook()));
+              },
             ),
             ListTile(
                 leading: const Icon(Icons.calendar_today_outlined),
@@ -176,12 +181,6 @@ class _CalendarPage extends State<CalendarPage> {
                             title: 'profile page')));
               },
             ),
-            const ListTile(
-              leading: Icon(Icons.help_center),
-              title: Text('Help'),
-            ),
-            // putting the scan oon the dropdown menu for now
-
             ListTile(
                 leading: const Icon(Icons.camera),
                 title: const Text('Scan'),
@@ -194,7 +193,6 @@ class _CalendarPage extends State<CalendarPage> {
                                     'want to add this an ingredient?'),
                               )));
                 }),
-
             ListTile(
                 leading: const Icon(Icons.logout),
                 title: const Text('Log Out'),

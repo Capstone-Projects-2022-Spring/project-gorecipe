@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gorecipe/Models/Ingredient.dart';
+import 'package:gorecipe/Screens/calendar_page.dart';
+import 'package:gorecipe/Screens/explore.dart';
+import 'package:gorecipe/Screens/home_screen.dart';
+import 'package:gorecipe/Screens/preferences.dart';
+import 'package:gorecipe/Screens/scan_home_page.dart';
+import 'package:gorecipe/Screens/welcome_screen.dart';
 import '../Models/Recipe.dart';
 import '../Models/Ingredient.dart';
 import 'package:http/http.dart' as http;
@@ -87,6 +93,20 @@ class _CookBook extends State<CookBook> {
     fit: BoxFit.cover,
     color: null,
   );
+  int _currentIndex = 0;
+
+  final _children = [
+    HomeScreen(),
+    Explore(key: ObjectKey('welcome page'), title: 'hi'),
+    ScanHomeScreen(),
+    Profile(key: ObjectKey('welcome page'), title: 'profile')
+  ];
+
+  _onTap() {
+    Navigator.of(context).push(MaterialPageRoute(
+        builder: (BuildContext context) =>
+            _children[_currentIndex])); // this has changed
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -95,6 +115,25 @@ class _CookBook extends State<CookBook> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        //test is widgte that takes a string as an arug- and extracted in the first arg
+        //name of the app we are creating
+        title: const Text(
+          'My CookBook',
+          style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
+
+          // style: GoogleFonts.Lato(
+          //textStyle: style,
+          // ),
+          //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
+          //style: GoogleFonts.lato(textStyle: PageTitle),
+          //style: GoogleFonts.lato(textStyle: PageTitle),
+        ),
+
+        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        iconTheme:
+            const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
+      ),
       body: Padding(
         padding: const EdgeInsets.all(20),
         child: ListView.builder(
@@ -152,6 +191,121 @@ class _CookBook extends State<CookBook> {
             );
           },
         ),
+      ),
+      endDrawer: Drawer(
+        child: ListView(
+          padding: EdgeInsets.zero,
+          children: <Widget>[
+            const DrawerHeader(
+              decoration: BoxDecoration(
+                color: Color.fromARGB(255, 116, 163, 126),
+              ),
+              child: Text(
+                'GoRecipe',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 24,
+                ),
+              ),
+            ),
+            ListTile(
+                leading: const Icon(Icons.home),
+                title: const Text('Home'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const HomeScreen(
+                                key: ObjectKey('welcome page'),
+                              )));
+
+                  //idk why this isnt working
+                  //navigation im confused everything is giving me an error
+                  //onTap: () => HomeScreen(),
+
+                  // onTap: () {
+                  //   Navigator.pop(context);
+
+                  // },
+                }),
+            ListTile(
+                leading: const Icon(Icons.set_meal),
+                title: const Text('Set Food Preference'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const Preferences(
+                                key: ObjectKey('preferences'),
+                              )));
+                }),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: const Text('MyCookBook'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CookBook()));
+              },
+            ),
+            ListTile(
+                leading: const Icon(Icons.calendar_today_outlined),
+                title: const Text('Calendar'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const CalendarPage(
+                                key: ObjectKey('calendar page'),
+                              )));
+                }),
+            ListTile(
+              leading: const Icon(Icons.settings),
+              title: const Text('Settings'),
+              onTap: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const Profile(
+                            key: ObjectKey('profile page'),
+                            title: 'profile page')));
+              },
+            ),
+            ListTile(
+                leading: const Icon(Icons.logout),
+                title: const Text('Log Out'),
+                onTap: () {
+                  Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: (context) => const WelcomeScreen(
+                              key: ObjectKey('welcome page'),
+                              title: 'welcome page')));
+                }),
+          ],
+        ),
+      ),
+      //CREATING THE NEW BOTTOM NAV BAR SO BUTTONS WORK
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _currentIndex,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.search, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.camera, size: 30), label: ''),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.account_box_rounded, size: 30), label: ''),
+        ],
+        selectedItemColor: Colors.black,
+        elevation: 5.0,
+        unselectedItemColor: Colors.black,
+        backgroundColor: Colors.white,
+        onTap: (index) {
+          setState(() {
+            _currentIndex = index;
+          });
+          _onTap();
+        },
       ),
     );
   }
