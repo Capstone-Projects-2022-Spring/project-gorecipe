@@ -4,6 +4,7 @@ import 'package:gorecipe/Screens/welcome_screen.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/profile.dart';
 import 'package:gorecipe/Screens/recipes_for_you.dart';
+import 'package:gorecipe/Screens/my_cookbook.dart';
 
 class Explore extends StatefulWidget {
   //const Profile({Key? key}) : super(key: key);
@@ -83,9 +84,13 @@ class _Explore extends State<Explore> {
               leading: Icon(Icons.set_meal),
               title: Text('Set Food Preference'),
             ),
-            const ListTile(
-              leading: Icon(Icons.book),
-              title: Text('MyCookBook'),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: const Text('MyCookBook'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CookBook()));
+              },
             ),
             const ListTile(
               leading: Icon(Icons.calendar_today_outlined),

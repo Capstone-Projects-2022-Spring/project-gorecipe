@@ -13,6 +13,7 @@ import '../../globals.dart' as globals;
 import 'package:gorecipe/Screens/calendar_page.dart';
 import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/explore.dart';
+import 'package:gorecipe/Screens/my_cookbook.dart';
 
 // View profile page
 
@@ -168,9 +169,13 @@ class _Profile extends State<Profile> {
                         builder: (context) => const Preferences()));
               },
             ),
-            const ListTile(
-              leading: Icon(Icons.book),
-              title: Text('MyCookBook'),
+            ListTile(
+              leading: const Icon(Icons.book),
+              title: const Text('MyCookBook'),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => const CookBook()));
+              },
             ),
             ListTile(
               leading: const Icon(Icons.calendar_today_outlined),
@@ -258,7 +263,9 @@ class _Profile extends State<Profile> {
                       const SizedBox(height: 25.0),
                       userName,
                       email,
-                      const SizedBox(height: 100.0,),
+                      const SizedBox(
+                        height: 100.0,
+                      ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: const <Widget>[],
