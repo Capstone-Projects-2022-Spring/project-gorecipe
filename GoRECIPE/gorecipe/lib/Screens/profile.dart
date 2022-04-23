@@ -280,7 +280,12 @@ class _Profile extends State<Profile> {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: TextButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => const CookBook()));
+                    },
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: const [
