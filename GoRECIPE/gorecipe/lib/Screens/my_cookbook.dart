@@ -6,6 +6,7 @@ import 'package:gorecipe/Screens/home_screen.dart';
 import 'package:gorecipe/Screens/preferences.dart';
 import 'package:gorecipe/Screens/scan_home_page.dart';
 import 'package:gorecipe/Screens/welcome_screen.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import '../Models/Recipe.dart';
 import '../Models/Ingredient.dart';
 import 'package:http/http.dart' as http;
@@ -35,6 +36,19 @@ class _CookBook extends State<CookBook> {
   List<bool> selected = <bool>[];
 
   List recipes = <Recipe>[];
+  Future saveRecipe({required int id}) async {
+    final response = await http.post(
+        Uri.parse('http://gorecipe.us-east-2.elasticbeanstalk.com/api/users/' +
+            currentUser.id.toString() +
+            '/recipes/' +
+            id.toString()),
+        headers: <String, String>{
+          'Content-Type': 'application/json; charset=UTF-8',
+          'Access-Control-Allow-Origin': '*'
+        });
+    print(currentUser.id);
+    print(id);
+  }
 
   @override
   initState() {
@@ -108,6 +122,8 @@ class _CookBook extends State<CookBook> {
             _children[_currentIndex])); // this has changed
   }
 
+  double? Rvalue;
+
   @override
   Widget build(BuildContext context) {
     for (var i = 0; i < recipes.length; i++) {
@@ -115,82 +131,143 @@ class _CookBook extends State<CookBook> {
     }
 
     return Scaffold(
+      backgroundColor: const Color.fromARGB(255, 116, 163, 126),
+
       appBar: AppBar(
-        //test is widgte that takes a string as an arug- and extracted in the first arg
-        //name of the app we are creating
-        title: const Text(
-          'My CookBook',
+        title: Text(
+          "My CookBook",
           style: TextStyle(color: Color.fromARGB(255, 116, 163, 126)),
-
-          // style: GoogleFonts.Lato(
-          //textStyle: style,
-          // ),
-          //style:GoogleFonts.lato(Color.fromARGB(255, 255, 255, 255), letterSpacing: 6);
-          //style: GoogleFonts.lato(textStyle: PageTitle),
-          //style: GoogleFonts.lato(textStyle: PageTitle),
         ),
-
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        automaticallyImplyLeading: false,
+        backgroundColor: Color.fromARGB(255, 255, 255, 255),
         iconTheme:
             const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20),
-        child: ListView.builder(
-          itemCount: recipes.length,
-          itemBuilder: (context, index) {
-            return GestureDetector(
-              onTap: () {
-                Navigator.of(context).push(
-                  HeroDialogRoute(
-                    builder: (context) => Center(
-                      child: RecipePopupCard(recipe: recipes[index]),
-                    ),
-                  ),
-                );
-              },
-              child: Hero(
-                tag: recipes[index].name,
-                child: Material(
-                  child: Container(
-                      padding: const EdgeInsets.all(2),
-                      decoration: BoxDecoration(
-                        border: index == 0
-                            ? const Border() // This will create no border for the first item
-                            : Border(
-                                top: BorderSide(
-                                    width: 1,
-                                    color: Theme.of(context)
-                                        .primaryColor)), // This will create top borders for the rest
-                      ),
-                      child: Card(
-                        child: Column(
-                          children: [
-                            ListTile(
-                              leading: Image.network(recipes[index].imageURL),
-                              trailing: Row(
-                                mainAxisSize: MainAxisSize.min,
-                                children: <Widget>[
-                                  IconButton(
-                                    icon: firstImage,
-                                    iconSize: 200,
-                                    onPressed: () {
-                                      deleteRecipe(id: recipes[index].id);
-                                    },
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(height: 10),
-                            Text(recipes[index].name),
-                          ],
-                        ),
-                      )),
-                ),
-              ),
-            );
+        leading: IconButton(
+          icon: Icon(Icons.home),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => const HomeScreen(
+                          key: ObjectKey('welcome page'),
+                        )));
           },
         ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(20),
+        child: Stack(children: [
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(60.0),
+            ),
+          ),
+          ListView.builder(
+            itemCount: recipes.length,
+            itemBuilder: (context, index) {
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    HeroDialogRoute(
+                      builder: (context) => Center(
+                        child: RecipePopupCard(
+                          recipe: recipes[index],
+                        ),
+                      ),
+                    ),
+                  );
+                },
+                child: Hero(
+                  tag: recipes[index].name,
+                  child: Material(
+                    child: Container(
+                        padding: const EdgeInsets.all(8),
+                        decoration: BoxDecoration(
+                          color: const Color.fromARGB(255, 116, 163, 126),
+                          border: index == 0
+                              ? const Border() // This will create no border for the first item
+                              : Border(
+                                  top: BorderSide(
+                                      width: 1,
+                                      color: Color.fromARGB(255, 50, 71,
+                                          55))), // This will create top borders for the rest
+                        ),
+                        child: Card(
+                          elevation: 5,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          child: Column(
+                            children: [
+                              Container(
+                                child: Positioned(
+                                  left: 300,
+                                  child: Column(children: <Widget>[
+                                    Text(
+                                      recipes[index].name,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 50, 71, 55),
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                  ]),
+                                ),
+                              ),
+                              ListTile(
+                                leading: /*Transform(
+                                    transform: Matrix4.identity()
+                                      ..translate(0.0, 10.0)
+                                      ..scale(1.5),
+                                    child:*/
+                                    ClipRRect(
+                                  borderRadius: BorderRadius.circular(20.0),
+                                  child: Image.network(
+                                    recipes[index].imageURL,
+                                    scale: 0.5,
+                                    fit: BoxFit.fill,
+                                  ),
+                                  //  ),
+                                ),
+                                trailing: Row(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: <Widget>[
+                                    RatingBar(
+                                        initialRating: 0,
+                                        direction: Axis.horizontal,
+                                        allowHalfRating: true,
+                                        itemCount: 5,
+                                        ratingWidget: RatingWidget(
+                                            full: const Icon(Icons.star,
+                                                color: Colors.orange),
+                                            half: const Icon(
+                                              Icons.star_half,
+                                              color: Colors.orange,
+                                            ),
+                                            empty: const Icon(
+                                              Icons.star_outline,
+                                              color: Colors.orange,
+                                            )),
+                                        onRatingUpdate: (value) {
+                                          setState(() {
+                                            Rvalue = value;
+                                          });
+                                        }),
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 16,
+                              ),
+                            ],
+                          ),
+                        )),
+                  ),
+                ),
+              );
+            },
+          ),
+        ]),
       ),
       endDrawer: Drawer(
         child: ListView(
