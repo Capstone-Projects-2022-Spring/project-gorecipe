@@ -1,6 +1,6 @@
 //https://github.com/Thumar/flutter_app/blob/master/lib/main.dart
 import 'dart:io';
-
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:http/http.dart' as http;
@@ -28,8 +28,9 @@ class MyImagePicker extends StatefulWidget {
 }
 
 class _MyImagePickerState extends State<MyImagePicker> {
-  PickedFile? _imageFile;
-  final String uploadUrl = 'http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/5';
+  XFile? _imageFile;
+  final String uploadUrl =
+      'http://gorecipe.us-east-2.elasticbeanstalk.com/api/images/upload/5';
   final ImagePicker _picker = ImagePicker();
 
   Future uploadImage(filepath, url) async {
@@ -46,7 +47,7 @@ class _MyImagePickerState extends State<MyImagePicker> {
     }
     if (response.file != null) {
       setState(() {
-        _imageFile = response.file;
+        _imageFile = response.file as XFile?;
       });
     } /*else {
       print('Retrieve error ' + response.exception.code);
@@ -83,7 +84,7 @@ class _MyImagePickerState extends State<MyImagePicker> {
 
   void _pickImage() async {
     try {
-      final pickedFile = await _picker.getImage(source: ImageSource.gallery);
+      XFile? pickedFile = await _picker.pickImage(source: ImageSource.gallery);
       setState(() {
         _imageFile = pickedFile;
       });
@@ -97,28 +98,29 @@ class _MyImagePickerState extends State<MyImagePicker> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            widget.title,
-            style: TextStyle(
-              color: Color.fromARGB(255, 116, 163, 126),
-            ),),
+          widget.title,
+          style: TextStyle(
+            color: Color.fromARGB(255, 116, 163, 126),
+          ),
+        ),
         backgroundColor: Colors.white,
         iconTheme: IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
       ),
       body: Center(
           child: FutureBuilder<void>(
-            future: retriveLostData(),
-            builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
-              switch (snapshot.connectionState) {
-                case ConnectionState.none:
-                case ConnectionState.waiting:
-                  return const Text('Picked an image');
-                case ConnectionState.done:
-                  return _previewImage();
-                default:
-                  return const Text('Picked an image');
-              }
-            },
-          )),
+        future: retriveLostData(),
+        builder: (BuildContext context, AsyncSnapshot<void> snapshot) {
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.waiting:
+              return const Text('Picked an image');
+            case ConnectionState.done:
+              return _previewImage();
+            default:
+              return const Text('Picked an image');
+          }
+        },
+      )),
       floatingActionButton: FloatingActionButton(
         onPressed: _pickImage,
         tooltip: 'Pick Image from gallery',
