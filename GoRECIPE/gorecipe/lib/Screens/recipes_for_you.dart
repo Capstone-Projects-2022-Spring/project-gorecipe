@@ -18,10 +18,14 @@ import '../../globals.dart' as globals;
 
 class RecipesYou extends StatefulWidget {
   const RecipesYou(
-      {Key? key, required this.ingredientList, required this.choice})
+      {Key? key,
+      required this.ingredientList,
+      required this.choice,
+      required this.recipeList})
       : super(key: key);
 
   final List<dynamic> ingredientList;
+  final List<Recipe> recipeList;
   final int choice;
 
   @override
@@ -95,8 +99,11 @@ class _RecipesYou extends State<RecipesYou> {
     currentUser = globals.user;
     if (widget.choice == 1) {
       getRecipesBySearch();
-    } else {
+    } else if (widget.choice == 2) {
       getRandomRecipes(id: currentUser.id);
+    } else {
+      recipes = widget.recipeList;
+      _found = true;
     }
     super.initState();
   }
@@ -305,7 +312,9 @@ class _RecipesYou extends State<RecipesYou> {
                                             ? firstImage
                                             : secondImage,
                                         onPressed: () {
-                                          saveRecipe(id: recipes[index].id);
+                                          setState(() {
+                                            saveRecipe(id: recipes[index].id);
+                                          });
                                         },
                                       ),
                                       IconButton(

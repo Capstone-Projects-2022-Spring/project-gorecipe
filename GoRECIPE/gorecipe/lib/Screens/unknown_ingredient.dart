@@ -134,8 +134,11 @@ class UnknownIngredientState extends State<UnknownIngredientScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      RecipesYou(ingredientList: ingredientList, choice: 1)),
+                  builder: (context) => RecipesYou(
+                        ingredientList: ingredientList,
+                        choice: 1,
+                        recipeList: [],
+                      )),
             );
           }
         },

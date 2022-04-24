@@ -171,8 +171,11 @@ class DisplayScreenState extends State<DisplayPictureScreen> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) =>
-                      RecipesYou(ingredientList: ingredients, choice: 1)),
+                  builder: (context) => RecipesYou(
+                        ingredientList: ingredients,
+                        choice: 1,
+                        recipeList: [],
+                      )),
             );
           }
         },

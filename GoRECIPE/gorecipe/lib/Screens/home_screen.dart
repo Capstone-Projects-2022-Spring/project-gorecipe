@@ -131,7 +131,11 @@ class _MyStatefulWidgetState extends State<HomeScreen> {
         iconTheme:
             const IconThemeData(color: Color.fromARGB(255, 116, 163, 126)),
       ),
-      body: RecipesYou(ingredientList: ["apple"], choice: 2),
+      body: RecipesYou(
+        ingredientList: ["apple"],
+        choice: 2,
+        recipeList: [],
+      ),
 
       endDrawer: Drawer(
         child: ListView(
