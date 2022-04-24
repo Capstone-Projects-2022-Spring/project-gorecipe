@@ -270,6 +270,21 @@ class _MyStatefulWidgetState extends State<Preferences> {
           //converting the checkbox state to a widget
           ...intolerance.map(buildSingleCheckbox).toList(),
 
+          TextButton(
+            style: ButtonStyle(
+              foregroundColor: MaterialStateProperty.all<Color>(
+                  Color.fromARGB(255, 91, 128, 99)),
+            ),
+            onPressed: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => const Profile(
+                          key: ObjectKey('profile'), title: 'profile')));
+            },
+            child: Text('Save'),
+          )
+
           // CheckboxListTile(
           //   //moves checkbox to the left of word
           //   controlAffinity: ListTileControlAffinity.leading,
