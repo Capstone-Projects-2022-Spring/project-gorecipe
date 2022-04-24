@@ -49,7 +49,41 @@ class Preferences extends StatefulWidget {
 class _MyStatefulWidgetState extends State<Preferences> {
   bool isChecked = false;
 
-  final saved = [];
+// ignore: deprecated_member_use
+  final dietary = <String>[
+    'Vegan',
+    'Gluten free',
+    'Ketogenic',
+    'Vegetarian',
+    'Lacto-Vegetarian',
+    'Ovo-Vegetarian',
+    'Pescetarian',
+    'Paleo',
+    'Primal',
+    'Low FODMAP',
+    'Whole30'
+  ];
+
+  final dietary2 = <String>[];
+
+  final intol = <String>[
+    'Dairy',
+    'Egg',
+    'Gluten',
+    'Grain',
+    'Peanut',
+    'Seasfood',
+    'Seasame',
+    'Shellfish',
+    'Soy',
+    'Sulfute',
+    'Tree Nut',
+    'Wheat',
+  ];
+
+  final intol2 = <String>[];
+
+  // final saved = [];
 
   final diet = [
     CheckBoxState(title: 'Vegan'),
@@ -320,15 +354,48 @@ class _MyStatefulWidgetState extends State<Preferences> {
 
             isChecked = value;
             //if value (is checked) is true and is not in the checkbox list add it
-            if (value == true && !saved.contains(checkbox.title)) {
-              saved.add(checkbox.title);
-              //else if it is in the list remove it
-            } else {
-              saved.remove(checkbox.title);
-            }
+            // if (value == true && !saved.contains(checkbox.title)) {
+            //   saved.add(checkbox.title);
+            //   //else if it is in the list remove it
+            // } else {
+            //   saved.remove(checkbox.title);
+            // }
 
-            print(saved);
+            //  if (value == true && dietary.contains(checkbox.title)) {
+
+            //    if (value == true && !dietary.contains(checkbox.title)){
+            //      dietary2.add(checkbox.title);
+            //    }
+            //    else {
+            //      dietary2.remove(checkbox.title);
+            //    }
+
+            //  } else if ( value == true && intol.contains(checkbox.title)){
+
+            //     if (value == true && !intol.contains(checkbox.title)){
+            //      intol.add(checkbox.title);
+            //    }
+            //    else {
+            //      intol.remove(checkbox.title);
+            //    }
+
+            //  }
+
+            if (value == true && dietary.contains(checkbox.title)) {
+              dietary2.add(checkbox.title);
+              //saved.add(checkbox.title);
+            } else
+              dietary2.remove(checkbox.title);
+
+            if (value == true && intol.contains(checkbox.title)) {
+              intol2.add(checkbox.title);
+              //saved.add(checkbox.title);
+            } else
+              intol2.remove(checkbox.title);
           });
+          print("break");
+          print(dietary2);
+          print(intol2);
         },
       );
 }
