@@ -222,7 +222,7 @@ class _Explore extends State<Explore> {
                   tabs: [
                     Tab(
                         child: Text(
-                      'Reccomended',
+                      'Recommended',
                       style: TextStyle(
                         color: Color.fromARGB(255, 116, 163, 126),
                       ),

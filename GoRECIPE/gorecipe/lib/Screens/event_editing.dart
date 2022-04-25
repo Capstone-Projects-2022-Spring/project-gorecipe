@@ -149,9 +149,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
       });
   }
 
-  Widget buildTitle() => Positioned(
-      bottom: 90.0,
-      child: Column(children: <Widget>[
+  Widget buildTitle() => Column(children: <Widget>[
         TextFormField(
           style: style,
           minLines: 1,
@@ -172,7 +170,7 @@ class _EventEditingPageState extends State<EventEditingPage> {
         //  title != null && title.isEmpty ? 'Title cannot be empty' : null,
         //  controller: titleController,
         // ),
-      ]));
+      ]);
 
   static const headerText = Text(
     "Add Recipe",
