@@ -32,7 +32,7 @@ class CalendarPage extends StatefulWidget {
 
 class _CalendarPage extends State<CalendarPage> {
   DateTime? time;
-  late final Event event;
+  //late final Event event;
   //EventEditingPage page = const EventEditingPage();
   TextStyle style = const TextStyle(
       fontFamily: 'Montserrat', fontSize: 20.0, fontWeight: FontWeight.bold);

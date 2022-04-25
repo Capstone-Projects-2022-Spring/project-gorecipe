@@ -274,20 +274,16 @@ class _RecipesYou extends State<RecipesYou> {
                             child: Column(
                               children: [
                                 Container(
-                                  child: Positioned(
-                                    left: 300,
-                                    child: Column(children: <Widget>[
-                                      Text(
-                                        recipes[index].name,
-                                        textAlign: TextAlign.center,
-                                        style: TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 50, 71, 55),
-                                          fontSize: 16,
-                                        ),
+                                  child: Column(children: <Widget>[
+                                    Text(
+                                      recipes[index].name,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Color.fromARGB(255, 50, 71, 55),
+                                        fontSize: 16,
                                       ),
-                                    ]),
-                                  ),
+                                    ),
+                                  ]),
                                 ),
                                 ListTile(
                                   leading: /*Transform(
